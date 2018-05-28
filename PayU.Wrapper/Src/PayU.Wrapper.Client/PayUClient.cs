@@ -1,4 +1,7 @@
-﻿namespace PayU.Wrapper.Client
+﻿using System.Threading.Tasks;
+using RestSharp;
+
+namespace PayU.Wrapper.Client
 {
     /// <summary>
     /// Pay U Client Class
@@ -13,9 +16,12 @@
 
         public PayUClient(string baseUrl)
         {
-           this. _baseUrl = baseUrl;
+            this._baseUrl = baseUrl;
         }
 
-
+        public Task<IRestResponse> PostOrder()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
