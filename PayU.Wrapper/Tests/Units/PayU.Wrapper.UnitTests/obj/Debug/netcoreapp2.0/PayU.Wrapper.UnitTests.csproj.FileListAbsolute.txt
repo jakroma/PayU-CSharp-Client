@@ -1,0 +1,5 @@
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\bin\Tests\Integrations\UnitTests\netcoreapp2.0\PayU.Wrapper.UnitTests.deps.json
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\bin\Tests\Integrations\UnitTests\netcoreapp2.0\PayU.Wrapper.UnitTests.dll
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\Units\PayU.Wrapper.UnitTests\obj\Debug\netcoreapp2.0\PayU.Wrapper.UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\Units\PayU.Wrapper.UnitTests\obj\Debug\netcoreapp2.0\PayU.Wrapper.UnitTests.AssemblyInfoInputs.cache
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\Units\PayU.Wrapper.UnitTests\obj\Debug\netcoreapp2.0\PayU.Wrapper.UnitTests.AssemblyInfo.cs
