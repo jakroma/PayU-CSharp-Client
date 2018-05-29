@@ -10,12 +10,20 @@ namespace PayU.Wrapper.Client
     /// <seealso cref="PayU.Wrapper.Client.IRequestBuilder" />
     public class RequestBuilder : IRequestBuilder
     {
-        public async Task<IRestRequest> PrepareRequestPostOrders(string baseUrl)
+        /// <summary>
+        /// Posts the orders.
+        /// </summary>
+        /// <param name="baseUrl"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public Task<IRestRequest> PrepareRequestPostOrders(string baseUrl)
         {
             if (string.IsNullOrEmpty(baseUrl))
             {
                 throw new ArgumentNullException();
             }
+
 
             IRestClient restClient = new RestClient(baseUrl);
             IRestRequest restRequest = new RestRequest();

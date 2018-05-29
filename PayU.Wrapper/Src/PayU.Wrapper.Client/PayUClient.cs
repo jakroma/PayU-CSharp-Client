@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -19,15 +20,33 @@ namespace PayU.Wrapper.Client
         /// </summary>
         private readonly IRequestBuilder _requestBuilder;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PayUClient"/> class.
+        /// </summary>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <param name="requestBuilder">The request builder.</param>
         public PayUClient(string baseUrl, IRequestBuilder requestBuilder)
         {
             this._baseUrl = baseUrl;
             this._requestBuilder = requestBuilder;
         }
 
-        public Task<IRestResponse> PostOrder()
+        /// <summary>
+        /// Gets the connection to API.
+        /// </summary>
+        /// <returns>
+        /// Response
+        /// </returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task<IRestResponse> PostOrder()
         {
-            throw new System.NotImplementedException();
+            IRestRequest request = await _requestBuilder.PrepareRequestPostOrders(_baseUrl);
+            if (request == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

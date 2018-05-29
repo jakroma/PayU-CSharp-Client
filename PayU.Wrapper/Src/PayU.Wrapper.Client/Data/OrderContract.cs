@@ -74,6 +74,12 @@ namespace PayU.Wrapper.Client.Data
         [DataMember(Name = "buyer")]
         public Buyer Buyer { get; set; }
 
+        /// <summary>
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
         [DataMember(Name = "settings")]
         public Settings Settings { get; set; }
 
