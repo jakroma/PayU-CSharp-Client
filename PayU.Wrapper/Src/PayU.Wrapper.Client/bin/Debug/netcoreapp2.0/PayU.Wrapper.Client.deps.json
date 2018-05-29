@@ -1,14 +1,22 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "signature": "00bca267b4a882bba75484368366002f40af00ed"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "PayU.Wrapper.Client/1.0.0": {
+        "dependencies": {
+          "RestSharp": "106.2.2"
+        },
         "runtime": {
           "PayU.Wrapper.Client.dll": {}
+        }
+      },
+      "RestSharp/106.2.2": {
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
         }
       }
     }
@@ -18,6 +26,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "RestSharp/106.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PEz5Wy6W7phha9pvvxmIntYb2tQTvWwm4G0JlOMFApBtzNfFLxLqJxhZG7Fd+78JJvyRiqGGQtjtW6Hc86PTag==",
+      "path": "restsharp/106.2.2",
+      "hashPath": "restsharp.106.2.2.nupkg.sha512"
     }
   }
 }

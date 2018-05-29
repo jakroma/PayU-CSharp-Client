@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -9,18 +10,16 @@ namespace PayU.Wrapper.Client
     /// <seealso cref="PayU.Wrapper.Client.IRequestBuilder" />
     public class RequestBuilder : IRequestBuilder
     {
-        /// <summary>
-        /// Posts the orders.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public async Task<IRestRequest> RequestPostOrders()
+        public async Task<IRestRequest> PrepareRequestPostOrders(string baseUrl)
         {
-            throw new System.NotImplementedException();
-        }
+            if (string.IsNullOrEmpty(baseUrl))
+            {
+                throw new ArgumentNullException();
+            }
 
-        public Task<IRestRequest> PostOrders()
-        {
+            IRestClient restClient = new RestClient(baseUrl);
+            IRestRequest restRequest = new RestRequest();
+
             throw new System.NotImplementedException();
         }
     }
