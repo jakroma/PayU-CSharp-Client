@@ -2,4 +2,4 @@
 *.ide
 *.ide-shm
 *.ide-wal
-!\bin\*
+**/bin/*
