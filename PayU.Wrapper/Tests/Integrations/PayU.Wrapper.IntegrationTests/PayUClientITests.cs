@@ -6,6 +6,9 @@ using RestSharp;
 
 namespace PayU.Wrapper.IntegrationTests
 {
+    /// <summary>
+    /// PayU Client Integration Tests
+    /// </summary>
     [TestFixture]
     public class PayUClientITests
     {
@@ -13,14 +16,16 @@ namespace PayU.Wrapper.IntegrationTests
         /// The base URL
         /// </summary>
         private readonly string baseUrl = "https://secure.snd.payu.com";
+        
 
-        private readonly IRequestBuilder _requestBuilder;
+        private IRequestBuilder _requestBuilder;
 
         [SetUp]
         public void Set_Up()
-        {   
+        {
+            _requestBuilder = new RequestBuilder();
         }
-
+        [Test]
         public void PostPayment_WhenCall_ResultExpected()
         {
             //Arrange

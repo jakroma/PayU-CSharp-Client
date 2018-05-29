@@ -1,6 +1,8 @@
 C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\bin\Debug\netcoreapp2.0\PayU.Wrapper.Client.deps.json
 C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\bin\Debug\netcoreapp2.0\PayU.Wrapper.Client.dll
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\obj\Debug\netcoreapp2.0\PayU.Wrapper.Client.csprojResolveAssemblyReference.cache
 C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\obj\Debug\netcoreapp2.0\PayU.Wrapper.Client.csproj.CoreCompileInputs.cache
 C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\obj\Debug\netcoreapp2.0\PayU.Wrapper.Client.AssemblyInfoInputs.cache
 C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\obj\Debug\netcoreapp2.0\PayU.Wrapper.Client.AssemblyInfo.cs
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\bin\Debug\netcoreapp2.0\PayU.Wrapper.Client.pdb
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\obj\Debug\netcoreapp2.0\PayU.Wrapper.Client.dll
+C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Src\PayU.Wrapper.Client\obj\Debug\netcoreapp2.0\PayU.Wrapper.Client.pdb
