@@ -18,5 +18,10 @@ namespace PayU.Wrapper.Client
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<IRestRequest> PostOrders()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -12,13 +12,20 @@ namespace PayU.Wrapper.IntegrationTests
         /// <summary>
         /// The base URL
         /// </summary>
-        private readonly string baseUrl = "";
+        private readonly string baseUrl = "https://secure.snd.payu.com";
+
+        private readonly IRequestBuilder _requestBuilder;
+
+        [SetUp]
+        public void Set_Up()
+        {   
+        }
 
         public void PostPayment_WhenCall_ResultExpected()
         {
             //Arrange
-            PayUClient payUClient = new PayUClient(baseUrl);
-            PaymentContract payment = new PaymentContract
+            PayUClient payUClient = new PayUClient(baseUrl, _requestBuilder);
+            OrderContract orderContract = new OrderContract
             {
                 //TODO
             };

@@ -9,7 +9,7 @@ namespace PayU.Wrapper.Client.Data
     /// Payment Contract
     /// </summary>
     [DataContract]
-    public class PaymentContract
+    public class OrderContract
     {
         /// <summary>
         /// Gets or sets the notify URL.

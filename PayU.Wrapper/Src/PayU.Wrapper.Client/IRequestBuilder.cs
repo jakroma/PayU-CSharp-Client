@@ -9,6 +9,6 @@ namespace PayU.Wrapper.Client
     /// </summary>
     public interface IRequestBuilder
     {
-        Task<IRestRequest> PostOrders();
+       Task<IRestRequest> PostOrders();
     }
 }

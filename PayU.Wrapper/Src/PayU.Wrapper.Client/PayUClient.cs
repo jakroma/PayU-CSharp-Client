@@ -14,9 +14,15 @@ namespace PayU.Wrapper.Client
         /// </summary>
         private readonly string _baseUrl;
 
-        public PayUClient(string baseUrl)
+        /// <summary>
+        /// The request builder
+        /// </summary>
+        private readonly IRequestBuilder _requestBuilder;
+
+        public PayUClient(string baseUrl, IRequestBuilder requestBuilder)
         {
             this._baseUrl = baseUrl;
+            this._requestBuilder = requestBuilder;
         }
 
         public Task<IRestResponse> PostOrder()
