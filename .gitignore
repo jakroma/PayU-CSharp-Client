@@ -2,5 +2,5 @@
 *.ide
 *.ide-shm
 *.ide-wal
-bin/
-obj/
+/PayU.Wrapper/**/bin/
+/PayU.Wrapper/**/obj/
