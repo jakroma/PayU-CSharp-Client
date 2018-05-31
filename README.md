@@ -12,7 +12,7 @@ string baseUrl = //Implement string url from production or test server
 UserRequest userRequest = new request {
     //TODO
 }         
- var requestType = RequestType.\\Choose type of request type; 
+ var requestType = RequestType.\\Choose type from enum
  ```
 
  ## Example
