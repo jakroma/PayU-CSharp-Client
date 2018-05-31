@@ -29,21 +29,28 @@ namespace PayU.Wrapper.Client
         private readonly UserRequest _userRequest;
 
         /// <summary>
+        /// The request type
+        /// </summary>
+        public RequestType _requestType;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PayUClient"/> class.
         /// </summary>
         /// <param name="baseUrl">The base URL.</param>
+        /// <param name="requestType">Type of the request.</param>
         /// <param name="userRequest">The user request.</param>
-        public PayUClient(string baseUrl, UserRequest userRequest)
+        public PayUClient(string baseUrl, RequestType requestType, UserRequest userRequest)
          {
             this._baseUrl = baseUrl;
-            _userRequest = userRequest;
+            this._userRequest = userRequest;
+             this._requestType = requestType;
             this._requestBuilder = new RequestBuilder();
         }
 
-        public async Task<Response<T>> Request<T>(string baseUrl, RequestType RequestType, UserRequest userRequest)
+        public async Task<Response<T>> Request<T>(string baseUrl, UserRequest userRequest)
         {
             await AOuthToken(_userRequest.Token);
-            switch (RequestType)
+            switch (_requestType)
             {
                 case RequestType.Order:
                     throw new NotImplementedException();
