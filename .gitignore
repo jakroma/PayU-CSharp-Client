@@ -3,3 +3,4 @@
 *.ide-shm
 *.ide-wal
 **/bin/*
+**/PayU.Wrapper/test
