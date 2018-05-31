@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enum\" />
+    <ProjectReference Include="..\..\Shared\PayU.Shared\PayU.Shared.csproj" />
   </ItemGroup>
 
 </Project>

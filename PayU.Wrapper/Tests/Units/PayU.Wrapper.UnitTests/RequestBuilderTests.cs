@@ -21,7 +21,7 @@ namespace PayU.Wrapper.UnitTests
         public void Set_Up()
         {
             _fixture = new Fixture();
-            _requestBuilder = _fixture.Build<RequestBuilder>().Create();
+            _requestBuilder = _fixture.Build<IRequestBuilder>().Create();
         }
 
         [Test]
@@ -33,15 +33,15 @@ namespace PayU.Wrapper.UnitTests
             //Act
 
             //Assert
-           
+
         }
 
-        [TestCase("",null)]
+        [TestCase("", null)]
         public void PrepareRequestPostOrders_WhenCall_NullArgumentException(string baseUrl)
         {
             //Arrange in TestCase
             //Act
-            _requestBuilder.PrepareRequestPostOrders(baseUrl);
+            //_requestBuilder.PrepareRequestPostOrders(baseUrl);
 
             //Assert
             Assert.Throws<ArgumentException>(() => new ArgumentException());

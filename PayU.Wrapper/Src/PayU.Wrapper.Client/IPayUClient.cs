@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Enum;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
 {
-    public interface IPayUClient
+    /// <summary>
+    /// PayU Client Interface
+    /// </summary>
+    interface IPayUClient
     {
         /// <summary>
-        /// Gets the connection to API.
+        /// Requests the specified base URL.
         /// </summary>
-        /// <param name="token">The token.</param>
-        /// <returns>Response</returns>
-        Task<IRestResponse> PostOrder();
+        /// <typeparam name="T"></typeparam>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <param name="userRequest">The user request.</param>
+        /// <returns></returns>
+        Task<Response<T>> Request<T>(string baseUrl, RequestType RequestType, UserRequest userRequest);
     }
 }

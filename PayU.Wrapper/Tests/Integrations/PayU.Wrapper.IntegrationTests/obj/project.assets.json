@@ -221,10 +221,21 @@
           "lib/netstandard2.0/RestSharp.dll": {}
         }
       },
+      "PayU.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/PayU.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PayU.Shared.dll": {}
+        }
+      },
       "PayU.Wrapper.Client/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
+          "PayU.Shared": "1.0.0",
           "RestSharp": "106.2.2"
         },
         "compile": {
@@ -736,6 +747,11 @@
         "restsharp.106.2.2.nupkg.sha512",
         "restsharp.nuspec"
       ]
+    },
+    "PayU.Shared/1.0.0": {
+      "type": "project",
+      "path": "../../../Shared/PayU.Shared/PayU.Shared.csproj",
+      "msbuildProject": "../../../Shared/PayU.Shared/PayU.Shared.csproj"
     },
     "PayU.Wrapper.Client/1.0.0": {
       "type": "project",

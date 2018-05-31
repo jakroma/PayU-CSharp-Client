@@ -16,30 +16,26 @@ namespace PayU.Wrapper.IntegrationTests
         /// The base URL
         /// </summary>
         private readonly string baseUrl = "https://secure.snd.payu.com";
-        
 
-        private IRequestBuilder _requestBuilder;
-
-        [SetUp]
-        public void Set_Up()
-        {
-            _requestBuilder = new RequestBuilder();
-        }
+        /// <summary>
+        /// Posts the payment when call result expected.
+        /// </summary>
         [Test]
         public void PostPayment_WhenCall_ResultExpected()
         {
             //Arrange
-            PayUClient payUClient = new PayUClient(baseUrl, _requestBuilder);
+            UserRequest userRequest = new UserRequest();
+            PayUClient payUClient = new PayUClient(baseUrl, userRequest);
             OrderContract orderContract = new OrderContract
             {
                 //TODO
             };
 
             //Act
-            IRestResponse act = payUClient.PostOrder().Result;
+           // IRestResponse act = payUClient.Request<>().Result;
 
             //Assert
-            Console.WriteLine(act);
+            Console.WriteLine();
         }
     }
 }

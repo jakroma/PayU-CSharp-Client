@@ -916,10 +916,21 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
+      "PayU.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/PayU.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PayU.Shared.dll": {}
+        }
+      },
       "PayU.Wrapper.Client/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
+          "PayU.Shared": "1.0.0",
           "RestSharp": "106.2.2"
         },
         "compile": {
@@ -3769,6 +3780,11 @@
         "system.xml.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xmldocument.nuspec"
       ]
+    },
+    "PayU.Shared/1.0.0": {
+      "type": "project",
+      "path": "../../../Shared/PayU.Shared/PayU.Shared.csproj",
+      "msbuildProject": "../../../Shared/PayU.Shared/PayU.Shared.csproj"
     },
     "PayU.Wrapper.Client/1.0.0": {
       "type": "project",

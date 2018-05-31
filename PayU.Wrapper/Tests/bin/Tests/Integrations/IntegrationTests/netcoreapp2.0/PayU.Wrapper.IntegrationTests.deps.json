@@ -25,8 +25,14 @@
           "lib/netstandard2.0/RestSharp.dll": {}
         }
       },
+      "PayU.Shared/1.0.0": {
+        "runtime": {
+          "PayU.Shared.dll": {}
+        }
+      },
       "PayU.Wrapper.Client/1.0.0": {
         "dependencies": {
+          "PayU.Shared": "1.0.0",
           "RestSharp": "106.2.2"
         },
         "runtime": {
@@ -54,6 +60,11 @@
       "sha512": "sha512-PEz5Wy6W7phha9pvvxmIntYb2tQTvWwm4G0JlOMFApBtzNfFLxLqJxhZG7Fd+78JJvyRiqGGQtjtW6Hc86PTag==",
       "path": "restsharp/106.2.2",
       "hashPath": "restsharp.106.2.2.nupkg.sha512"
+    },
+    "PayU.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "PayU.Wrapper.Client/1.0.0": {
       "type": "project",

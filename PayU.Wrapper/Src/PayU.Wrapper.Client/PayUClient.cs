@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PayU.Shared;
+using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Enum;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -8,7 +11,7 @@ namespace PayU.Wrapper.Client
     /// Pay U Client Class
     /// </summary>
     /// <seealso cref="PayU.Wrapper.Client.IPayUClient" />
-    public class PayUClient : IPayUClient
+    public sealed class PayUClient : IPayUClient
     {
         /// <summary>
         /// The base URL for API (TEST/PRODUCTION)
@@ -18,17 +21,39 @@ namespace PayU.Wrapper.Client
         /// <summary>
         /// The request builder
         /// </summary>
-        private readonly IRequestBuilder _requestBuilder;
+        private readonly RequestBuilder _requestBuilder;
+
+        /// <summary>
+        /// The user request
+        /// </summary>
+        private readonly UserRequest _userRequest;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PayUClient"/> class.
         /// </summary>
         /// <param name="baseUrl">The base URL.</param>
-        /// <param name="requestBuilder">The request builder.</param>
-        public PayUClient(string baseUrl, IRequestBuilder requestBuilder)
-        {
+        /// <param name="userRequest">The user request.</param>
+        public PayUClient(string baseUrl, UserRequest userRequest)
+         {
             this._baseUrl = baseUrl;
-            this._requestBuilder = requestBuilder;
+            _userRequest = userRequest;
+            this._requestBuilder = new RequestBuilder();
+        }
+
+        public async Task<Response<T>> Request<T>(string baseUrl, RequestType RequestType, UserRequest userRequest)
+        {
+            await AOuthToken(_userRequest.Token);
+            switch (RequestType)
+            {
+                case RequestType.Order:
+                    throw new NotImplementedException();
+
+                case RequestType.Payment:
+                    throw new NotImplementedException();
+
+                default:
+                    throw new InvalidRequestType();
+            }
         }
 
         /// <summary>
@@ -38,15 +63,19 @@ namespace PayU.Wrapper.Client
         /// Response
         /// </returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public async Task<IRestResponse> PostOrder()
+        public async Task<IRestResponse> Request()
         {
-            IRestRequest request = await _requestBuilder.PrepareRequestPostOrders(_baseUrl);
-            if (request == null)
-            {
-                throw new NullReferenceException();
-            }
-
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// as the outh token.
+        /// </summary>
+        /// <param name="Token">The token.</param>
+        /// <returns></returns>
+        private async Task AOuthToken(string Token)
+        {
+            IRestRequest request = await _requestBuilder.PrepareOAuthToke(Token, _baseUrl);
         }
     }
 }
