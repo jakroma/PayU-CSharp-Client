@@ -15,7 +15,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The response list.
         /// </value>
-        public List<T> ResponseList { get; set; }
+        public Dictionary<int, T> ResponseList { get; set; }
 
         /// <summary>
         /// Gets or sets the message.

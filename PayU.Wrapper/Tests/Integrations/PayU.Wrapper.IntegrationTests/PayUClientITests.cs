@@ -26,7 +26,7 @@ namespace PayU.Wrapper.IntegrationTests
         {
             //Arrange
             UserRequest userRequest = new UserRequest();
-            PayUClient payUClient = new PayUClient(isProduction, RequestType.Payment,userRequest);
+            PayUClient payUClient = new PayUClient(isProduction);
             OrderContract orderContract = new OrderContract
             {
                 //TODO

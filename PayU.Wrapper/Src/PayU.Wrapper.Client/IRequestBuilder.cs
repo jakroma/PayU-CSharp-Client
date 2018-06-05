@@ -12,9 +12,16 @@ namespace PayU.Wrapper.Client
         /// <summary>
         /// Prepares the o authentication toke.
         /// </summary>
-        /// <param name="Token">The token.</param>
-        /// <param name="baseUrl">The base URL.</param>
-        /// <returns></returns>
-        Task<IRestRequest> PrepareOAuthToke(string Token, string baseUrl);
+        /// <param name="userRequest">The user request.</param>
+        /// <returns>Rest Response</returns>
+        Task<IRestRequest> PrepareOAuthToke(UserRequest userRequest);
+
+        /// <summary>
+        /// Prepares the get order details.
+        /// </summary>
+        /// <param name="orderId">The order identifier.</param>
+        /// <param name="tokenContract">The token contract.</param>
+        /// <returns>Rest Response</returns>
+        Task<IRestRequest> PrepareGetOrderDetails(int orderId, TokenContract tokenContract);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace PayU.Wrapper.Client.Data
 {
@@ -14,7 +15,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         ///   <c>true</c> if [invoice disabled]; otherwise, <c>false</c>.
         /// </value>
-        [DataMember(Name = "invoiceDisabled")]
+        [JsonProperty("invoiceDisabled")]
         public bool InvoiceDisabled { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RestSharp.Serializers;
 using SimpleJson;
 
@@ -17,7 +19,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The notify URL.
         /// </value>
-        [DataMember(Name = "notifyUrl")]
+        [JsonProperty("notifyUrl")]
         public string NotifyUrl { get; set; }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The customer ip address.
         /// </value>
-        [DataMember(Name = "customerIp")]
+        [JsonProperty("customerIp")]
         public string CustomerIpAddress { get; set; }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The merchant position identifier.
         /// </value>
-        [DataMember(Name = "merchantPosId")]
+        [JsonProperty("merchantPosId")]
         public int MerchantPosId { get; set; }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The description.
         /// </value>
-        [DataMember(Name = "description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
 
         /// <summary>
@@ -53,7 +55,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The currency.
         /// </value>
-        [DataMember(Name = "currencyCode")]
+        [JsonProperty("currencyCode")]
         public string CurrencyCode { get; set; }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The total amount.
         /// </value>
-        [DataMember(Name = "totalAmount")]
+        [JsonProperty("totalAmount")]
         public decimal TotalAmount { get; set; }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The buyer.
         /// </value>
-        [DataMember(Name = "buyer")]
+        [JsonProperty("buyer")]
         public Buyer Buyer { get; set; }
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The settings.
         /// </value>
-        [DataMember(Name = "settings")]
+        [JsonProperty("settings")]
         public Settings Settings { get; set; }
 
         /// <summary>
@@ -89,7 +91,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The products.
         /// </value>
-        [DataMember(Name = "products")]
+        [JsonProperty("products")]
         public Products[] Products { get; set; }
     }
 }

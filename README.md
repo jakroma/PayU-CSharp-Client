@@ -8,7 +8,7 @@
 # Example usage
 ## Prepare parameter for constructor
    ```csharp
-string baseUrl = //Implement string url from production or test server
+bool isProduction;
 UserRequest userRequest = new request {
     //TODO
 }         
@@ -18,6 +18,6 @@ UserRequest userRequest = new request {
  ## Example
 
    ```csharp
-    PayUClient payUClient = new PayUClient(baseUrl, requestType, userRequest) 
+    PayUClient payUClient = new PayUClient(isProduction, requestType, userRequest) 
  ```
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace PayU.Wrapper.Client.Data
 {
     /// <summary>
     /// Token Contract Class
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class TokenContract
     {
         /// <summary>
@@ -15,7 +16,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The token.
         /// </value>
-        [DataMember(Name = "access_token")]
+        [JsonProperty("access_token")]
         public string Access_Token { get; set; }
 
         /// <summary>
@@ -24,7 +25,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The type of the token.
         /// </value>
-        [DataMember(Name = "token_type")]
+        [JsonProperty("token_type")]
         public string TokenType { get; set; }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The expires in.
         /// </value>
-        [DataMember(Name = "expires_in")]
+        [JsonProperty("expires_in")]
         public int Expires_In { get; set; }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The type of the grant.
         /// </value>
-        [DataMember(Name = "grant_type")]
+        [JsonProperty("grant_type")]
         public string Grant_Type { get; set; }
     }
 }

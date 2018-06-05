@@ -8,15 +8,8 @@ namespace PayU.Wrapper.Client
     /// <summary>
     /// RequestBuilderTemplate
     /// </summary>
-    internal sealed class RequestBuilder
+    internal sealed class RequestBuilder : IRequestBuilder
     {
-        /// <summary>
-        /// Posts the orders.
-        /// </summary>
-        /// <param name="baseUrl"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="System.NotImplementedException"></exception>
         public async Task<IRestRequest> PrepareRequestPostOrders(string baseUrl)
         {
             if (string.IsNullOrEmpty(baseUrl))
@@ -30,18 +23,30 @@ namespace PayU.Wrapper.Client
             return restRequest;
         }
 
-        /// <summary>
-        /// Prepares the o authentication toke.
-        /// </summary>
-        /// <param name="Token">The token.</param>
-        /// <param name="baseUrl">The base URL.</param>
-        /// <returns>Response with Token</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
         public async Task<IRestRequest> PrepareOAuthToke(UserRequest userRequest)
         {
-            IRestRequest restRequest = new RestRequest();
+            if (string.IsNullOrEmpty(userRequest.MD5Key) || string.IsNullOrEmpty(userRequest.ClientId))
+            {
+                throw new ArgumentNullException();
+            }
+
+            IRestRequest restRequest = new RestRequest("pl/standard/user/oauth/authorize");
             restRequest.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             restRequest.AddBody($"grant_type=client_credentials&client_id={userRequest.ClientId}&client_secret={userRequest.MD5Key}");
+
+            return restRequest;
+        }
+
+        public async Task<IRestRequest> PrepareGetOrderDetails(int orderId, TokenContract tokenContract)
+        {
+            if (orderId == 0)
+            {
+                throw new ArgumentException();
+            }
+
+            IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
+            restRequest.AddUrlSegment("order_id", orderId.ToString());
+            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.Access_Token}");
 
             return restRequest;
         }

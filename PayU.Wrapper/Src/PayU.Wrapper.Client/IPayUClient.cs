@@ -9,15 +9,16 @@ namespace PayU.Wrapper.Client
     /// <summary>
     /// PayU Client Interface
     /// </summary>
-    interface IPayUClient
+    public interface IPayUClient
     {
         /// <summary>
-        /// Requests the specified base URL.
+        /// Requests the specified request type.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseUrl">The base URL.</param>
+        /// <param name="requestType">Type of the request.</param>
         /// <param name="userRequest">The user request.</param>
+        /// <param name="orderId">The order identifier.</param>
         /// <returns>Generic Response</returns>
-        Task<PayUClient> Request<T>(string baseUrl, UserRequest userRequest);
+        Task<T> Request<T>(RequestType requestType, UserRequest userRequest, int orderId = 0);
     }
 }

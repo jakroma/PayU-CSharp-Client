@@ -1,5 +1,6 @@
 ﻿using System.Resources;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace PayU.Wrapper.Client.Data
 {
@@ -15,7 +16,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The email.
         /// </value>
-        [DataMember(Name = "email")]
+        [JsonProperty("email")]
         public string Email { get; set; }
         /// <summary>
         /// Gets or sets the phone.
@@ -23,7 +24,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The phone.
         /// </value>
-        [DataMember(Name = "phone")]
+        [JsonProperty("phone")]
         public string Phone { get; set; }
         /// <summary>
         /// Gets or sets the first name.
@@ -31,7 +32,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The first name.
         /// </value>
-        [DataMember(Name = "firstName")]
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
         /// <summary>
         /// Gets or sets the last name.
@@ -39,7 +40,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The last name.
         /// </value>
-        [DataMember(Name = "lastName")]
+        [JsonProperty("lastName")]
         public string LastName { get; set; }
         /// <summary>
         /// Gets or sets the language.
@@ -47,7 +48,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The language.
         /// </value>
-        [DataMember(Name = "language")]
+        [JsonProperty("language")]
         public string Language { get; set; }
     }
 }

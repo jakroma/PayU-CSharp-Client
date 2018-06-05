@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace PayU.Wrapper.Client.Data
 {
@@ -14,7 +15,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The name.
         /// </value>
-        [DataMember(Name = "name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The unit price.
         /// </value>
-        [DataMember(Name = "unitPrice")]
+        [JsonProperty("unitPrice")]
         public decimal UnitPrice { get; set; }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The quantity.
         /// </value>
-        [DataMember(Name = "quantity")]
+        [JsonProperty("quantity")]
         public int Quantity { get; set; }
     }
 }
