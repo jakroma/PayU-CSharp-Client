@@ -9,6 +9,12 @@ namespace PayU.Wrapper.Client
     /// </summary>
     public interface IRequestBuilder
     {
-       Task<IRestRequest> PrepareOAuthToke(string Token, string baseUrl);
+        /// <summary>
+        /// Prepares the o authentication toke.
+        /// </summary>
+        /// <param name="Token">The token.</param>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <returns></returns>
+        Task<IRestRequest> PrepareOAuthToke(string Token, string baseUrl);
     }
 }

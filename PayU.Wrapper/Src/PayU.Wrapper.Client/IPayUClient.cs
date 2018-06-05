@@ -18,6 +18,6 @@ namespace PayU.Wrapper.Client
         /// <param name="baseUrl">The base URL.</param>
         /// <param name="userRequest">The user request.</param>
         /// <returns>Generic Response</returns>
-        Task<Response<T>> Request<T>(string baseUrl, UserRequest userRequest);
+        Task<PayUClient> Request<T>(string baseUrl, UserRequest userRequest);
     }
 }

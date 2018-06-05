@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Enum;
 using RestSharp;
 
 namespace PayU.Wrapper.IntegrationTests
@@ -15,7 +16,7 @@ namespace PayU.Wrapper.IntegrationTests
         /// <summary>
         /// The base URL
         /// </summary>
-        private readonly string baseUrl = "https://secure.snd.payu.com";
+        private readonly bool isProduction = false;
 
         /// <summary>
         /// Posts the payment when call result expected.
@@ -25,17 +26,17 @@ namespace PayU.Wrapper.IntegrationTests
         {
             //Arrange
             UserRequest userRequest = new UserRequest();
-            PayUClient payUClient = new PayUClient(baseUrl, userRequest);
+            PayUClient payUClient = new PayUClient(isProduction, RequestType.Payment,userRequest);
             OrderContract orderContract = new OrderContract
             {
                 //TODO
             };
 
             //Act
-           // IRestResponse act = payUClient.Request<>().Result;
+            //var act = payUClient.Request(baseUrl, RequestType.Payment, userRequest).Result;
 
             //Assert
-            Console.WriteLine();
+            //Console.WriteLine(act);
         }
     }
 }

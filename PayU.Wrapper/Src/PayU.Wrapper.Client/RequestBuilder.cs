@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PayU.Wrapper.Client.Data;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -7,8 +8,7 @@ namespace PayU.Wrapper.Client
     /// <summary>
     /// RequestBuilderTemplate
     /// </summary>
-    /// <seealso cref="PayU.Wrapper.Client.IRequestBuilder" />
-    internal sealed class RequestBuilder : IRequestBuilder
+    internal sealed class RequestBuilder
     {
         /// <summary>
         /// Posts the orders.
@@ -17,7 +17,7 @@ namespace PayU.Wrapper.Client
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="System.NotImplementedException"></exception>
-        public Task<IRestRequest> PrepareRequestPostOrders(string baseUrl)
+        public async Task<IRestRequest> PrepareRequestPostOrders(string baseUrl)
         {
             if (string.IsNullOrEmpty(baseUrl))
             {
@@ -27,7 +27,7 @@ namespace PayU.Wrapper.Client
             IRestClient restClient = new RestClient(baseUrl);
             IRestRequest restRequest = new RestRequest();
 
-            throw new NotImplementedException();
+            return restRequest;
         }
 
         /// <summary>
@@ -37,12 +37,13 @@ namespace PayU.Wrapper.Client
         /// <param name="baseUrl">The base URL.</param>
         /// <returns>Response with Token</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public async Task<IRestRequest> PrepareOAuthToke(string Token, string baseUrl)
+        public async Task<IRestRequest> PrepareOAuthToke(UserRequest userRequest)
         {
-            IRestRequest restRequest = new RestRequest(baseUrl);
+            IRestRequest restRequest = new RestRequest();
             restRequest.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            restRequest.AddBody($"grant_type=client_credentials&client_id={userRequest.ClientId}&client_secret={userRequest.MD5Key}");
 
-            throw new NotImplementedException();
+            return restRequest;
         }
     }
 }

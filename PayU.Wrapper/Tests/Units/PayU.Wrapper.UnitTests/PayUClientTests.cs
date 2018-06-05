@@ -2,6 +2,7 @@
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using PayU.Wrapper.Client;
 using RestSharp;
 
 namespace PayU.Wrapper.UnitTests
@@ -12,7 +13,15 @@ namespace PayU.Wrapper.UnitTests
     [TestFixture]
     public class PayUClientTests
     {
+        /// <summary>
+        /// The fixture
+        /// </summary>
         private Fixture _fixture;
+
+        /// <summary>
+        /// The base URL
+        /// </summary>
+        private string _baseUrl;
 
         [SetUp]
         public void SetUp()
@@ -27,7 +36,7 @@ namespace PayU.Wrapper.UnitTests
         public void PostOrder_WhenCall_Http200Expected()
         {
             //Arrange
-
+            //PayUClient payUClient = new PayUClient();
 
             //Act
 

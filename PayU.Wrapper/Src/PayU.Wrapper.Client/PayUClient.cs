@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using PayU.Shared;
 using PayU.Wrapper.Client.Data;
@@ -11,7 +13,7 @@ namespace PayU.Wrapper.Client
     /// Pay U Client Class
     /// </summary>
     /// <seealso cref="PayU.Wrapper.Client.IPayUClient" />
-    public sealed class PayUClient : IPayUClient
+    public sealed class PayUClient
     {
         /// <summary>
         /// The base URL for API (TEST/PRODUCTION)
@@ -29,6 +31,11 @@ namespace PayU.Wrapper.Client
         private readonly UserRequest _userRequest;
 
         /// <summary>
+        /// The rest client
+        /// </summary>
+        private readonly RestClient _restClient;
+
+        /// <summary>
         /// The request type
         /// </summary>
         public RequestType _requestType;
@@ -39,24 +46,36 @@ namespace PayU.Wrapper.Client
         /// <param name="baseUrl">The base URL.</param>
         /// <param name="requestType">Type of the request.</param>
         /// <param name="userRequest">The user request.</param>
-        public PayUClient(string baseUrl, RequestType requestType, UserRequest userRequest)
+        public PayUClient(bool isProducition, RequestType requestType, UserRequest userRequest)
          {
-            this._baseUrl = baseUrl;
+            this._baseUrl = isProducition ? "https://secure.payu.com/api/v2_1" : "https://secure.snd.payu.com/api/v2_1"; 
             this._userRequest = userRequest;
-             this._requestType = requestType;
-            this._requestBuilder = new RequestBuilder();
-        }
+            this._requestType = requestType;
+            this._restClient = new RestClient(_baseUrl);
+         }
 
-        public async Task<Response<T>> Request<T>(string baseUrl, UserRequest userRequest)
+        /// <summary>
+        /// Requests the specified base URL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <param name="userRequest">The user request.</param>
+        /// <returns>
+        /// Generic Response
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
+        /// <exception cref="InvalidRequestType"></exception>
+        public async Task<PayUClient> Request(string baseUrl, UserRequest userRequest)
         {
-            await AOuthToken(_userRequest.Token);
+            await AOuthToken();
             switch (_requestType)
             {
                 case RequestType.Order:
-                    throw new NotImplementedException();
+                    return this;
 
                 case RequestType.Payment:
-                    throw new NotImplementedException();
+                    return this;
 
                 default:
                     throw new InvalidRequestType();
@@ -80,9 +99,13 @@ namespace PayU.Wrapper.Client
         /// </summary>
         /// <param name="Token">The token.</param>
         /// <returns></returns>
-        private async Task AOuthToken(string Token)
+        public async Task<Task<PayUClient>> AOuthToken()
         {
-            IRestRequest request = await _requestBuilder.PrepareOAuthToke(Token, _baseUrl);
+            IRestRequest request = await _requestBuilder.PrepareOAuthToke(_userRequest);
+
+            var restResponse = _restClient.Execute<TokenContract>(request);
+
+            return Request(_baseUrl, _userRequest);
         }
     }
 }
