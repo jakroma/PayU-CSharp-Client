@@ -17,8 +17,9 @@ namespace PayU.Wrapper.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="requestType">Type of the request.</param>
         /// <param name="userRequest">The user request.</param>
+        /// <param name="orderContract"></param>
         /// <param name="orderId">The order identifier.</param>
         /// <returns>Generic Response</returns>
-        Task<T> Request<T>(RequestType requestType, UserRequest userRequest, int orderId = 0);
+        Task<T> Request<T>(RequestType requestType, UserRequest userRequest, OrderContract orderContract = null, int orderId = 0);
     }
 }

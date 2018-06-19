@@ -24,10 +24,13 @@ namespace PayU.Wrapper.Client
         Task<T> GetOrderDetails<T>(int orderId, TokenContract tokenContract);
 
         /// <summary>
-        /// Refunds the order.
+        /// Gets the refund order.
         /// </summary>
-        /// <returns>PayU Client (Fluent)</returns>
-        Task<PayUClient> RefundOrder();
+        /// <typeparam name="T"></typeparam>
+        /// <param name="orderId">The order identifier.</param>
+        /// <param name="tokenContract">The token contract.</param>
+        /// <returns></returns>
+        Task<T> GetRefundOrder<T>(int orderId, TokenContract tokenContract);
 
         /// <summary>
         /// Updates the order.
@@ -45,7 +48,7 @@ namespace PayU.Wrapper.Client
         /// Creates the new order.
         /// </summary>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<PayUClient> CreateNewOrder();
+        Task<T> PostCreateNewOrder<T>(int orderId, TokenContract tokenContract);
 
         /// <summary>
         /// Pays the out from shop.

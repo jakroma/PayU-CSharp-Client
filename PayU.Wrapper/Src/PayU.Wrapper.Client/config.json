@@ -1,0 +1,7 @@
+{
+  "ServerUrl": {
+    "test": "ssd",
+    "production":  "sad" 
+  },
+  "timeout": 3000
+}

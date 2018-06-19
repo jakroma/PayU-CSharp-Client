@@ -37,7 +37,7 @@ namespace PayU.Wrapper.Client
 
             if (restResponse.ResponseStatus != ResponseStatus.Completed)
             {
-                throw new HttpRequestException("Request Fail");
+                throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
             }
 
             return (T)Convert.ChangeType(restResponse, typeof(T));
@@ -51,13 +51,13 @@ namespace PayU.Wrapper.Client
 
             if (restResponse.ResponseStatus != ResponseStatus.Completed)
             {
-                throw new HttpRequestException("Request Fail");
+                throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
             }
 
             return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
-        public Task<PayUClient> RefundOrder()
+        public Task<T> GetRefundOrder<T>(int orderId, TokenContract tokenContract)
         {
             throw new NotImplementedException();
         }
@@ -72,9 +72,18 @@ namespace PayU.Wrapper.Client
             throw new NotImplementedException();
         }
 
-        public Task<PayUClient> CreateNewOrder()
+         public async Task<T> PostCreateNewOrder<T>(int orderId, TokenContract tokenContract, OrderContract orderContract)
         {
-            throw new NotImplementedException();
+            IRestRequest request = await _requestBuilder.PreparePostCreateNewOrder(orderId, tokenContract, orderContract);
+
+            var restResponse = _restClient.Execute<OrderContract>(request);
+
+            if (restResponse.ResponseStatus != ResponseStatus.Completed)
+            {
+                throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
+            }
+
+            return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
         public Task<PayUClient> PayOutFromShop()

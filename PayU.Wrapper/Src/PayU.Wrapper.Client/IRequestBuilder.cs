@@ -23,5 +23,15 @@ namespace PayU.Wrapper.Client
         /// <param name="tokenContract">The token contract.</param>
         /// <returns>Rest Response</returns>
         Task<IRestRequest> PrepareGetOrderDetails(int orderId, TokenContract tokenContract);
+
+
+        /// <summary>
+        /// Prepares the post create new order.
+        /// </summary>
+        /// <param name="orderId">The order identifier.</param>
+        /// <param name="tokenContract">The token contract.</param>
+        /// <param name="orderContract">The order contract.</param>
+        /// <returns>Rest Response</returns></returns>
+        Task<IRestRequest> PreparePostCreateNewOrder(int orderId, TokenContract tokenContract, OrderContract orderContract);
     }
 }

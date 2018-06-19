@@ -17,7 +17,7 @@ namespace PayU.Wrapper.Client.Data
         /// The token.
         /// </value>
         [JsonProperty("access_token")]
-        public string Access_Token { get; set; }
+        public string AccessToken { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the token.
@@ -35,7 +35,7 @@ namespace PayU.Wrapper.Client.Data
         /// The expires in.
         /// </value>
         [JsonProperty("expires_in")]
-        public int Expires_In { get; set; }
+        public int ExpireIn { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the grant.
@@ -44,6 +44,6 @@ namespace PayU.Wrapper.Client.Data
         /// The type of the grant.
         /// </value>
         [JsonProperty("grant_type")]
-        public string Grant_Type { get; set; }
+        public string GrantType { get; set; }
     }
 }

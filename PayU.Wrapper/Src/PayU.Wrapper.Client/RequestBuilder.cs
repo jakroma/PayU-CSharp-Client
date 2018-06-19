@@ -10,17 +10,12 @@ namespace PayU.Wrapper.Client
     /// </summary>
     internal sealed class RequestBuilder : IRequestBuilder
     {
-        public async Task<IRestRequest> PrepareRequestPostOrders(string baseUrl)
+        private readonly IRestRequest _restRequest;
+
+        public RequestBuilder()
         {
-            if (string.IsNullOrEmpty(baseUrl))
-            {
-                throw new ArgumentNullException();
-            }
-
-            IRestClient restClient = new RestClient(baseUrl);
-            IRestRequest restRequest = new RestRequest();
-
-            return restRequest;
+            _restRequest = new RestRequest();
+            _restRequest.Timeout = 3000;
         }
 
         public async Task<IRestRequest> PrepareOAuthToke(UserRequest userRequest)
@@ -46,7 +41,22 @@ namespace PayU.Wrapper.Client
 
             IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
             restRequest.AddUrlSegment("order_id", orderId.ToString());
-            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.Access_Token}");
+            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.AccessToken}");
+
+            return restRequest;
+        }
+
+        public async Task<IRestRequest> PreparePostCreateNewOrder(int orderId, TokenContract tokenContract, OrderContract orderContract)
+        {
+            if (orderId == 0)
+            {
+                throw new ArgumentException();
+            }
+
+            IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
+            restRequest.AddHeader("Content-Type", "application/json");
+            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.AccessToken}");
+            restRequest.AddBody(orderContract);
 
             return restRequest;
         }

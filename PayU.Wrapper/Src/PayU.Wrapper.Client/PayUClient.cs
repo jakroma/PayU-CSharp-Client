@@ -2,9 +2,9 @@
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using PayU.Shared;
 using PayU.Wrapper.Client.Data;
 using PayU.Wrapper.Client.Enum;
+using PayU.Wrapper.Client.Exception;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -21,6 +21,11 @@ namespace PayU.Wrapper.Client
         private readonly string _baseUrl;
 
         /// <summary>
+        /// The token
+        /// </summary>
+        private TokenContract _tokenContract;
+
+        /// <summary>
         /// The rest builder
         /// </summary>
         private readonly IRestBuilder _restBuilder;
@@ -35,16 +40,19 @@ namespace PayU.Wrapper.Client
              _restBuilder = new RestBuilder(_baseUrl);
          }
 
-        public async Task<T> Request<T>(RequestType requestType, UserRequest userRequest, int orderId = 0)
+        public async Task<T> Request<T>(RequestType requestType, UserRequest userRequest, OrderContract orderContract = null, int orderId = 0)
         {
-            TokenContract tokenContract = await _restBuilder.GetAOuthToken<TokenContract>(userRequest);
+            if (_tokenContract == null)
+            {
+                _tokenContract = await _restBuilder.GetAOuthToken<TokenContract>(userRequest);
+            }
             switch (requestType)
             {
                 case RequestType.GetOrderDetails:
-                    return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(orderId, tokenContract) , typeof(T));
+                    return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(orderId, _tokenContract) , typeof(T));
 
-                //case RequestType.RefundOrder:
-                //    return this;
+                case RequestType.RefundOrder:
+                    return (T)Convert.ChangeType(_restBuilder.GetRefundOrder<T>(orderId, _tokenContract) , typeof(T));
 
                 //case RequestType.UpdateOrder:
                 //    return this;
@@ -52,8 +60,8 @@ namespace PayU.Wrapper.Client
                 //case RequestType.CancelOrder:
                 //    return this;
 
-                //case RequestType.CreateNewOrder:
-                //    return this;
+                case RequestType.CreateNewOrder:
+                    return (T)Convert.ChangeType(_restBuilder.PostCreateNewOrder<T>(orderId, _tokenContract, orderContract), typeof(T)); ;
 
                 //case RequestType.PayOutFromShop:
                 //    return this;
