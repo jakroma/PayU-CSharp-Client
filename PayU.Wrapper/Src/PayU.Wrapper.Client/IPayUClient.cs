@@ -16,8 +16,7 @@ namespace PayU.Wrapper.Client
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="payURequestType">Type of the request.</param>
-        /// <param name="userRequest">The user request.</param>
         /// <returns>Generic Response</returns>
-        Task<T> Request<T>(PayURequestType payURequestType, UserRequest userRequest);
+        Task<T> Request<T>(PayURequestType payURequestType);
     }
 }
