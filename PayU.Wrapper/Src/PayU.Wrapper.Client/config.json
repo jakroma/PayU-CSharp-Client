@@ -1,7 +1,7 @@
 {
   "ServerUrl": {
-    "test": "ssd",
-    "production":  "sad" 
+    "Test-Url": "https://secure.payu.com",
+    "Production-Url": "https://secure.snd.payu.com"
   },
   "timeout": 3000
 }

@@ -24,7 +24,6 @@ namespace PayU.Wrapper.Client
         /// <returns>Rest Response</returns>
         Task<IRestRequest> PrepareGetOrderDetails(int orderId, TokenContract tokenContract);
 
-
         /// <summary>
         /// Prepares the post create new order.
         /// </summary>
