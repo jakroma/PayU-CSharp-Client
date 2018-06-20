@@ -28,5 +28,13 @@
         /// The m d5 key.
         /// </value>
         public string MD5Key { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value>
+        /// The data to request.
+        /// </value>
+        public DataToRequest DataToRequest { get; set; }
     }
 }

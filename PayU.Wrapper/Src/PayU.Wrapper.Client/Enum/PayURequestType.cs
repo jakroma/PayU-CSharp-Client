@@ -3,12 +3,8 @@
     /// <summary>
     /// Request Type Enum
     /// </summary>
-    public enum RequestType
+    public enum PayURequestType
     {
-        /// <summary>
-        /// The get a outh token
-        /// </summary>
-        GetAOuthToken,
         /// <summary>
         /// The order
         /// </summary>
@@ -16,11 +12,11 @@
         /// <summary>
         /// The payment
         /// </summary>
-        CreateNewOrder,
+        PostCreateNewOrder,
         /// <summary>
         /// The refund order
         /// </summary>
-        RefundOrder,
+        GetRefundOrder,
         /// <summary>
         /// The cancel order
         /// </summary>

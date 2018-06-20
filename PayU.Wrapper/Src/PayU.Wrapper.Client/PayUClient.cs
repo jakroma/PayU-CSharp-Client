@@ -26,6 +26,11 @@ namespace PayU.Wrapper.Client
         private TokenContract _tokenContract;
 
         /// <summary>
+        /// The user request
+        /// </summary>
+        private UserRequest _userRequest;
+
+        /// <summary>
         /// The rest builder
         /// </summary>
         private readonly IRestBuilder _restBuilder;
@@ -34,42 +39,44 @@ namespace PayU.Wrapper.Client
         /// Initializes a new instance of the <see cref="PayUClient"/> class.
         /// </summary>
         /// <param name="isProducition">if set to <c>true</c> [is producition].</param>
-        public PayUClient(bool isProducition)
+        public PayUClient(bool isProducition, UserRequest userRequest)
          {
-            this._baseUrl = isProducition ? "https://secure.payu.com" : "https://secure.snd.payu.com";
+             this._baseUrl = isProducition ? "https://secure.payu.com" : "https://secure.snd.payu.com";
+             _userRequest = userRequest;
              _restBuilder = new RestBuilder(_baseUrl);
-         }
+             _tokenContract = _restBuilder.GetAOuthToken<TokenContract>(_userRequest).Result;
+        }
 
-        public async Task<T> Request<T>(RequestType requestType, UserRequest userRequest, OrderContract orderContract = null, int orderId = 0)
+        public async Task<T> Request<T>(PayURequestType payURequestType)
         {
             if (_tokenContract == null)
             {
-                _tokenContract = await _restBuilder.GetAOuthToken<TokenContract>(userRequest);
+                _tokenContract = await _restBuilder.GetAOuthToken<TokenContract>(_userRequest);
             }
-            switch (requestType)
+            switch (payURequestType)
             {
-                case RequestType.GetOrderDetails:
-                    return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(orderId, _tokenContract) , typeof(T));
+                case PayURequestType.GetOrderDetails:
+                    return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(_userRequest.DataToRequest.OrderId, _tokenContract) , typeof(T));
 
-                case RequestType.RefundOrder:
-                    return (T)Convert.ChangeType(_restBuilder.GetRefundOrder<T>(orderId, _tokenContract) , typeof(T));
+                case PayURequestType.GetRefundOrder:
+                    return (T)Convert.ChangeType(_restBuilder.GetRefundOrder<T>(_userRequest.DataToRequest.OrderId, _tokenContract) , typeof(T));
 
-                //case RequestType.UpdateOrder:
+                //case PayURequestType.UpdateOrder:
                 //    return this;
 
-                //case RequestType.CancelOrder:
+                //case PayURequestType.CancelOrder:
                 //    return this;
 
-                case RequestType.CreateNewOrder:
-                    return (T)Convert.ChangeType(_restBuilder.PostCreateNewOrder<T>(orderId, _tokenContract, orderContract), typeof(T)); ;
+                case PayURequestType.PostCreateNewOrder:
+                    return (T)Convert.ChangeType(_restBuilder.PostCreateNewOrder<T>(_userRequest.DataToRequest.OrderId, _tokenContract, _userRequest.DataToRequest.OrderContract), typeof(T)); ;
 
-                //case RequestType.PayOutFromShop:
+                //case PayURequestType.PayOutFromShop:
                 //    return this;
 
-                //case RequestType.RetrevePayout:
+                //case PayURequestType.RetrevePayout:
                 //    return this;
 
-                //case RequestType.FinishRequest:
+                //case PayURequestType.FinishRequest:
                 //    return this;
 
                 default:

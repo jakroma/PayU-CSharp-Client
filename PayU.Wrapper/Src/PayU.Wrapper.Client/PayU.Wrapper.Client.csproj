@@ -17,8 +17,4 @@
     <PackageReference Include="RestSharp" Version="106.2.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared\PayU.Shared\PayU.Shared.csproj" />
-  </ItemGroup>
-
 </Project>
