@@ -1,13 +1,12 @@
 ﻿using System;
-using AutoFixture;
-using NSubstitute;
-using NUnit.Framework;
 using PayU.Wrapper.Client;
+using PayU.Wrapper.Client.Data;
+using Ploeh.AutoFixture;
 using RestSharp;
+using Xunit;
 
 namespace PayU.Wrapper.UnitTests
 {
-    [TestFixture]
     public class RequestBuilderTests
     {
         private Fixture _fixture;
@@ -17,14 +16,13 @@ namespace PayU.Wrapper.UnitTests
         /// </summary>
         private IRequestBuilder _requestBuilder;
 
-        [SetUp]
-        public void Set_Up()
+        public RequestBuilderTests()
         {
             _fixture = new Fixture();
             _requestBuilder = _fixture.Build<IRequestBuilder>().Create();
         }
 
-        [Test]
+        [Fact]
         public void PrepareRequestPostOrders_WhenCall_RequestExpected()
         {
             //Arrange
@@ -36,12 +34,15 @@ namespace PayU.Wrapper.UnitTests
 
         }
 
-        [TestCase("", null)]
-        public void PrepareRequestPostOrders_WhenCall_NullArgumentException(string baseUrl)
+        [Theory]
+        [InlineData("", null)]
+        public void PrepareRequestPostOrders_WhenCall_NullArgumentException(int orderId)
         {
-            //Arrange in TestCase
+            //Arrange
+            TokenContract token = _fixture.Build<TokenContract>().Create();
+
             //Act
-            //_requestBuilder.PrepareRequestPostOrders(baseUrl);
+             _requestBuilder.PrepareGetOrderDetails(orderId, token);
 
             //Assert
             Assert.Throws<ArgumentException>(() => new ArgumentException());
