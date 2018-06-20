@@ -31,7 +31,7 @@ namespace PayU.Wrapper.IntegrationTests
             PayUClient payUClient = new PayUClient(isProduction, userRequest);
 
             //Act
-            var act = payUClient.Request<RefundContract>(PayURequestType.PostCreateNewOrder, userRequest).Result;
+            var act = payUClient.Request<RefundContract>(PayURequestType.PostCreateNewOrder).Result;
 
             //Assert
             Console.WriteLine(act);
