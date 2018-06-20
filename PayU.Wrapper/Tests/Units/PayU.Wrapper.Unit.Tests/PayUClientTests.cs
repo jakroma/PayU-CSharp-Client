@@ -68,7 +68,7 @@ namespace PayU.Wrapper.UnitTests
             UserRequest userRequest = _fixture.Build<UserRequest>().Create();
 
             //Act & Assert
-            Assert.Throws<InvalidRequestType>(() => _payUClient.Request<OrderContract>(badRequest, userRequest).Result);
+            Assert.Throws<InvalidRequestType>(() => _payUClient.Request<OrderContract>(badRequest).Result);
         }
     }
 }
