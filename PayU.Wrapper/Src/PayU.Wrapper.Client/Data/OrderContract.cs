@@ -1,9 +1,5 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using RestSharp.Serializers;
-using SimpleJson;
 
 namespace PayU.Wrapper.Client.Data
 {
