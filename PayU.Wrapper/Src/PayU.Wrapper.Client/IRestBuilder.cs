@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PayU.Wrapper.Client.Data;
+using RestSharp;
 
 namespace PayU.Wrapper.Client
 {
@@ -13,7 +14,7 @@ namespace PayU.Wrapper.Client
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        Task<T> GetAOuthToken<T>(UserRequest userRequest);
+        Task<T> PostAOuthToken<T>(UserRequest userRequest);
 
         /// <summary>
         /// Gets the order details.

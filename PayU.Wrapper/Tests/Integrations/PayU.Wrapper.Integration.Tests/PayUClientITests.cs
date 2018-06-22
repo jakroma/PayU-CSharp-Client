@@ -11,7 +11,7 @@ namespace PayU.Wrapper.IntegrationTests
     /// </summary>
     public class PayUClientITests
     {
-        private readonly bool isProduction = false;
+        private readonly string _baseUrl = "";
 
         [Fact(Skip= "Integration Test")]
         public void PostCreateNewOrder_WhenCall_ResultExpected()
@@ -28,7 +28,7 @@ namespace PayU.Wrapper.IntegrationTests
                     OrderContract = orderContract
                 }
             };
-            PayUClient payUClient = new PayUClient(isProduction, userRequest);
+            PayUClient payUClient = new PayUClient(userRequest, _baseUrl);
 
             //Act
             var act = payUClient.Request<RefundContract>(PayURequestType.PostCreateNewOrder).Result;
@@ -43,7 +43,7 @@ namespace PayU.Wrapper.IntegrationTests
             //Arrange
             int orderId = 0; 
             UserRequest userRequest = new UserRequest();
-            PayUClient payUClient = new PayUClient(isProduction, userRequest);
+            PayUClient payUClient = new PayUClient(userRequest, _baseUrl);
 
 
             //Act
@@ -59,7 +59,7 @@ namespace PayU.Wrapper.IntegrationTests
             //Arrange
             int orderId = 0;
             UserRequest userRequest = new UserRequest();
-            PayUClient payUClient = new PayUClient(isProduction, userRequest);
+            PayUClient payUClient = new PayUClient(userRequest, _baseUrl);
 
 
             //Act

@@ -19,7 +19,7 @@
         /// <value>
         /// The client identifier.
         /// </value>
-        public string ClientId { get; set; }
+        public int ClientId { get; set; }
 
         /// <summary>
         /// Gets or sets the m d5 key.

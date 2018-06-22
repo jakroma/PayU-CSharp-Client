@@ -42,12 +42,11 @@ namespace PayU.Wrapper.Client
         {
             try
             {
-            if (_tokenContract == null)
-            {
-                _tokenContract = await _restBuilder.PostAOuthToken<TokenContract>(_userRequest);
-            }
             switch (payURequestType)
             {
+                case PayURequestType.PostAOuthToken:
+                    return (T) Convert.ChangeType(_restBuilder.PostAOuthToken<T>(_userRequest), typeof(T));
+
                 case PayURequestType.GetOrderDetails:
                     return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(_userRequest.DataToRequest.OrderId, _tokenContract) , typeof(T));
 
