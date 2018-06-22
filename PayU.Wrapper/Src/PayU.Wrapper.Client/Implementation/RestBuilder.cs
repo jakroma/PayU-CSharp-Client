@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using PayU.Wrapper.Client.Data;
@@ -7,7 +8,7 @@ using PayU.Wrapper.Client;
 
 namespace PayU.Wrapper.Client
 {
-    internal sealed class RestBuilder : IRestBuilder
+    public class RestBuilder : IRestBuilder
     {
         /// <summary>
         /// The rest client
@@ -29,13 +30,13 @@ namespace PayU.Wrapper.Client
             _requestBuilder = new RequestBuilder();
         }
 
-        public async Task<T> GetAOuthToken<T>(UserRequest userRequest)
+        public async Task<T> PostAOuthToken<T>(UserRequest userRequest)
         {
-            IRestRequest request = await _requestBuilder.PrepareOAuthToke(userRequest);
+            IRestRequest request = await _requestBuilder.PreparePostOAuthToke(userRequest);
 
             var restResponse = _restClient.Execute<TokenContract>(request);
 
-            if (restResponse.ResponseStatus != ResponseStatus.Completed)
+            if (restResponse.StatusCode != HttpStatusCode.OK)
             {
                 throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
             }

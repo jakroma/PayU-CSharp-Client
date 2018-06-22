@@ -14,7 +14,7 @@ namespace PayU.Wrapper.Client
         /// </summary>
         /// <param name="userRequest">The user request.</param>
         /// <returns>Rest Response</returns>
-        Task<IRestRequest> PrepareOAuthToke(UserRequest userRequest);
+        Task<IRestRequest> PreparePostOAuthToke(UserRequest userRequest);
 
         /// <summary>
         /// Prepares the get order details.
@@ -32,5 +32,22 @@ namespace PayU.Wrapper.Client
         /// <param name="orderContract">The order contract.</param>
         /// <returns>Rest Response</returns></returns>
         Task<IRestRequest> PreparePostCreateNewOrder(int orderId, TokenContract tokenContract, OrderContract orderContract);
+
+        /// <summary>
+        /// Gets the refund order.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="orderId">The order identifier.</param>
+        /// <param name="tokenContract">The token contract.</param>
+        /// <returns></returns>
+        Task<IRestRequest> GetRefundOrder<T>(int orderId, TokenContract tokenContract);
+
+        Task<IRestRequest> UpdateOrder();
+
+        Task<IRestRequest> CancelOrder();
+
+        Task<IRestRequest> PayOutFromShop();
+
+        Task<IRestRequest> RetrevePayout();
     }
 }

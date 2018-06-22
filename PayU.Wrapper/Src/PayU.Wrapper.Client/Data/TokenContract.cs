@@ -27,6 +27,15 @@ namespace PayU.Wrapper.Client.Data
         public string TokenType { get; set; }
 
         /// <summary>
+        /// Gets or sets the refresh token.
+        /// </summary>
+        /// <value>
+        /// The refresh token.
+        /// </value>
+        [JsonProperty("refresh_token")]
+        public string RefreshToken { get; set; }
+
+        /// <summary>
         /// Gets or sets the expires in.
         /// </summary>
         /// <value>
