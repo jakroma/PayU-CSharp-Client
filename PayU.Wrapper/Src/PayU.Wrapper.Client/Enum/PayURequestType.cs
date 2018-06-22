@@ -6,6 +6,10 @@
     public enum PayURequestType
     {
         /// <summary>
+        /// The post a outh token
+        /// </summary>
+        PostAOuthToken,
+        /// <summary>
         /// The order
         /// </summary>
         GetOrderDetails,
