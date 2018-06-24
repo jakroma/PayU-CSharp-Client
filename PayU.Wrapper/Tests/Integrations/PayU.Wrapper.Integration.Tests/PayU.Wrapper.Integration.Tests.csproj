@@ -13,11 +13,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\bin\Tests\Integrations\IntegrationTests</OutputPath>
+    <OutputPath>..\..\..\bin\Tests\Integrations\IntegrationTests\netcoreapp2.0\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\bin\Tests\Integrations\IntegrationTests</OutputPath>
+    <OutputPath>..\..\..\bin\Tests\Integrations\IntegrationTests\netcoreapp2.0\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

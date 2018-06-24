@@ -1,7 +1,0 @@
-{
-  "ServerUrl": {
-    "Test-Url": "https://secure.payu.com",
-    "Production-Url": "https://secure.snd.payu.com"
-  },
-  "timeout": 3000
-}

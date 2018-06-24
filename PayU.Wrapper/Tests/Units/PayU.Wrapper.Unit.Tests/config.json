@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "PayU.Wrapper.Client": "*",
-    "AnotherProject": {
-      "type": "project"
-    },
-    "xunit": "2.2.0"
-  }
-}
