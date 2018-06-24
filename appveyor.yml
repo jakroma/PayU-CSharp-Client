@@ -13,8 +13,32 @@ build_script:
   - cmd: dotnet publish ./PayU.Wrapper/src/PayU.Wrapper.Client/PayU.Wrapper.Client.csproj
 after_build:
 artifacts:
- - path: '\src\bin\Debug\netcoreapp2.0\publish'
-   name: WebSite
-   type: WebDeployPackage
+ - path: '*/PayU.Wrapper\bin\src\*.nupkg'
+   name: PayU.Wrapper.Client.0.1.{build}
+   type: NuGetPackage
+   
+test:
+  # only assemblies to test
+  assemblies:
+    only:
+      - PayU.Wrapper.Unit.Tests.dll
+      - PayU.Wrapper.Integration.Tests.dll
+      - '**\*.tests.dll'
+  after_test: 
+   $OPENCOVER \
+  -target:"c:\Program Files\dotnet\dotnet.exe" \
+  -targetargs:"test -f netcoreapp2.0 -c Debug */**/*.Unit.Tests.csproj" \
+  -mergeoutput \
+  -hideskipped:File \
+  -output:coverage/coverage.xml \
+  -oldStyle \
+  -filter:"+[PayU.Wrapper*]* -[PayU.Wrapper.Unit.Tests*]*" \
+  -searchdirs:PayU.Wrapper/bin/tests/Units/PayU.Wrapper.Unit.Tests/bin/Debug/netcoreapp2.0 \
+  -register:user
+
+# generate report for MSTest testing framework:
+#    -cmd: packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" -targetargs:"/testcontainer:YOURPROJECT.Tests/bin/debug/YOURPROJECT.Tests.dll" -output:coverage.xml
+        
+    #- cmd: packages\coveralls.io.1.3.4\tools\coveralls.net.exe --opencover coverage.xml -r %COVERALLS_REPO_TOKEN%
 clone_depth: 1
 deploy: off
