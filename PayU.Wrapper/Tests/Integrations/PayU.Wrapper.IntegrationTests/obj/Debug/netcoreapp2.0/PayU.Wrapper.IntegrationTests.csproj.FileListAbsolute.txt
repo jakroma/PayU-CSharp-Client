@@ -1,4 +1,0 @@
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\Integrations\PayU.Wrapper.IntegrationTests\obj\Debug\netcoreapp2.0\PayU.Wrapper.IntegrationTests.csprojResolveAssemblyReference.cache
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\Integrations\PayU.Wrapper.IntegrationTests\obj\Debug\netcoreapp2.0\PayU.Wrapper.IntegrationTests.csproj.CoreCompileInputs.cache
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\Integrations\PayU.Wrapper.IntegrationTests\obj\Debug\netcoreapp2.0\PayU.Wrapper.IntegrationTests.AssemblyInfoInputs.cache
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Tests\Integrations\PayU.Wrapper.IntegrationTests\obj\Debug\netcoreapp2.0\PayU.Wrapper.IntegrationTests.AssemblyInfo.cs

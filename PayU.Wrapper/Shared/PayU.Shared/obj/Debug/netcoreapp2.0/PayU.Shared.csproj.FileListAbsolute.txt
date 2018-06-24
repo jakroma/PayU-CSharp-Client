@@ -1,9 +1,0 @@
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\bin\Shared\netcoreapp2.0\netcoreapp2.0\PayU.Shared.deps.json
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\bin\Shared\netcoreapp2.0\netcoreapp2.0\PayU.Shared.dll
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\bin\Shared\netcoreapp2.0\netcoreapp2.0\PayU.Shared.pdb
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Shared\PayU.Shared\obj\Debug\netcoreapp2.0\PayU.Shared.csprojResolveAssemblyReference.cache
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Shared\PayU.Shared\obj\Debug\netcoreapp2.0\PayU.Shared.csproj.CoreCompileInputs.cache
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Shared\PayU.Shared\obj\Debug\netcoreapp2.0\PayU.Shared.AssemblyInfoInputs.cache
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Shared\PayU.Shared\obj\Debug\netcoreapp2.0\PayU.Shared.AssemblyInfo.cs
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Shared\PayU.Shared\obj\Debug\netcoreapp2.0\PayU.Shared.dll
-C:\Users\Roma\Documents\GitHub\.NET-core-PayU-Wrapper\PayU.Wrapper\Shared\PayU.Shared\obj\Debug\netcoreapp2.0\PayU.Shared.pdb
