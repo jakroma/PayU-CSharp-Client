@@ -1,9 +1,11 @@
-﻿namespace PayU.Wrapper.Client.Data
+﻿using PayU.Wrapper.Client.Enum;
+
+namespace PayU.Wrapper.Client.Data
 {
     /// <summary>
     /// User Request
     /// </summary>
-    public class UserRequest
+    public class UserRequestData
     {
         /// <summary>
         /// Gets or sets the client secret.
@@ -36,5 +38,29 @@
         /// The data to request.
         /// </value>
         public DataToRequest DataToRequest { get; set; }
+
+        /// <summary>
+        /// Gets or sets the base URL.
+        /// </summary>
+        /// <value>
+        /// The base URL.
+        /// </value>
+        public string BaseUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the country code.
+        /// </summary>
+        /// <value>
+        /// The country code.
+        /// </value>
+        public CountryCode CountryCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the order status.
+        /// </summary>
+        /// <value>
+        /// The order status.
+        /// </value>
+        public OrderStatus OrderStatus { get; set; }
     }
 }

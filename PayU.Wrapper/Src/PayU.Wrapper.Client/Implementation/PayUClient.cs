@@ -13,14 +13,14 @@ namespace PayU.Wrapper.Client
     public class PayUClient : IPayUClient
     {
         /// <summary>
-        /// The token
+        /// The user
         /// </summary>
         private TokenContract _tokenContract;
 
         /// <summary>
         /// The user request
         /// </summary>
-        private UserRequest _userRequest;
+        private UserRequestData _userRequestData;
 
         /// <summary>
         /// The rest builder
@@ -28,15 +28,22 @@ namespace PayU.Wrapper.Client
         private readonly IRestBuilder _restBuilder;
 
         /// <summary>
+        /// The country code
+        /// </summary>
+        private readonly CountryCode _countryCode;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PayUClient"/> class.
         /// </summary>
         /// <param name="isProducition">if set to <c>true</c> [is producition].</param>
         /// <param name="baseUrl">base url to connect with API</param>
-        public PayUClient(UserRequest userRequest, string baseUrl)
+        public PayUClient(UserRequestData userRequestData, TokenContract tokenContract)
          {
-             _userRequest = userRequest;
-             _restBuilder = new RestBuilder(baseUrl);
-        }
+             _userRequestData = userRequestData;
+             _restBuilder = new RestBuilder(userRequestData.BaseUrl);
+             _tokenContract = tokenContract;
+             _countryCode = userRequestData.CountryCode;
+         }
 
         public async Task<T> Request<T>(PayURequestType payURequestType)
         {
@@ -44,36 +51,38 @@ namespace PayU.Wrapper.Client
             {
             switch (payURequestType)
             {
-                case PayURequestType.PostAOuthToken:
-                    return (T) Convert.ChangeType(_restBuilder.PostAOuthToken<T>(_userRequest), typeof(T));
-
                 case PayURequestType.GetOrderDetails:
-                    return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(_userRequest.DataToRequest.OrderId, _tokenContract) , typeof(T));
+                    return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(_userRequestData.DataToRequest
+                        .OrderId, _tokenContract) , typeof(T));
 
-                case PayURequestType.GetRefundOrder:
-                    return (T)Convert.ChangeType(_restBuilder.GetRefundOrder<T>(_userRequest.DataToRequest.OrderId, _tokenContract) , typeof(T));
+                case PayURequestType.PostRefundOrder:
+                    return (T)Convert.ChangeType(_restBuilder.PostRefundOrder<T>(_userRequestData.DataToRequest
+                        .OrderId, _tokenContract) , typeof(T));
 
-                //case PayURequestType.UpdateOrder:
-                //    return this;
+                case PayURequestType.PutUpdateOrder:
+                    return (T) Convert.ChangeType(_restBuilder
+                        .PutUpdateOrder<T>(_userRequestData.DataToRequest.OrderId, _userRequestData.OrderStatus, _tokenContract),
+                        typeof(T));
 
-                //case PayURequestType.CancelOrder:
+                //case PayURequestType.DeleteCancelOrder:
                 //    return this;
 
                 case PayURequestType.PostCreateNewOrder:
-                    return (T)Convert.ChangeType(_restBuilder.PostCreateNewOrder<T>(_userRequest.DataToRequest.OrderId, _tokenContract, _userRequest.DataToRequest.OrderContract), typeof(T)); ;
+                    return (T)Convert.ChangeType(_restBuilder
+                        .PostCreateNewOrder<T>(_userRequestData.DataToRequest.OrderId,
+                        _tokenContract, _userRequestData.DataToRequest.OrderContract), typeof(T));
 
-                //case PayURequestType.PayOutFromShop:
+                //case PayURequestType.PostPayOutFromShop:
                 //    return this;
 
-                //case PayURequestType.RetrevePayout:
+                //case PayURequestType.GetRetrevePayout:
                 //    return this;
 
-                //case PayURequestType.FinishRequest:
+                //case PayURequestType.FinishRequests:
                 //    return this;
 
                 default:
                     throw new InvalidRequestType();
-
             }
         }
             catch (AggregateException innerException)

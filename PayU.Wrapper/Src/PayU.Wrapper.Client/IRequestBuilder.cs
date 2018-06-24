@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Enum;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -12,15 +13,15 @@ namespace PayU.Wrapper.Client
         /// <summary>
         /// Prepares the o authentication toke.
         /// </summary>
-        /// <param name="userRequest">The user request.</param>
+        /// <param name="userRequestData">The user request.</param>
         /// <returns>Rest Response</returns>
-        Task<IRestRequest> PreparePostOAuthToke(UserRequest userRequest);
+        Task<IRestRequest> PreparePostOAuthToke(UserRequestData userRequestData);
 
         /// <summary>
         /// Prepares the get order details.
         /// </summary>
         /// <param name="orderId">The order identifier.</param>
-        /// <param name="tokenContract">The token contract.</param>
+        /// <param name="tokenContract">The user contract.</param>
         /// <returns>Rest Response</returns>
         Task<IRestRequest> PrepareGetOrderDetails(int orderId, TokenContract tokenContract);
 
@@ -28,7 +29,7 @@ namespace PayU.Wrapper.Client
         /// Prepares the post create new order.
         /// </summary>
         /// <param name="orderId">The order identifier.</param>
-        /// <param name="tokenContract">The token contract.</param>
+        /// <param name="tokenContract">The user contract.</param>
         /// <param name="orderContract">The order contract.</param>
         /// <returns>Rest Response</returns></returns>
         Task<IRestRequest> PreparePostCreateNewOrder(int orderId, TokenContract tokenContract, OrderContract orderContract);
@@ -38,16 +39,38 @@ namespace PayU.Wrapper.Client
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="orderId">The order identifier.</param>
-        /// <param name="tokenContract">The token contract.</param>
+        /// <param name="tokenContract">The user contract.</param>
         /// <returns></returns>
-        Task<IRestRequest> GetRefundOrder<T>(int orderId, TokenContract tokenContract);
+        Task<IRestRequest> PreparePostRefundOrder<T>(int orderId, TokenContract tokenContract);
 
-        Task<IRestRequest> UpdateOrder();
+        /// <summary>
+        /// Updates the order.
+        /// </summary>
+        /// <returns></returns>
+        Task<IRestRequest> PreparePutUpdateOrder(int orderId, OrderStatus orderStatus, TokenContract tokenContract);
 
-        Task<IRestRequest> CancelOrder();
+        /// <summary>
+        /// Cancels the order.
+        /// </summary>
+        /// <returns></returns>
+        Task<IRestRequest> PrepareDeleteCancelOrder();
 
-        Task<IRestRequest> PayOutFromShop();
+        /// <summary>
+        /// Pays the out from shop.
+        /// </summary>
+        /// <returns></returns>
+        Task<IRestRequest> PreparePostPayOutFromShop();
 
-        Task<IRestRequest> RetrevePayout();
+        /// <summary>
+        /// Retreves the payout.
+        /// </summary>
+        /// <returns></returns>
+        Task<IRestRequest> PrepareGetRetrevePayout();
+
+        /// <summary>
+        /// Prepares the delete token.
+        /// </summary>
+        /// <returns></returns>
+        Task<IRestRequest> PrepareDeleteToken();
     }
 }

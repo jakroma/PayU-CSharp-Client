@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Enum;
+using PayU.Wrapper.Client.Helpers;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -18,12 +20,12 @@ namespace PayU.Wrapper.Client
             _restRequest.Timeout = 3000;
         }
 
-        public async Task<IRestRequest> PreparePostOAuthToke(UserRequest userRequest)
+        public async Task<IRestRequest> PreparePostOAuthToke(UserRequestData userRequestData)
         {
             IRestRequest restRequest = new RestRequest("pl/standard/user/oauth/authorize");
             restRequest.Method = Method.POST;
             restRequest.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            restRequest.AddBody($"grant_type=client_credentials&client_id={userRequest.ClientId}&client_secret={userRequest.ClientSecret}");
+            restRequest.AddBody($"grant_type=client_credentials&client_id={userRequestData.ClientId}&client_secret={userRequestData.ClientSecret}");
 
             return restRequest;
         }
@@ -36,7 +38,6 @@ namespace PayU.Wrapper.Client
             }
 
             IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
-            restRequest.AddUrlSegment("order_id", orderId.ToString());
             restRequest.Method = Method.GET;
             restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.AccessToken}");
 
@@ -59,27 +60,45 @@ namespace PayU.Wrapper.Client
             return restRequest;
         }
 
-        public Task<IRestRequest> GetRefundOrder<T>(int orderId, TokenContract tokenContract)
+        public Task<IRestRequest> PreparePostRefundOrder<T>(int orderId, TokenContract tokenContract)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IRestRequest> UpdateOrder()
+        public async Task<IRestRequest> PreparePutUpdateOrder(int orderId, OrderStatus orderStatus, TokenContract tokenContract)
+        {
+            if (orderId == 0)
+            {
+                throw new ArgumentException();
+            }
+
+            IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
+            restRequest.Method = Method.PUT;
+            restRequest.AddUrlSegment("order_id", orderId.ToString());
+            restRequest.AddBody($"\\ 'orderId': {orderId}," +
+                                $" \\'orderStatus': {EnumToStringHelper.OrderStatusToString(orderStatus)}" +
+                                $" \\");
+            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.AccessToken}");
+
+            return restRequest;
+        }
+
+        public Task<IRestRequest> PrepareDeleteCancelOrder()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IRestRequest> CancelOrder()
+        public Task<IRestRequest> PreparePostPayOutFromShop()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IRestRequest> PayOutFromShop()
+        public Task<IRestRequest> PrepareGetRetrevePayout()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IRestRequest> RetrevePayout()
+        public Task<IRestRequest> PrepareDeleteToken()
         {
             throw new NotImplementedException();
         }

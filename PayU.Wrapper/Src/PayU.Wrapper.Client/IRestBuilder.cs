@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Enum;
 using RestSharp;
 
 namespace PayU.Wrapper.Client
@@ -10,17 +11,17 @@ namespace PayU.Wrapper.Client
     internal interface IRestBuilder
     {
         /// <summary>
-        /// Gets a outh token.
+        /// Posts a outh token.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="userRequestData">The user request data.</param>
         /// <returns></returns>
-        Task<T> PostAOuthToken<T>(UserRequest userRequest);
+        Task<TokenContract> PostAOuthToken(UserRequestData userRequestData);
 
         /// <summary>
         /// Gets the order details.
         /// </summary>
         /// <param name="orderId">The order identifier.</param>
-        /// <param name="tokenContract">The token contract.</param>
+        /// <param name="tokenContract">The user contract.</param>
         /// <returns>PayU Client (Fluent)</returns>
         Task<T> GetOrderDetails<T>(int orderId, TokenContract tokenContract);
 
@@ -29,21 +30,25 @@ namespace PayU.Wrapper.Client
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="orderId">The order identifier.</param>
-        /// <param name="tokenContract">The token contract.</param>
+        /// <param name="tokenContract">The user contract.</param>
         /// <returns></returns>
-        Task<T> GetRefundOrder<T>(int orderId, TokenContract tokenContract);
+        Task<T> PostRefundOrder<T>(int orderId, TokenContract tokenContract);
 
         /// <summary>
         /// Updates the order.
         /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="orderStatus"></param>
+        /// <param name="tokenContract"></param>
+        /// <param name="userRequestData"></param>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<PayUClient> UpdateOrder();
+        Task<T> PutUpdateOrder<T>(int orderId, OrderStatus orderStatus, TokenContract tokenContract);
 
         /// <summary>
         /// Cancels the order.
         /// </summary>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<PayUClient> CancelOrder();
+        Task<T> DeleteCancelOrderTask<T>(int orderId, TokenContract token);
 
         /// <summary>
         /// Creates the new order.
@@ -55,13 +60,13 @@ namespace PayU.Wrapper.Client
         /// Pays the out from shop.
         /// </summary>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<PayUClient> PayOutFromShop();
+        Task<T> PostPayOutFromShop<T>(TokenContract token);
 
         /// <summary>
         /// Retreves the payout.
         /// </summary>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<PayUClient> RetrevePayout();
+        Task<T> GetRetrevePayout<T>(TokenContract token);
 
         /// <summary>
         /// Finishes the request.

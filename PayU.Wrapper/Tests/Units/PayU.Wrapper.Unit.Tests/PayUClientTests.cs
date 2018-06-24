@@ -25,7 +25,7 @@ namespace PayU.Wrapper.UnitTests
         /// <summary>
         /// The user request
         /// </summary>
-        private UserRequest _userRequest;
+        private UserRequestData _userRequestData;
 
         /// <summary>
         /// The base URL

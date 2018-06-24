@@ -11,7 +11,7 @@ namespace PayU.Wrapper.IntegrationTests
     /// </summary>
     public class PayUClientITests
     {
-        private readonly string _baseUrl = "";
+        private readonly TokenContract _tokenContract = new TokenContract();
 
         [Fact(Skip= "Integration Test")]
         public void PostCreateNewOrder_WhenCall_ResultExpected()
@@ -21,14 +21,14 @@ namespace PayU.Wrapper.IntegrationTests
             {
                 //TODO
             };
-            UserRequest userRequest = new UserRequest
+            UserRequestData userRequestData = new UserRequestData
             {
                 DataToRequest = new DataToRequest
                 {
                     OrderContract = orderContract
                 }
             };
-            PayUClient payUClient = new PayUClient(userRequest, _baseUrl);
+            PayUClient payUClient = new PayUClient(userRequestData, _tokenContract);
 
             //Act
             var act = payUClient.Request<RefundContract>(PayURequestType.PostCreateNewOrder).Result;
@@ -42,8 +42,8 @@ namespace PayU.Wrapper.IntegrationTests
         {
             //Arrange
             int orderId = 0; 
-            UserRequest userRequest = new UserRequest();
-            PayUClient payUClient = new PayUClient(userRequest, _baseUrl);
+            UserRequestData userRequestData = new UserRequestData();
+            PayUClient payUClient = new PayUClient(userRequestData, _tokenContract);
 
 
             //Act
@@ -58,12 +58,12 @@ namespace PayU.Wrapper.IntegrationTests
         {
             //Arrange
             int orderId = 0;
-            UserRequest userRequest = new UserRequest();
-            PayUClient payUClient = new PayUClient(userRequest, _baseUrl);
+            UserRequestData userRequestData = new UserRequestData();
+            PayUClient payUClient = new PayUClient(userRequestData, _tokenContract);
 
 
             //Act
-            var act = payUClient.Request<RefundContract>(PayURequestType.GetRefundOrder).Result;
+            var act = payUClient.Request<RefundContract>(PayURequestType.PostRefundOrder).Result;
 
             //Assert
             Console.WriteLine(act);

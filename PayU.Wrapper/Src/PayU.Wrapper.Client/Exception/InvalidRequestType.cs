@@ -2,10 +2,6 @@
 
 namespace PayU.Wrapper.Client.Exception
 {
-    /// <summary>
-    /// Invalid Request Type Exception
-    /// </summary>
-    /// <seealso cref="System.SystemException" />
     public class InvalidRequestType : SystemException
     {
         public InvalidRequestType()

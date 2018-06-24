@@ -11,7 +11,7 @@
         public OrderContract OrderContract { get; set; }
 
         /// <summary>
-        /// Property need to GetRefundOrder & GetOrderDetails
+        /// Property need to PostRefundOrder & GetOrderDetails
         /// </summary>
         /// <value>
         /// The order identifier.

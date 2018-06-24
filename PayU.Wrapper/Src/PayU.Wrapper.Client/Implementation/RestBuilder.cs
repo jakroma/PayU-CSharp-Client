@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using PayU.Wrapper.Client.Data;
 using RestSharp;
 using PayU.Wrapper.Client;
+using PayU.Wrapper.Client.Enum;
+using PayU.Wrapper.Client.Exception;
 
 namespace PayU.Wrapper.Client
 {
@@ -30,11 +33,30 @@ namespace PayU.Wrapper.Client
             _requestBuilder = new RequestBuilder();
         }
 
-        public async Task<T> PostAOuthToken<T>(UserRequest userRequest)
+        public async Task<TokenContract> PostAOuthToken(UserRequestData userRequestData)
         {
-            IRestRequest request = await _requestBuilder.PreparePostOAuthToke(userRequest);
+            IRestRequest request = await _requestBuilder.PreparePostOAuthToke(userRequestData);
 
             var restResponse = _restClient.Execute<TokenContract>(request);
+
+            if (restResponse.StatusCode != HttpStatusCode.OK)
+            {
+                throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
+            }
+
+            return restResponse.Data;
+        }
+
+        public async Task<T> GetOrderDetails<T>(int orderId , TokenContract tokenContract)
+        {
+            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(OrderContract))
+            {
+                throw new InvalidGenericTypeException(typeof(T).FullName);
+            }
+
+            IRestRequest request = await _requestBuilder.PrepareGetOrderDetails(orderId, tokenContract);
+
+            var restResponse = _restClient.Execute<OrderContract>(request);
 
             if (restResponse.StatusCode != HttpStatusCode.OK)
             {
@@ -44,13 +66,27 @@ namespace PayU.Wrapper.Client
             return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
-        public async Task<T> GetOrderDetails<T>(int orderId , TokenContract tokenContract)
+        public Task<T> PostRefundOrder<T>(int orderId, TokenContract tokenContract)
         {
+            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            {
+                throw new InvalidGenericTypeException(typeof(T).FullName);
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<T> PutUpdateOrder<T>(int orderId, OrderStatus orderStatus, TokenContract tokenContract)
+        {
+            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            {
+                throw new InvalidGenericTypeException(typeof(T).FullName);
+            }
+
             IRestRequest request = await _requestBuilder.PrepareGetOrderDetails(orderId, tokenContract);
 
             var restResponse = _restClient.Execute<OrderContract>(request);
 
-            if (restResponse.ResponseStatus != ResponseStatus.Completed)
+            if (restResponse.StatusCode != HttpStatusCode.OK)
             {
                 throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
             }
@@ -58,42 +94,57 @@ namespace PayU.Wrapper.Client
             return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
-        public Task<T> GetRefundOrder<T>(int orderId, TokenContract tokenContract)
+        public Task<T> DeleteCancelOrderTask<T>(int orderId, TokenContract token)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<PayUClient> UpdateOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PayUClient> CancelOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-         public async Task<T> PostCreateNewOrder<T>(int orderId, TokenContract tokenContract, OrderContract orderContract)
-        {
-            IRestRequest request = await _requestBuilder.PreparePostCreateNewOrder(orderId, tokenContract, orderContract);
-
-            var restResponse = _restClient.Execute<OrderContract>(request);
-
-            if (restResponse.ResponseStatus != ResponseStatus.Completed)
+            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
             {
-                throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
+                throw new InvalidGenericTypeException(typeof(T).FullName);
             }
-
-            return (T)Convert.ChangeType(restResponse, typeof(T));
-        }
-
-        public Task<PayUClient> PayOutFromShop()
-        {
             throw new NotImplementedException();
         }
 
-        public Task<PayUClient> RetrevePayout()
+        public async Task<T> PostCreateNewOrder<T>(int orderId, TokenContract tokenContract, OrderContract orderContract)
+         {
+             try
+             {
+                 if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+                 {
+                     throw new InvalidGenericTypeException(typeof(T).FullName);
+                 }
+
+                 IRestRequest request = await _requestBuilder.PreparePostCreateNewOrder(orderId, tokenContract, orderContract);
+
+                 var restResponse = _restClient.Execute<OrderContract>(request);
+
+                 if (restResponse.StatusCode != HttpStatusCode.Found && restResponse.StatusCode != HttpStatusCode.Created)
+                 {
+                     throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
+                 }
+
+                 return (T)Convert.ChangeType(restResponse, typeof(T));
+            }
+             catch (AggregateException exception)
+             {
+                 Console.WriteLine(exception.InnerExceptions.First());
+                 throw new AggregateException().InnerException;
+             }
+        }
+
+        public Task<T> PostPayOutFromShop<T>(TokenContract token)
         {
+            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            {
+                throw new InvalidGenericTypeException(typeof(T).FullName);
+            }
+            throw new NotImplementedException();
+        }
+
+        public Task<T> GetRetrevePayout<T>(TokenContract token)
+        {
+            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            {
+                throw new InvalidGenericTypeException(typeof(T).FullName);
+            }
             throw new NotImplementedException();
         }
 
