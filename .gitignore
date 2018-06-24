@@ -2,6 +2,4 @@
 *.ide
 *.ide-shm
 *.ide-wal
-/PayU.Wrapper/**/bin/
-/PayU.Wrapper/**/obj/
 **/PayU.Wrapper/test
