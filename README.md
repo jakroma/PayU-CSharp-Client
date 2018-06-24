@@ -1,4 +1,6 @@
 ﻿# PayU Wrapper
+[![Build status](https://ci.appveyor.com/api/projects/status/g0di4mjvy5wl7nl9?svg=true)](https://ci.appveyor.com/project/romabliski/net-core-payu-wrapper)
+
 | Client wrapper (SDK) to implement request for your application
 # Architecture
 ![alt text][logo]
