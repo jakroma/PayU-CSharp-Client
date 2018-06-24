@@ -1,5 +1,4 @@
 ﻿using System;
-using Moq;
 using NSubstitute;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
