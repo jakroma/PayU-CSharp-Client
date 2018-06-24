@@ -2,14 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\bin\src\netcoreapp2.0\</OutputPath>
+    <OutputPath>..\..\bin\src\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\bin\src\netcoreapp2.0\</OutputPath>
+    <OutputPath>..\..\bin\src\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

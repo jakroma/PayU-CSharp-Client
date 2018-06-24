@@ -20,6 +20,15 @@ UserRequest userRequest = new request {
  ## Example
 
    ```csharp
-    PayUClient payUClient = new PayUClient(isProduction, requestType, userRequest) 
+    PayUClient payUClient = new PayUToken().GetPayUToken();
+    var result = payUClient.Request<T>().Request<T>
+ ```
+
+ ## Exception
+
+ ```csharp
+
+
+
  ```
 
