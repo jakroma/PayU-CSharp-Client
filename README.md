@@ -3,12 +3,12 @@
 
 | Client wrapper (SDK) to implement request for your application
 # Table of Contents 
-1. [Architecture](#Architecture)
+1. [Architecture](#architecture)
 2. [Example of usage](#Example-of-usage) 
-    - [Tip UserRequestData](##Tip-UserRequestData) 
-    - [Example of multiple usage](##Example-of-multiple-usage) 
-    - [Example of single usage](##Example-of-single-usage)
-3. [Exception](#Exception)
+    - [Tip UserRequestData](#tip-userrequestdata) 
+    - [Example of multiple usage](#example-of-multiple-usage) 
+    - [Example of single usage](#example-of-single-usage)
+3. [Exception](#exception)
 # Architecture
 ![alt text][logo]
 
@@ -38,8 +38,8 @@ UserRequest userRequest = new request {
     PayUClient payUClient = new PayUToken(false,userRequestData).GetPayUToken();
 
     var result = payUClient.Request<PayUClient>(PayURequestType.PostCreateNewOrder)
-    .Request<PayUClient>(PostCreateNewOrder.PostCreateNewOrder)
-    .Request<Response>(PostCreateNewOrder.FinishRequests);
+    .Request<PayUClient>(PayURequestType.GetOrderDetails)
+    .Request<Response>(PayURequestType.FinishRequests);
  ```
 
   ## Example of single usage
@@ -50,7 +50,7 @@ UserRequest userRequest = new request {
     PayUClient payUClient = new PayUToken(false,userRequestData).GetPayUToken();
 
     OrderContract result = payUClient
-    .Request<GetOrderDetails>(PostCreateNewOrder.PostCreateNewOrder);
+    .Request<GetOrderDetails>(PayURequestType.PostCreateNewOrder);
  ```
 
  # Exception

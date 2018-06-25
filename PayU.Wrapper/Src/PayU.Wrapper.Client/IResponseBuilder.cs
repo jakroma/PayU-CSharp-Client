@@ -8,7 +8,7 @@ namespace PayU.Wrapper.Client
     /// <summary>
     /// 
     /// </summary>
-    internal interface IResponseBuilder
+    public interface IResponseBuilder
     {
         /// <summary>
         /// Posts a outh token.

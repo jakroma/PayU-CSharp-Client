@@ -24,11 +24,6 @@ namespace PayU.Wrapper.Client
         private readonly RequestBuilder _requestBuilder;
 
         /// <summary>
-        /// The rest client builder
-        /// </summary>
-        private readonly RestClientBuilder _restClientBuilder;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ResponseBuilder"/> class.
         /// </summary>
         /// <param name="baseUrl"></param>
@@ -36,7 +31,6 @@ namespace PayU.Wrapper.Client
         {
             _restClient = new RestClient(baseUrl);
             _requestBuilder = new RequestBuilder();
-            _restClientBuilder = new RestClientBuilder(baseUrl);
         }
 
         public async Task<TokenContract> PostAOuthToken(UserRequestData userRequestData)
@@ -62,7 +56,7 @@ namespace PayU.Wrapper.Client
 
             IRestRequest request = await _requestBuilder.PrepareGetOrderDetails(orderId, tokenContract);
 
-            var restResponse = _restClientBuilder.Execute(request);
+            var restResponse = _restClient.Execute(request);
 
             if (restResponse.StatusCode != HttpStatusCode.OK)
             {
@@ -90,7 +84,7 @@ namespace PayU.Wrapper.Client
 
             IRestRequest request = await _requestBuilder.PrepareGetOrderDetails(orderId, tokenContract);
 
-            var restResponse = _restClient.Execute<OrderContract>(request);
+            var restResponse = _restClient.Execute(request);
 
             if (restResponse.StatusCode != HttpStatusCode.OK)
             {
@@ -120,7 +114,7 @@ namespace PayU.Wrapper.Client
 
                  IRestRequest request = await _requestBuilder.PreparePostCreateNewOrder(orderId, tokenContract, orderContract);
 
-                 var restResponse = _restClient.Execute<OrderContract>(request);
+                 var restResponse = _restClient.Execute(request);
 
                  if (restResponse.StatusCode != HttpStatusCode.Found && restResponse.StatusCode != HttpStatusCode.Created)
                  {
