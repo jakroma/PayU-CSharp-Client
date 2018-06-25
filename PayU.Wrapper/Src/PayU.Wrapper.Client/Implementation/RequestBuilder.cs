@@ -12,14 +12,6 @@ namespace PayU.Wrapper.Client
     /// </summary>
     public sealed class RequestBuilder : IRequestBuilder
     {
-        private readonly IRestRequest _restRequest;
-
-        public RequestBuilder()
-        {
-            _restRequest = new RestRequest();
-            _restRequest.Timeout = 3000;
-        }
-
         public async Task<IRestRequest> PreparePostOAuthToke(UserRequestData userRequestData)
         {
             IRestRequest restRequest = new RestRequest("pl/standard/user/oauth/authorize");

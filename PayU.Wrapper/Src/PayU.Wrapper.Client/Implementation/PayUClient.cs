@@ -25,7 +25,7 @@ namespace PayU.Wrapper.Client
         /// <summary>
         /// The rest builder
         /// </summary>
-        private readonly IRestBuilder _restBuilder;
+        private readonly IResponseBuilder _responseBuilder;
 
         /// <summary>
         /// The country code
@@ -40,7 +40,7 @@ namespace PayU.Wrapper.Client
         public PayUClient(UserRequestData userRequestData, TokenContract tokenContract)
          {
              _userRequestData = userRequestData;
-             _restBuilder = new RestBuilder(userRequestData.BaseUrl);
+             _responseBuilder = new ResponseBuilder(userRequestData.BaseUrl);
              _tokenContract = tokenContract;
              _countryCode = userRequestData.CountryCode;
          }
@@ -52,15 +52,15 @@ namespace PayU.Wrapper.Client
             switch (payURequestType)
             {
                 case PayURequestType.GetOrderDetails:
-                    return (T)Convert.ChangeType(_restBuilder.GetOrderDetails<T>(_userRequestData.DataToRequest
+                    return (T)Convert.ChangeType(_responseBuilder.GetOrderDetails<T>(_userRequestData.DataToRequest
                         .OrderId, _tokenContract) , typeof(T));
 
                 case PayURequestType.PostRefundOrder:
-                    return (T)Convert.ChangeType(_restBuilder.PostRefundOrder<T>(_userRequestData.DataToRequest
+                    return (T)Convert.ChangeType(_responseBuilder.PostRefundOrder<T>(_userRequestData.DataToRequest
                         .OrderId, _tokenContract) , typeof(T));
 
                 case PayURequestType.PutUpdateOrder:
-                    return (T) Convert.ChangeType(_restBuilder
+                    return (T) Convert.ChangeType(_responseBuilder
                         .PutUpdateOrder<T>(_userRequestData.DataToRequest.OrderId, _userRequestData.OrderStatus, _tokenContract),
                         typeof(T));
 
@@ -68,7 +68,7 @@ namespace PayU.Wrapper.Client
                 //    return this;
 
                 case PayURequestType.PostCreateNewOrder:
-                    return (T)Convert.ChangeType(_restBuilder
+                    return (T)Convert.ChangeType(_responseBuilder
                         .PostCreateNewOrder<T>(_userRequestData.DataToRequest.OrderId,
                         _tokenContract, _userRequestData.DataToRequest.OrderContract), typeof(T));
 

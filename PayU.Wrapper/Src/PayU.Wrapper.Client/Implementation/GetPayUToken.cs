@@ -25,7 +25,7 @@ namespace PayU.Wrapper.Client
         /// <summary>
         /// The rest builder
         /// </summary>
-        private readonly RestBuilder _restBuilder;
+        private readonly ResponseBuilder _responseBuilder;
 
         /// <summary>
         /// Enum needed to money counter
@@ -49,7 +49,7 @@ namespace PayU.Wrapper.Client
 
         public TokenContract GetToken()
         {
-            TokenContract tokenContract = new RestBuilder(_userRequestData.BaseUrl)
+            TokenContract tokenContract = new ResponseBuilder(_userRequestData.BaseUrl)
                 .PostAOuthToken(_userRequestData)
                 .Result;
 

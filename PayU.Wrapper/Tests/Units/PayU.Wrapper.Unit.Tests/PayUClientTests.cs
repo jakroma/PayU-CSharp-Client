@@ -1,13 +1,5 @@
-using System;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using NSubstitute;
-using NSubstitute.Core;
-using NSubstitute.ExceptionExtensions;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
-using PayU.Wrapper.Client.Enum;
-using PayU.Wrapper.Client.Exception;
 using Xunit;
 
 namespace PayU.Wrapper.UnitTests

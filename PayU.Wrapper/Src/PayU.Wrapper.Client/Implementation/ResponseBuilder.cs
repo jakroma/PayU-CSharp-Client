@@ -11,12 +11,12 @@ using PayU.Wrapper.Client.Exception;
 
 namespace PayU.Wrapper.Client
 {
-    public class RestBuilder : IRestBuilder
+    public class ResponseBuilder : IResponseBuilder
     {
         /// <summary>
         /// The rest client
         /// </summary>
-        private readonly RestClient _restClient;
+        private readonly IRestClient _restClient;
 
         /// <summary>
         /// The request builder
@@ -24,13 +24,19 @@ namespace PayU.Wrapper.Client
         private readonly RequestBuilder _requestBuilder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RestBuilder"/> class.
+        /// The rest client builder
+        /// </summary>
+        private readonly RestClientBuilder _restClientBuilder;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResponseBuilder"/> class.
         /// </summary>
         /// <param name="baseUrl"></param>
-        public RestBuilder(string baseUrl)
+        public ResponseBuilder(string baseUrl)
         {
             _restClient = new RestClient(baseUrl);
             _requestBuilder = new RequestBuilder();
+            _restClientBuilder = new RestClientBuilder(baseUrl);
         }
 
         public async Task<TokenContract> PostAOuthToken(UserRequestData userRequestData)
@@ -49,14 +55,14 @@ namespace PayU.Wrapper.Client
 
         public async Task<T> GetOrderDetails<T>(int orderId , TokenContract tokenContract)
         {
-            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(OrderContract))
+            if (typeof(T).FullName != typeof(PayUClient).FullName && typeof(T).FullName != typeof(OrderContract).FullName)
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
 
             IRestRequest request = await _requestBuilder.PrepareGetOrderDetails(orderId, tokenContract);
 
-            var restResponse = _restClient.Execute<OrderContract>(request);
+            var restResponse = _restClientBuilder.Execute(request);
 
             if (restResponse.StatusCode != HttpStatusCode.OK)
             {
@@ -68,7 +74,7 @@ namespace PayU.Wrapper.Client
 
         public Task<T> PostRefundOrder<T>(int orderId, TokenContract tokenContract)
         {
-            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
@@ -77,7 +83,7 @@ namespace PayU.Wrapper.Client
 
         public async Task<T> PutUpdateOrder<T>(int orderId, OrderStatus orderStatus, TokenContract tokenContract)
         {
-            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
@@ -96,7 +102,7 @@ namespace PayU.Wrapper.Client
 
         public Task<T> DeleteCancelOrderTask<T>(int orderId, TokenContract token)
         {
-            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
@@ -107,7 +113,7 @@ namespace PayU.Wrapper.Client
          {
              try
              {
-                 if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+                 if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
                  {
                      throw new InvalidGenericTypeException(typeof(T).FullName);
                  }
@@ -132,7 +138,7 @@ namespace PayU.Wrapper.Client
 
         public Task<T> PostPayOutFromShop<T>(TokenContract token)
         {
-            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
@@ -141,7 +147,7 @@ namespace PayU.Wrapper.Client
 
         public Task<T> GetRetrevePayout<T>(TokenContract token)
         {
-            if (typeof(T) != typeof(PayUClient) || typeof(T) != typeof(IRestResponse))
+            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
