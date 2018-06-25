@@ -12,7 +12,7 @@
 # Architecture
 ![alt text][logo]
 
-[logo]: https://raw.githubusercontent.com/romabliski/.NET-core-PayU-Wrapper/master/Architecture/PayUArchitecture.png "Architecture Logo"
+[logo]: https://image.ibb.co/b4ai5T/Pay_UArchitecture.png "Architecture Logo"
 
 # Example of usage
 ## Tip UserRequestData
