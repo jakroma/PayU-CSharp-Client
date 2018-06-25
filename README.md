@@ -15,17 +15,7 @@
 [logo]: https://raw.githubusercontent.com/romabliski/.NET-core-PayU-Wrapper/master/Architecture/PayUArchitecture.png "Architecture Logo"
 
 # Example of usage
-## Prepare parameter for constructor
-   ```csharp
-bool isProduction;
-UserRequest userRequest = new request {
-    //TODO
-}         
- var requestType = RequestType.\\Choose type from enum
- ```
-
 ## Tip UserRequestData
-
    ```csharp
 //TODO
  ```
