@@ -21,7 +21,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The client identifier.
         /// </value>
-        public int ClientId { get; set; }
+        public string ClientId { get; set; }
 
         /// <summary>
         /// Gets or sets the m d5 key.

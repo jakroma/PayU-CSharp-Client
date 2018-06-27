@@ -13,7 +13,7 @@ using Xunit;
 
 namespace PayU.Wrapper.UnitTests
 {
-    public class RestBuilderTests
+    public class ResponseBuilderTests
     {
         private readonly IRestClient _restClient;
 
@@ -23,7 +23,7 @@ namespace PayU.Wrapper.UnitTests
         /// </summary>
         private readonly IRequestBuilder _requesetBuilder;
 
-        public RestBuilderTests()
+        public ResponseBuilderTests()
         {
             _restClient = Substitute.For<RestClient>("https://secure.snd.payu.com");
             _responseBuilder = new ResponseBuilder("https://secure.snd.payu.com");
@@ -34,7 +34,7 @@ namespace PayU.Wrapper.UnitTests
         public async void GetOrderDetails_WhenCall_InvalidGenericTypeException()
         {
             //Arrange
-            int orderId = Arg.Any<int>();
+            string orderId = Arg.Any<string>();
             TokenContract tokenContract = Substitute.For<TokenContract>();
 
             //Act & Assert
@@ -46,7 +46,7 @@ namespace PayU.Wrapper.UnitTests
         public async void PostRefundOrder_WhenCall_InvalidGenericTypeException()
         {
             //Arrange
-            int orderId = Arg.Any<int>();
+            string orderId = Arg.Any<string>();
             TokenContract tokenContract = Substitute.For<TokenContract>();
 
             //Act & Assert
@@ -59,7 +59,7 @@ namespace PayU.Wrapper.UnitTests
         public async void PutUpdateOrder_WhenCall_InvalidGenericTypeException()
         {
             //Arrange
-            int orderId = Arg.Any<int>();
+            string orderId = Arg.Any<string>();
             OrderStatus order = Arg.Any<OrderStatus>();
             TokenContract tokenContract = Substitute.For<TokenContract>();
 
@@ -72,7 +72,7 @@ namespace PayU.Wrapper.UnitTests
         public async void DeleteCancelOrderTask_WhenCall_InvalidGenericTypeException()
         {
             //Arrange
-            int orderId = Arg.Any<int>();
+            string orderId = Arg.Any<string>();
             TokenContract tokenContract = Substitute.For<TokenContract>();
 
             //Act & Assert
@@ -84,7 +84,7 @@ namespace PayU.Wrapper.UnitTests
         public async void PostCreateNewOrder_WhenCall_InvalidGenericTypeException()
         {
             //Arrange
-            int orderId = Arg.Any<int>();
+            string orderId = Arg.Any<string>();
             OrderContract order = Arg.Any<OrderContract>();
             TokenContract tokenContract = Substitute.For<TokenContract>();
 
@@ -113,7 +113,7 @@ namespace PayU.Wrapper.UnitTests
         public async void GetOrderDetails_WhenCall_HttpRequestException()
         {
             //Arrange
-            int orderId = 444;
+            string orderId = "444";
             TokenContract tokenContract = new TokenContract();
 
             //Act
@@ -129,7 +129,7 @@ namespace PayU.Wrapper.UnitTests
         public async void PostRefundOrder_WhenCall_HttpRequestException()
         {
             //Arrange
-            int orderId = 444;
+            string orderId = "444";
             TokenContract tokenContract = new TokenContract();
 
             //Act
@@ -146,7 +146,7 @@ namespace PayU.Wrapper.UnitTests
         public async void PutUpdateOrder_WhenCall_HttpRequestException()
         {
             //Arrange
-            int orderId = 444;
+            string orderId = "444";
             TokenContract tokenContract = new TokenContract();
 
             //Act
@@ -162,7 +162,7 @@ namespace PayU.Wrapper.UnitTests
         public async void DeleteCancelOrderTask_WhenCall_HttpRequestException()
         {
             //Arrange
-            int orderId = 444;
+            string orderId = "444";
             TokenContract tokenContract = new TokenContract();
 
             //Act
@@ -178,7 +178,7 @@ namespace PayU.Wrapper.UnitTests
         public async void PostCreateNewOrder_WhenCall_HttpRequestException()
         {
             //Arrange
-            int orderId = 444;
+            string orderId = "444";
             OrderContract orderContract = new OrderContract();
             TokenContract tokenContract = new TokenContract();
 

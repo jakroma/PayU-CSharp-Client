@@ -1,13 +1,14 @@
-﻿using PayU.Wrapper.Client.Data;
+﻿using System.Threading.Tasks;
+using PayU.Wrapper.Client.Data;
 
 namespace PayU.Wrapper.Client
 {
     public interface IGetPayUToken
     {
         /// <summary>
-        /// Gets the pay u client.
+        /// Gets the token.
         /// </summary>
-        /// <returns>PayUClient Class.</returns>
-        TokenContract GetToken();
+        /// <returns>PayUClient Object.</returns>
+        Task<TokenContract> GetToken();
     }
 }

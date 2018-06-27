@@ -2,33 +2,105 @@
 using NSubstitute;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
-using RestSharp;
 using Xunit;
 
 namespace PayU.Wrapper.UnitTests
 {
     public class RequestBuilderTests
     {
-        [Fact]
-        public void PrepareRequestPostOrders_WhenCall_RequestExpected()
-        {
-            //Arrange
-            
-            //Act
+        private readonly IRequestBuilder _requestBuilder;
 
-            //Assert
+        public RequestBuilderTests()
+        {
+            _requestBuilder = new RequestBuilder();
         }
 
-        [Fact]
-        public void PrepareRequestPostOrders_WhenCall_NullArgumentException()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PrepareRequestGetOrderDetails_WhenCall_NullArgumentException(string orderId)
         {
-            //Arrange
-            TokenContract token = Substitute.For<TokenContract>();
-            int orderId = 0;
-            RequestBuilder requestBuilder = Substitute.For<RequestBuilder>();
+            // Arrange
+            TokenContract fakeToken = Substitute.For<TokenContract>();
+            OrderContract fakeOrder = Substitute.For<OrderContract>();
 
-            //Act & Assert
-            //Assert.Throws<ArgumentException>(() => new AggregateException().InnerExceptions.GetType() == requestBuilder.PreparePostCreateNewOrder(orderId, token, ));
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
+                .PrepareGetOrderDetails(orderId, fakeToken));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PreparePostCreateNewOrder_WhenCall_NullArgumentException(string orderId)
+        {
+            // Arrange
+            TokenContract fakeToken = Substitute.For<TokenContract>();
+            OrderContract fakeOrder = Substitute.For<OrderContract>();
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
+                .PreparePostCreateNewOrder(orderId, fakeToken, fakeOrder));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PreparePostRefundOrder_WhenCall_NullArgumentException(string orderId)
+        {
+            // Arrange
+            TokenContract fakeToken = Substitute.For<TokenContract>();
+            OrderContract fakeOrder = Substitute.For<OrderContract>();
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
+                .PreparePostCreateNewOrder(orderId, fakeToken, fakeOrder));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PreparePutUpdateOrder_WhenCall_NullArgumentException(string orderId)
+        {
+            // Arrange
+            TokenContract fakeToken = Substitute.For<TokenContract>();
+            OrderContract fakeOrder = Substitute.For<OrderContract>();
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
+                .PreparePostCreateNewOrder(orderId, fakeToken, fakeOrder));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PrepareDeleteCancelOrder_WhenCall_NullArgumentException(string orderId)
+        {
+            // TODO
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PreparePostPayOutFromShop_WhenCall_NullArgumentException(string orderId)
+        {
+            // TODO
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PrepareGetRetrevePayout_WhenCall_NullArgumentException(string orderId)
+        {
+            // TODO
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public async void PrepareDeleteToken_WhenCall_NullArgumentException(string orderId)
+        {
+            // TODO
         }
     }
 }

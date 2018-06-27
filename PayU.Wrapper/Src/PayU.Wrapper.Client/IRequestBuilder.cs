@@ -23,7 +23,7 @@ namespace PayU.Wrapper.Client
         /// <param name="orderId">The order identifier.</param>
         /// <param name="tokenContract">The user contract.</param>
         /// <returns>Rest Response</returns>
-        Task<IRestRequest> PrepareGetOrderDetails(int orderId, TokenContract tokenContract);
+        Task<IRestRequest> PrepareGetOrderDetails(string orderId, TokenContract tokenContract);
 
         /// <summary>
         /// Prepares the post create new order.
@@ -32,7 +32,7 @@ namespace PayU.Wrapper.Client
         /// <param name="tokenContract">The user contract.</param>
         /// <param name="orderContract">The order contract.</param>
         /// <returns>Rest Response</returns></returns>
-        Task<IRestRequest> PreparePostCreateNewOrder(int orderId, TokenContract tokenContract, OrderContract orderContract);
+        Task<IRestRequest> PreparePostCreateNewOrder(string orderId, TokenContract tokenContract, OrderContract orderContract);
 
         /// <summary>
         /// Gets the refund order.
@@ -41,13 +41,13 @@ namespace PayU.Wrapper.Client
         /// <param name="orderId">The order identifier.</param>
         /// <param name="tokenContract">The user contract.</param>
         /// <returns></returns>
-        Task<IRestRequest> PreparePostRefundOrder<T>(int orderId, TokenContract tokenContract);
+        Task<IRestRequest> PreparePostRefundOrder<T>(string orderId, TokenContract tokenContract);
 
         /// <summary>
         /// Updates the order.
         /// </summary>
         /// <returns></returns>
-        Task<IRestRequest> PreparePutUpdateOrder(int orderId, OrderStatus orderStatus, TokenContract tokenContract);
+        Task<IRestRequest> PreparePutUpdateOrder(string orderId, OrderStatus orderStatus, TokenContract tokenContract);
 
         /// <summary>
         /// Cancels the order.
