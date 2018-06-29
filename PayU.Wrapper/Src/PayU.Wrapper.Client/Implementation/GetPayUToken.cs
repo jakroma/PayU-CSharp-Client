@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using PayU.Wrapper.Client.Data;
 using PayU.Wrapper.Client.Enum;
 using PayU.Wrapper.Client.Exception;
@@ -39,7 +40,7 @@ namespace PayU.Wrapper.Client
         /// <param name="userRequestData">The user request.</param>
         public GetPayUToken(bool isProduction, UserRequestData userRequestData)
         {
-            if(userRequestData.ClientId == 0 || string.IsNullOrEmpty(userRequestData.ClientSecret))
+            if(string.IsNullOrEmpty(userRequestData.ClientId) || string.IsNullOrEmpty(userRequestData.ClientSecret))
             {
                 throw new CreateTokenException();
             }
@@ -47,13 +48,12 @@ namespace PayU.Wrapper.Client
             _userRequestData = userRequestData;
         }
 
-        public TokenContract GetToken()
+        public async Task<TokenContract> GetToken()
         {
-            TokenContract tokenContract = new ResponseBuilder(_userRequestData.BaseUrl)
-                .PostAOuthToken(_userRequestData)
-                .Result;
+            TokenContract token = await new ResponseBuilder(_userRequestData.BaseUrl)
+                .PostAOuthToken(_userRequestData);
 
-            return tokenContract;
+            return token;
         }
     }
 }

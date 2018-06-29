@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using PayU.Wrapper.Client.Data;
 using RestSharp;
 using PayU.Wrapper.Client;
@@ -21,7 +23,18 @@ namespace PayU.Wrapper.Client
         /// <summary>
         /// The request builder
         /// </summary>
-        private readonly RequestBuilder _requestBuilder;
+        private readonly IRequestBuilder _requestBuilder;
+
+        /// <summary>
+        /// FOR TEST ONLY
+        /// </summary>
+        /// <param name="restClient"></param>
+        /// <param name="requestBuilder"></param>
+        public ResponseBuilder(IRestClient restClient, IRequestBuilder requestBuilder)
+        {
+            this._restClient = restClient;
+            this._requestBuilder = requestBuilder;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseBuilder"/> class.
@@ -37,17 +50,17 @@ namespace PayU.Wrapper.Client
         {
             IRestRequest request = await _requestBuilder.PreparePostOAuthToke(userRequestData);
 
-            var restResponse = _restClient.Execute<TokenContract>(request);
+            var restResponse = _restClient.Execute(request);
 
             if (restResponse.StatusCode != HttpStatusCode.OK)
             {
                 throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
             }
 
-            return restResponse.Data;
+            return JsonConvert.DeserializeObject<TokenContract>(restResponse.Content);
         }
 
-        public async Task<T> GetOrderDetails<T>(int orderId , TokenContract tokenContract)
+        public async Task<T> GetOrderDetails<T>(string orderId , TokenContract tokenContract)
         {
             if (typeof(T).FullName != typeof(PayUClient).FullName && typeof(T).FullName != typeof(OrderContract).FullName)
             {
@@ -66,7 +79,7 @@ namespace PayU.Wrapper.Client
             return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
-        public Task<T> PostRefundOrder<T>(int orderId, TokenContract tokenContract)
+        public Task<T> PostRefundOrder<T>(string orderId, TokenContract tokenContract)
         {
             if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
@@ -75,7 +88,7 @@ namespace PayU.Wrapper.Client
             throw new NotImplementedException();
         }
 
-        public async Task<T> PutUpdateOrder<T>(int orderId, OrderStatus orderStatus, TokenContract tokenContract)
+        public async Task<T> PutUpdateOrder<T>(string orderId, OrderStatus orderStatus, TokenContract tokenContract)
         {
             if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
@@ -94,7 +107,7 @@ namespace PayU.Wrapper.Client
             return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
-        public Task<T> DeleteCancelOrderTask<T>(int orderId, TokenContract token)
+        public Task<T> DeleteCancelOrderTask<T>(string orderId, TokenContract token)
         {
             if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
@@ -103,7 +116,7 @@ namespace PayU.Wrapper.Client
             throw new NotImplementedException();
         }
 
-        public async Task<T> PostCreateNewOrder<T>(int orderId, TokenContract tokenContract, OrderContract orderContract)
+        public async Task<T> PostCreateNewOrder<T>(string orderId, TokenContract tokenContract, OrderContract orderContract)
          {
              try
              {

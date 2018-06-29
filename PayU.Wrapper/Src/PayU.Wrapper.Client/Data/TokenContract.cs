@@ -5,7 +5,6 @@ namespace PayU.Wrapper.Client.Data
     /// <summary>
     /// Token Contract Class
     /// </summary>
-    [JsonObject]
     public class TokenContract
     {
         /// <summary>
@@ -14,8 +13,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The token.
         /// </value>
-        [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
+        public string access_token { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the token.
@@ -23,17 +21,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The type of the token.
         /// </value>
-        [JsonProperty("token_type")]
-        public string TokenType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the refresh token.
-        /// </summary>
-        /// <value>
-        /// The refresh token.
-        /// </value>
-        [JsonProperty("refresh_token")]
-        public string RefreshToken { get; set; }
+        public string token_type { get; set; }
 
         /// <summary>
         /// Gets or sets the expires in.
@@ -41,8 +29,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The expires in.
         /// </value>
-        [JsonProperty("expires_in")]
-        public int ExpireIn { get; set; }
+        public int expires_in { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the grant.
@@ -50,7 +37,6 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The type of the grant.
         /// </value>
-        [JsonProperty("grant_type")]
-        public string GrantType { get; set; }
+        public string grant_type { get; set; }
     }
 }

@@ -639,6 +639,21 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "Shouldly/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "NETStandard.Library": "1.6.1",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Shouldly.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Shouldly.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -2647,6 +2662,18 @@
         "lib/netstandard1.0/_._",
         "runtime.native.system.4.3.0.nupkg.sha512",
         "runtime.native.system.nuspec"
+      ]
+    },
+    "Shouldly/3.0.0": {
+      "sha512": "RdO8dM2d0Z/9afpYmVYXIkCEtuVjlr9Oh1jLOprQNmEKLiPlZzU1PMzxfpDdyvCuM+tWJrrRY0HBh89p2E6e3A==",
+      "type": "package",
+      "path": "shouldly/3.0.0",
+      "files": [
+        "lib/net40/Shouldly.dll",
+        "lib/net451/Shouldly.dll",
+        "lib/netstandard1.3/Shouldly.dll",
+        "shouldly.3.0.0.nupkg.sha512",
+        "shouldly.nuspec"
       ]
     },
     "System.AppContext/4.1.0": {
@@ -5762,6 +5789,7 @@
       "Microsoft.NETCore.App >= 2.0.0",
       "NSubstitute >= 3.1.0",
       "PayU.Wrapper.Client >= 1.0.0",
+      "Shouldly >= 3.0.0",
       "xunit >= 2.3.1",
       "xunit.runner.visualstudio >= 2.3.1"
     ]
@@ -5830,6 +5858,10 @@
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "15.7.2"
+          },
+          "Shouldly": {
+            "target": "Package",
+            "version": "3.0.0"
           }
         },
         "imports": [

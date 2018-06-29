@@ -33,6 +33,21 @@ namespace PayU.Wrapper.Client
         private readonly CountryCode _countryCode;
 
         /// <summary>
+        /// FOR TEST ONLY!!!
+        /// </summary>
+        /// <param name="userRequestData">The user request data.</param>
+        /// <param name="tokenContract">The token contract.</param>
+        /// <param name="countryCode">The country code.</param>
+        /// <param name="responseBuilder">The response builder.</param>
+        public PayUClient(UserRequestData userRequestData, TokenContract tokenContract, CountryCode countryCode, ResponseBuilder responseBuilder)
+        {
+            this._userRequestData = userRequestData;
+            this._responseBuilder = responseBuilder;
+            this._tokenContract = tokenContract;
+            this._countryCode = countryCode;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PayUClient"/> class.
         /// </summary>
         /// <param name="isProducition">if set to <c>true</c> [is producition].</param>

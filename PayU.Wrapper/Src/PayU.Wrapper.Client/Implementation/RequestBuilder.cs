@@ -14,31 +14,41 @@ namespace PayU.Wrapper.Client
     {
         public async Task<IRestRequest> PreparePostOAuthToke(UserRequestData userRequestData)
         {
+            if (string.IsNullOrEmpty(userRequestData.ClientId) || string.IsNullOrEmpty(userRequestData.ClientSecret))
+            {
+                throw new ArgumentException();
+            }
+
             IRestRequest restRequest = new RestRequest("pl/standard/user/oauth/authorize");
             restRequest.Method = Method.POST;
+            restRequest.Timeout = 3000;
+            restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            restRequest.AddBody($"grant_type=client_credentials&client_id={userRequestData.ClientId}&client_secret={userRequestData.ClientSecret}");
+            restRequest.AddParameter("application/json",
+                $"grant_type=client_credentials&client_id={userRequestData.ClientId}&client_secret={userRequestData.ClientSecret}",
+                ParameterType.RequestBody);
 
             return restRequest;
         }
 
-        public async Task<IRestRequest> PrepareGetOrderDetails(int orderId, TokenContract tokenContract)
+        public async Task<IRestRequest> PrepareGetOrderDetails(string orderId, TokenContract tokenContract)
         {
-            if (orderId == 0)
+            if (string.IsNullOrEmpty(orderId))
             {
                 throw new ArgumentException();
             }
 
             IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
             restRequest.Method = Method.GET;
-            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.AccessToken}");
+            restRequest.Timeout = 3000;
+            restRequest.AddHeader("Authorization", $"{tokenContract.token_type} {tokenContract.access_token}");
 
             return restRequest;
         }
 
-        public async Task<IRestRequest> PreparePostCreateNewOrder(int orderId, TokenContract tokenContract, OrderContract orderContract)
+        public async Task<IRestRequest> PreparePostCreateNewOrder(string orderId, TokenContract tokenContract, OrderContract orderContract)
         {
-            if (orderId == 0)
+            if (string.IsNullOrEmpty(orderId))
             {
                 throw new ArgumentException();
             }
@@ -46,20 +56,20 @@ namespace PayU.Wrapper.Client
             IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
             restRequest.AddHeader("Content-Type", "application/json");
             restRequest.Method = Method.POST;
-            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.AccessToken}");
+            restRequest.AddHeader("Authorization", $"{tokenContract.token_type} {tokenContract.access_token}");
             restRequest.AddBody(orderContract);
 
             return restRequest;
         }
 
-        public Task<IRestRequest> PreparePostRefundOrder<T>(int orderId, TokenContract tokenContract)
+        public async Task<IRestRequest> PreparePostRefundOrder<T>(string orderId, TokenContract tokenContract)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IRestRequest> PreparePutUpdateOrder(int orderId, OrderStatus orderStatus, TokenContract tokenContract)
+        public async Task<IRestRequest> PreparePutUpdateOrder(string orderId, OrderStatus orderStatus, TokenContract tokenContract)
         {
-            if (orderId == 0)
+            if (string.IsNullOrEmpty(orderId))
             {
                 throw new ArgumentException();
             }
@@ -70,7 +80,12 @@ namespace PayU.Wrapper.Client
             restRequest.AddBody($"\\ 'orderId': {orderId}," +
                                 $" \\'orderStatus': {EnumToStringHelper.OrderStatusToString(orderStatus)}" +
                                 $" \\");
-            restRequest.AddHeader("Authorization", $"{tokenContract.TokenType} {tokenContract.AccessToken}");
+            restRequest.AddParameter("application/json",
+                $"\\ 'orderId': {orderId}," +
+                $" \\'orderStatus': {EnumToStringHelper.OrderStatusToString(orderStatus)}" +
+                $" \\",
+                ParameterType.RequestBody);
+            restRequest.AddHeader("Authorization", $"{tokenContract.token_type} {tokenContract.access_token}");
 
             return restRequest;
         }
