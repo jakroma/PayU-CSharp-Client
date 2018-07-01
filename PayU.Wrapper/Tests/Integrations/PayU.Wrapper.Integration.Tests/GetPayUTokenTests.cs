@@ -2,7 +2,7 @@
 using PayU.Wrapper.Client.Data;
 using Xunit;
 
-namespace PayU.Wrapper.IntegrationTests
+namespace PayU.Wrapper.Integration.Tests
 {
     public class GetPayUTokenTests
     {

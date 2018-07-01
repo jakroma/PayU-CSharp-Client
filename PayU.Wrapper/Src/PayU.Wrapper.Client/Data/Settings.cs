@@ -15,7 +15,6 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         ///   <c>true</c> if [invoice disabled]; otherwise, <c>false</c>.
         /// </value>
-        [JsonProperty("invoiceDisabled")]
-        public bool InvoiceDisabled { get; set; }
+        public bool invoiceDisabled { get; set; }
     }
 }

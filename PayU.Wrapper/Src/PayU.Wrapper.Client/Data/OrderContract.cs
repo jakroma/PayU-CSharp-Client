@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace PayU.Wrapper.Client.Data
@@ -15,8 +16,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The notify URL.
         /// </value>
-        [JsonProperty("notifyUrl")]
-        public string NotifyUrl { get; set; }
+        public string notifyUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the customer ip address.
@@ -24,8 +24,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The customer ip address.
         /// </value>
-        [JsonProperty("customerIp")]
-        public string CustomerIpAddress { get; set; }
+        public string customerIp { get; set; }
 
         /// <summary>
         /// Gets or sets the merchant position identifier.
@@ -33,8 +32,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The merchant position identifier.
         /// </value>
-        [JsonProperty("merchantPosId")]
-        public int MerchantPosId { get; set; }
+        public int merchantPosId { get; set; }
 
         /// <summary>
         /// Gets or sets the description.
@@ -42,8 +40,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The description.
         /// </value>
-        [JsonProperty("description")]
-        public string Description { get; set; }
+        public string description { get; set; }
 
         /// <summary>
         /// Gets or sets the currency.
@@ -51,8 +48,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The currency.
         /// </value>
-        [JsonProperty("currencyCode")]
-        public string CurrencyCode { get; set; }
+        public string currencyCode { get; set; }
 
         /// <summary>
         /// Gets or sets the total amount.
@@ -60,26 +56,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The total amount.
         /// </value>
-        [JsonProperty("totalAmount")]
-        public decimal TotalAmount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the buyer.
-        /// </summary>
-        /// <value>
-        /// The buyer.
-        /// </value>
-        [JsonProperty("buyer")]
-        public Buyer Buyer { get; set; }
-
-        /// <summary>
-        /// Gets or sets the settings.
-        /// </summary>
-        /// <value>
-        /// The settings.
-        /// </value>
-        [JsonProperty("settings")]
-        public Settings Settings { get; set; }
+        public decimal totalAmount { get; set; }
 
         /// <summary>
         /// Gets or sets the products.
@@ -87,7 +64,6 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The products.
         /// </value>
-        [JsonProperty("products")]
-        public Products[] Products { get; set; }
+        public List<Product> products { get; set; }
     }
 }

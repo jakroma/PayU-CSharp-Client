@@ -6,7 +6,7 @@ using RestSharp;
 using Shouldly;
 using Xunit;
 
-namespace PayU.Wrapper.UnitTests
+namespace PayU.Wrapper.Unit.Tests
 {
     public class RequestBuilderTests
     {

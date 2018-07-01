@@ -8,7 +8,7 @@ using PayU.Wrapper.Client.Exception;
 using RestSharp;
 using Xunit;
 
-namespace PayU.Wrapper.UnitTests
+namespace PayU.Wrapper.Unit.Tests
 {
     public class ResponseBuilderTests
     {

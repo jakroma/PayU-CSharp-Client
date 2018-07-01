@@ -7,7 +7,7 @@ using PayU.Wrapper.Client.Data;
 using PayU.Wrapper.Client.Exception;
 using Xunit;
 
-namespace PayU.Wrapper.UnitTests
+namespace PayU.Wrapper.Unit.Tests
 {
     public class GetPayUTokenTests
     {

@@ -11,7 +11,7 @@ namespace PayU.Wrapper.Client
     public interface IResponseBuilder
     {
         /// <summary>
-        /// Posts a outh token.
+        /// Posts a outh tokenContract.
         /// </summary>
         /// <param name="userRequestData">The user request data.</param>
         /// <returns></returns>
@@ -48,7 +48,7 @@ namespace PayU.Wrapper.Client
         /// Cancels the order.
         /// </summary>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<T> DeleteCancelOrderTask<T>(string orderId, TokenContract token);
+        Task<T> DeleteCancelOrderTask<T>(string orderId, TokenContract tokenContract);
 
         /// <summary>
         /// Creates the new order.

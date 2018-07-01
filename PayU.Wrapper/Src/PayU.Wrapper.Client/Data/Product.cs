@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 namespace PayU.Wrapper.Client.Data
 {
     /// <summary>
-    /// Products Contract
+    /// Product Contract
     /// </summary>
     [DataContract]
-    public class Products
+    public class Product
     {
         /// <summary>
         /// Gets or sets the name.
@@ -15,8 +15,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The name.
         /// </value>
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        public string name { get; set; }
 
         /// <summary>
         /// Gets or sets the unit price.
@@ -24,8 +23,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The unit price.
         /// </value>
-        [JsonProperty("unitPrice")]
-        public decimal UnitPrice { get; set; }
+        public decimal unitPrice { get; set; }
 
         /// <summary>
         /// Gets or sets the quantity.
@@ -33,7 +31,6 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The quantity.
         /// </value>
-        [JsonProperty("quantity")]
-        public int Quantity { get; set; }
+        public int quantity { get; set; }
     }
 }
