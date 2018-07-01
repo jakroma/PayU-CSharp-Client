@@ -6,7 +6,7 @@ namespace PayU.Wrapper.Client.Data
     /// <summary>
     /// Product Contract
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Product
     {
         /// <summary>
@@ -15,6 +15,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The name.
         /// </value>
+        [JsonProperty(PropertyName = "name")]
         public string name { get; set; }
 
         /// <summary>
@@ -23,6 +24,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The unit price.
         /// </value>
+        [JsonProperty(PropertyName = "unitPrice")]
         public decimal unitPrice { get; set; }
 
         /// <summary>
@@ -31,6 +33,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The quantity.
         /// </value>
+        [JsonProperty(PropertyName = "quantity")]
         public int quantity { get; set; }
     }
 }

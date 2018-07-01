@@ -4,7 +4,7 @@ using PayU.Wrapper.Client.Data;
 using PayU.Wrapper.Client.Enum;
 using PayU.Wrapper.Client.Exception;
 
-namespace PayU.Wrapper.Client
+namespace PayU.Wrapper.Client.Implementation
 {
     /// <summary>
     /// Pay U Client Class
@@ -68,11 +68,13 @@ namespace PayU.Wrapper.Client
             {
                 case PayURequestType.GetOrderDetails:
                     return (T)Convert.ChangeType(await _responseBuilder.GetOrderDetails<T>(_userRequestData.DataToRequest
-                        .OrderId, _tokenContract) , typeof(T));
+                        .OrderId, _tokenContract),
+                        typeof(T));
 
                 case PayURequestType.PostRefundOrder:
                     return (T)Convert.ChangeType(await _responseBuilder.PostRefundOrder<T>(_userRequestData.DataToRequest
-                        .OrderId, _tokenContract) , typeof(T));
+                        .OrderId, _tokenContract),
+                        typeof(T));
 
                 case PayURequestType.PutUpdateOrder:
                     return (T)Convert.ChangeType(await _responseBuilder
@@ -81,12 +83,13 @@ namespace PayU.Wrapper.Client
 
                     case PayURequestType.DeleteCancelOrder:
                         return (T)Convert.ChangeType(await _responseBuilder
-                            .DeleteCancelOrderTask<T>(_userRequestData.DataToRequest.OrderId, _tokenContract), typeof(T));
+                            .DeleteCancelOrderTask<T>(_userRequestData.DataToRequest.OrderId, _tokenContract),
+                            typeof(T));
 
                     case PayURequestType.PostCreateNewOrder:
                     return (T)Convert.ChangeType(await _responseBuilder
-                        .PostCreateNewOrder<T>(_userRequestData.DataToRequest.OrderId,
-                        _tokenContract, _userRequestData.DataToRequest.OrderContract), typeof(T));
+                        .PostCreateNewOrder<T>(_tokenContract, _userRequestData.DataToRequest.OrderContract),
+                        typeof(T));
 
                 //case PayURequestType.PostPayOutFromShop:
                 //    return this;

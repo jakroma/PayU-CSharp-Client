@@ -54,7 +54,7 @@ namespace PayU.Wrapper.Client
         /// Creates the new order.
         /// </summary>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<T> PostCreateNewOrder<T>(string orderId, TokenContract tokenContract, OrderContract orderContract);
+        Task<T> PostCreateNewOrder<T>(TokenContract tokenContract, OrderContract orderContract);
 
         /// <summary>
         /// Pays the out from shop.

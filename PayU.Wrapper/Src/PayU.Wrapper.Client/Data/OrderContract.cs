@@ -7,7 +7,7 @@ namespace PayU.Wrapper.Client.Data
     /// <summary>
     /// Payment Contract
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class OrderContract
     {
         /// <summary>
@@ -16,6 +16,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The notify URL.
         /// </value>
+        [JsonProperty(PropertyName = "notifyUrl")]
         public string notifyUrl { get; set; }
 
         /// <summary>
@@ -24,6 +25,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The customer ip address.
         /// </value>
+        [JsonProperty(PropertyName = "customerIp")]
         public string customerIp { get; set; }
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The merchant position identifier.
         /// </value>
+        [JsonProperty(PropertyName = "merchantPosId")]
         public int merchantPosId { get; set; }
 
         /// <summary>
@@ -40,6 +43,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The description.
         /// </value>
+        [JsonProperty(PropertyName = "description")]
         public string description { get; set; }
 
         /// <summary>
@@ -48,6 +52,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The currency.
         /// </value>
+        [JsonProperty(PropertyName = "currencyCode")]
         public string currencyCode { get; set; }
 
         /// <summary>
@@ -56,6 +61,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The total amount.
         /// </value>
+        [JsonProperty(PropertyName = "totalAmount")]
         public decimal totalAmount { get; set; }
 
         /// <summary>
@@ -64,6 +70,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         /// The products.
         /// </value>
+        [JsonProperty(PropertyName = "products")]
         public List<Product> products { get; set; }
     }
 }

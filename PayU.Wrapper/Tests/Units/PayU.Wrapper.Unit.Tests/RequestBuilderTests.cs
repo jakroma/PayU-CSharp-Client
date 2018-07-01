@@ -2,6 +2,7 @@
 using NSubstitute;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Implementation;
 using RestSharp;
 using Shouldly;
 using Xunit;
@@ -60,20 +61,6 @@ namespace PayU.Wrapper.Unit.Tests
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
                 .PrepareGetOrderDetails(orderId, fakeToken));
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public async void PreparePostCreateNewOrder_WhenCall_NullArgumentException(string orderId)
-        {
-            // Arrange
-            TokenContract fakeToken = Substitute.For<TokenContract>();
-            OrderContract fakeOrder = Substitute.For<OrderContract>();
-
-            // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
-                .PreparePostCreateNewOrder(orderId, fakeToken, fakeOrder));
         }
 
         [Theory]

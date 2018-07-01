@@ -32,7 +32,7 @@ namespace PayU.Wrapper.Client
         /// <param name="tokenContract">The user contract.</param>
         /// <param name="orderContract">The order contract.</param>
         /// <returns>Rest Response</returns></returns>
-        Task<IRestRequest> PreparePostCreateNewOrder(string orderId, TokenContract tokenContract, OrderContract orderContract);
+        Task<IRestRequest> PreparePostCreateNewOrder(TokenContract tokenContract, OrderContract orderContract);
 
         /// <summary>
         /// Gets the refund order.
@@ -53,7 +53,7 @@ namespace PayU.Wrapper.Client
         /// Cancels the order.
         /// </summary>
         /// <returns></returns>
-        Task<IRestRequest> PrepareDeleteCancelOrder();
+        Task<IRestRequest> PrepareDeleteCancelOrder(string orderId, TokenContract tokenContract);
 
         /// <summary>
         /// Pays the out from shop.

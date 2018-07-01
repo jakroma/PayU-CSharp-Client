@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using PayU.Wrapper.Client.Data;
 using PayU.Wrapper.Client.Enum;
 using PayU.Wrapper.Client.Helpers;
 using RestSharp;
 
-namespace PayU.Wrapper.Client
+namespace PayU.Wrapper.Client.Implementation
 {
     /// <summary>
     /// RequestBuilderTemplate
@@ -40,24 +41,23 @@ namespace PayU.Wrapper.Client
 
             IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
             restRequest.Method = Method.GET;
+            restRequest.RequestFormat = DataFormat.Json;
             restRequest.Timeout = 3000;
             restRequest.AddHeader("Authorization", $"{tokenContract.token_type} {tokenContract.access_token}");
 
             return restRequest;
         }
 
-        public async Task<IRestRequest> PreparePostCreateNewOrder(string orderId, TokenContract tokenContract, OrderContract orderContract)
+        public async Task<IRestRequest> PreparePostCreateNewOrder(TokenContract tokenContract, OrderContract orderContract)
         {
-            if (string.IsNullOrEmpty(orderId))
-            {
-                throw new ArgumentException();
-            }
-
             IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
             restRequest.AddHeader("Content-Type", "application/json");
             restRequest.Method = Method.POST;
+            restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddHeader("Authorization", $"{tokenContract.token_type} {tokenContract.access_token}");
-            restRequest.AddBody(orderContract);
+            restRequest.AddParameter("application/json",
+                JsonConvert.SerializeObject(orderContract),
+                ParameterType.RequestBody);
 
             return restRequest;
         }
@@ -90,9 +90,20 @@ namespace PayU.Wrapper.Client
             return restRequest;
         }
 
-        public Task<IRestRequest> PrepareDeleteCancelOrder()
+        public async Task<IRestRequest> PrepareDeleteCancelOrder(string orderId, TokenContract tokenContract)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(orderId))
+            {
+                throw new ArgumentException();
+            }
+
+            IRestRequest restRequest = new RestRequest("api/v2_1/orders/{order_id}");
+            restRequest.Method = Method.DELETE;
+            restRequest.AddUrlSegment("order_id", orderId.ToString());
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddHeader("Authorization", $"{tokenContract.token_type} {tokenContract.access_token}");
+
+            return restRequest;
         }
 
         public Task<IRestRequest> PreparePostPayOutFromShop()

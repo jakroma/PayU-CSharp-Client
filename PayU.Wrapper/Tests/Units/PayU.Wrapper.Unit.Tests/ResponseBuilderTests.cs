@@ -5,6 +5,7 @@ using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
 using PayU.Wrapper.Client.Enum;
 using PayU.Wrapper.Client.Exception;
+using PayU.Wrapper.Client.Implementation;
 using RestSharp;
 using Xunit;
 

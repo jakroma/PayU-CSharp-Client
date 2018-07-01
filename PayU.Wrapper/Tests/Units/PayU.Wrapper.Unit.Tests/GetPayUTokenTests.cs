@@ -5,6 +5,7 @@ using NSubstitute.Core;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
 using PayU.Wrapper.Client.Exception;
+using PayU.Wrapper.Client.Implementation;
 using Xunit;
 
 namespace PayU.Wrapper.Unit.Tests

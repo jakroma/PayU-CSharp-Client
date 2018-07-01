@@ -10,6 +10,7 @@ using RestSharp;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Enum;
 using PayU.Wrapper.Client.Exception;
+using PayU.Wrapper.Client.Implementation;
 
 namespace PayU.Wrapper.Client
 {
@@ -107,14 +108,16 @@ namespace PayU.Wrapper.Client
             return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
-        public Task<T> DeleteCancelOrderTask<T>(string orderId, TokenContract tokenContract)
+        public async Task<T> DeleteCancelOrderTask<T>(string orderId, TokenContract tokenContract)
         {
             if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
 
-            IRestRequest request = await _requestBuilder.PrepareDeleteCancelOrder();
+            IRestRequest request = await _requestBuilder.PrepareDeleteCancelOrder(orderId, tokenContract);
+
+            var restResponse = _restClient.Execute(request);
 
             if (restResponse.StatusCode != HttpStatusCode.OK)
             {
@@ -123,7 +126,7 @@ namespace PayU.Wrapper.Client
             throw new NotImplementedException();
         }
 
-        public async Task<T> PostCreateNewOrder<T>(string orderId, TokenContract tokenContract, OrderContract orderContract)
+        public async Task<T> PostCreateNewOrder<T>(TokenContract tokenContract, OrderContract orderContract)
          {
              try
              {
@@ -132,7 +135,7 @@ namespace PayU.Wrapper.Client
                      throw new InvalidGenericTypeException(typeof(T).FullName);
                  }
 
-                 IRestRequest request = await _requestBuilder.PreparePostCreateNewOrder(orderId, tokenContract, orderContract);
+                 IRestRequest request = await _requestBuilder.PreparePostCreateNewOrder(tokenContract, orderContract);
 
                  var restResponse = _restClient.Execute(request);
 
