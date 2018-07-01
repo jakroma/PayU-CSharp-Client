@@ -67,23 +67,24 @@ namespace PayU.Wrapper.Client
             switch (payURequestType)
             {
                 case PayURequestType.GetOrderDetails:
-                    return (T)Convert.ChangeType(_responseBuilder.GetOrderDetails<T>(_userRequestData.DataToRequest
+                    return (T)Convert.ChangeType(await _responseBuilder.GetOrderDetails<T>(_userRequestData.DataToRequest
                         .OrderId, _tokenContract) , typeof(T));
 
                 case PayURequestType.PostRefundOrder:
-                    return (T)Convert.ChangeType(_responseBuilder.PostRefundOrder<T>(_userRequestData.DataToRequest
+                    return (T)Convert.ChangeType(await _responseBuilder.PostRefundOrder<T>(_userRequestData.DataToRequest
                         .OrderId, _tokenContract) , typeof(T));
 
                 case PayURequestType.PutUpdateOrder:
-                    return (T) Convert.ChangeType(_responseBuilder
+                    return (T)Convert.ChangeType(await _responseBuilder
                         .PutUpdateOrder<T>(_userRequestData.DataToRequest.OrderId, _userRequestData.OrderStatus, _tokenContract),
                         typeof(T));
 
-                //case PayURequestType.DeleteCancelOrder:
-                //    return this;
+                    case PayURequestType.DeleteCancelOrder:
+                        return (T)Convert.ChangeType(await _responseBuilder
+                            .DeleteCancelOrderTask<T>(_userRequestData.DataToRequest.OrderId, _tokenContract), typeof(T));
 
-                case PayURequestType.PostCreateNewOrder:
-                    return (T)Convert.ChangeType(_responseBuilder
+                    case PayURequestType.PostCreateNewOrder:
+                    return (T)Convert.ChangeType(await _responseBuilder
                         .PostCreateNewOrder<T>(_userRequestData.DataToRequest.OrderId,
                         _tokenContract, _userRequestData.DataToRequest.OrderContract), typeof(T));
 

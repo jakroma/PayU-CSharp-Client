@@ -108,11 +108,8 @@ namespace PayU.Wrapper.UnitTests
             _requesetBuilder.PreparePostOAuthToke(Arg.Any<UserRequestData>()).Returns(new RestRequest(Method.POST));
             _restClient.Execute(Arg.Any<IRestRequest>()).Returns(new RestResponse() { StatusCode = HttpStatusCode.BadRequest });
 
-            // Act
-            var result = responseBuilder.PostCreateNewOrder<PayUClient>("444", new TokenContract(), new OrderContract());
-
-            // Assert
-            await Assert.ThrowsAsync<HttpRequestException>(() => result);
+            // Act & Assert
+            await Assert.ThrowsAsync<HttpRequestException>(() => responseBuilder.PostCreateNewOrder<PayUClient>("444", new TokenContract(), new OrderContract()));
         }
 
         [Fact]
@@ -131,10 +128,10 @@ namespace PayU.Wrapper.UnitTests
         [Fact]
         public async void GetOrderDetails_WhenCall_InvalidGenericTypeException()
         {
-            //Arrange
+            // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
 
-            //Act & Assert
+            // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
             .GetOrderDetails<ResponseBuilder>("444" , new TokenContract()));
         }
@@ -142,10 +139,10 @@ namespace PayU.Wrapper.UnitTests
         [Fact]
         public async void PostRefundOrder_WhenCall_InvalidGenericTypeException()
         {
-            //Arrange
+            // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
 
-            //Act & Assert
+            // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
             .PostRefundOrder<ResponseBuilder>("444", new TokenContract()));
         }
@@ -154,10 +151,10 @@ namespace PayU.Wrapper.UnitTests
         [Fact]
         public async void PutUpdateOrder_WhenCall_InvalidGenericTypeException()
         {
-            //Arrange
+            // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
 
-            //Act & Assert
+            // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
             .PutUpdateOrder<ResponseBuilder>("444" , OrderStatus.Completed, new TokenContract()));
         }
@@ -165,10 +162,10 @@ namespace PayU.Wrapper.UnitTests
         [Fact]
         public async void DeleteCancelOrderTask_WhenCall_InvalidGenericTypeException()
         {
-            //Arrange
+            // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
 
-            //Act & Assert
+            // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
             .DeleteCancelOrderTask<ResponseBuilder>("444", new TokenContract()));
         }
@@ -176,10 +173,10 @@ namespace PayU.Wrapper.UnitTests
         [Fact]
         public async void PostCreateNewOrder_WhenCall_InvalidGenericTypeException()
         {
-            //Arrange
+            // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
 
-            //Act & Assert
+            // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
             .PostCreateNewOrder<ResponseBuilder>("444", new TokenContract(), new OrderContract()));
         }
@@ -187,10 +184,10 @@ namespace PayU.Wrapper.UnitTests
         [Fact]
         public async void GetRetrevePayout_WhenCall_InvalidGenericTypeException()
         {
-            //Arrange
+            // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
 
-            //Act & Assert
+            // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
             .GetRetrevePayout<ResponseBuilder>(new TokenContract()));
         }

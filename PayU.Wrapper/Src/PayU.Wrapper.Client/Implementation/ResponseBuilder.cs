@@ -26,7 +26,7 @@ namespace PayU.Wrapper.Client
         private readonly IRequestBuilder _requestBuilder;
 
         /// <summary>
-        /// FOR TEST ONLY
+        /// ONLY FOR TEST!!!
         /// </summary>
         /// <param name="restClient"></param>
         /// <param name="requestBuilder"></param>
@@ -107,11 +107,18 @@ namespace PayU.Wrapper.Client
             return (T)Convert.ChangeType(restResponse, typeof(T));
         }
 
-        public Task<T> DeleteCancelOrderTask<T>(string orderId, TokenContract token)
+        public Task<T> DeleteCancelOrderTask<T>(string orderId, TokenContract tokenContract)
         {
             if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
+            }
+
+            IRestRequest request = await _requestBuilder.PrepareDeleteCancelOrder();
+
+            if (restResponse.StatusCode != HttpStatusCode.OK)
+            {
+                throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
             }
             throw new NotImplementedException();
         }

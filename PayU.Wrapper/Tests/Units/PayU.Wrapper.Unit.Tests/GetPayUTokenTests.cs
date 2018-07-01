@@ -11,6 +11,28 @@ namespace PayU.Wrapper.UnitTests
 {
     public class GetPayUTokenTests
     {
+        /// <summary>
+        /// The response builder
+        /// </summary>
+        private readonly IResponseBuilder _responseBuilder;
+
+        public GetPayUTokenTests()
+        {
+            _responseBuilder = Substitute.For<IResponseBuilder>();
+        }
+
+        [Fact]
+        public void GetPayUToken_WhenCall_TokenCreated()
+        {
+            // Arrange
+            GetPayUToken fakePayUToken = new GetPayUToken(_responseBuilder, new UserRequestData());
+            TokenContract fakeTokenContractExpected = new TokenContract{ access_token = "444", token_type = "444", expires_in = 444, grant_type = "444"};
+            _responseBuilder.PostAOuthToken(Arg.Any<UserRequestData>()).Returns(new TokenContract{ access_token = "444", token_type = "444", expires_in = 444, grant_type = "444" });
+
+            // Act & Assert
+            Assert.True(fakeTokenContractExpected.access_token == fakePayUToken.GetToken().Result.access_token);
+        }
+
         [Fact]
         public void GetPayUToken_WhenCreate_CreateProductionClient()
         {
@@ -19,7 +41,6 @@ namespace PayU.Wrapper.UnitTests
             {
                 ClientId = "412413251",
                 ClientSecret = "4123412341",
-                MD5Key = Arg.Any<string>()
             };
             IGetPayUToken fakeToken = null;
 
@@ -38,7 +59,6 @@ namespace PayU.Wrapper.UnitTests
             {
                 ClientId = "412413251",
                 ClientSecret = "4123412341",
-                MD5Key = Arg.Any<string>()
             };
             IGetPayUToken fakeToken = null;
 
@@ -64,11 +84,8 @@ namespace PayU.Wrapper.UnitTests
             UserRequestData fakeUserRequestData = new UserRequestData
             {
                 ClientId = clientId,
-                ClientSecret = clientSecret,
-                MD5Key = Arg.Any<string>(),
-                DataToRequest = null
+                ClientSecret = clientSecret
             };
-            Console.WriteLine(clientSecret);
 
             // Act & Assert
             await Assert.ThrowsAsync<CreateTokenException>(() => new GetPayUToken(false, fakeUserRequestData).GetToken());
