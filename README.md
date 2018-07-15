@@ -1,4 +1,4 @@
-﻿# PayU Wrapper
+﻿# PayU Wrapper (Documentation in progress)
 [![Build status](https://ci.appveyor.com/api/projects/status/g0di4mjvy5wl7nl9?svg=true)](https://ci.appveyor.com/project/romabliski/net-core-payu-wrapper)
 
 | Client wrapper (SDK) to implement request for your application
@@ -23,9 +23,9 @@
  ## Example of multiple usage
 
    ```csharp
-   UserRequestData userRequestData = new UserRequestData();
+   UserRequestData userRequestData = // Fill needed data;
 
-    PayUClient payUClient = new PayUToken(false,userRequestData).GetPayUToken();
+    PayUClient payUClient = new PayUToken(false, userRequestData).GetPayUToken();
 
     var result = payUClient.Request<PayUClient>(PayURequestType.PostCreateNewOrder)
     .Request<PayUClient>(PayURequestType.GetOrderDetails)
@@ -35,12 +35,12 @@
   ## Example of single usage
 
    ```csharp
-   UserRequestData userRequestData = new UserRequestData();
+   UserRequestData userRequestData = // Fill needed data;
 
     PayUClient payUClient = new PayUToken(false,userRequestData).GetPayUToken();
 
     OrderContract result = payUClient
-    .Request<GetOrderDetails>(PayURequestType.PostCreateNewOrder);
+    .Request<OrderContract>(PayURequestType.GetOrderDetails);
  ```
 
  # Exception
