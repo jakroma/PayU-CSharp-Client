@@ -111,9 +111,15 @@ namespace PayU.Wrapper.Client.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<IRestRequest> PrepareGetRetrevePayout()
+        public async Task<IRestRequest> PrepareGetRetrievePayout(TokenContract tokenContract)
         {
-            throw new NotImplementedException();
+            IRestRequest restRequest = new RestRequest("api/v2_1/paymethods/");
+            restRequest.Method = Method.GET;
+            restRequest.Timeout = 3000;
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddHeader("Authorization", $"{tokenContract.token_type} {tokenContract.access_token}");
+
+            return restRequest;
         }
 
         public Task<IRestRequest> PrepareDeleteToken()

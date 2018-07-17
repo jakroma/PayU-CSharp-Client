@@ -140,7 +140,7 @@ namespace PayU.Wrapper.Unit.Tests
 
             // Act & Assert
             await Assert.ThrowsAsync<HttpRequestException>(() =>
-            responseBuilder.GetRetrievePayout<RetrivePayoutContract>(new TokenContract()));
+            responseBuilder.GetRetrievePayout(new TokenContract()));
         }
 
         [Fact]
@@ -197,17 +197,6 @@ namespace PayU.Wrapper.Unit.Tests
             // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
             .PostCreateNewOrder<ResponseBuilder>(new TokenContract(), new OrderContract()));
-        }
-
-        [Fact]
-        public async void GetRetrievePayout_WhenCall_InvalidGenericTypeException()
-        {
-            // Arrange
-            ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
-            .GetRetrievePayout<ResponseBuilder>(new TokenContract()));
         }
 
         [Fact]

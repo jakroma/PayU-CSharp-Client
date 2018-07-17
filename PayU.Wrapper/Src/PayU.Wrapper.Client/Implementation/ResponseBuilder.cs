@@ -163,16 +163,18 @@ namespace PayU.Wrapper.Client
             throw new NotImplementedException();
         }
 
-        public async Task<T> GetRetrievePayout<T>(TokenContract token)
+        public async Task<RetrivePayoutContract> GetRetrievePayout(TokenContract token)
         {
-            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(RetrivePayoutContract))
-            {
-                throw new InvalidGenericTypeException(typeof(T).FullName);
-            }
             IRestRequest request = await _requestBuilder.PrepareGetRetrievePayout(token);
 
+            var restResponse = _restClient.Execute(request);
 
-            return (T)request;
+            if (restResponse.StatusCode != HttpStatusCode.OK)
+            {
+                throw new HttpRequestException($"Status:{restResponse.ResponseStatus} Message:{restResponse.ErrorMessage}");
+            }
+
+            return JsonConvert.DeserializeObject<RetrivePayoutContract>(restResponse.Content);
         }
 
         public Task<Response<T>> FinishRequest<T>()

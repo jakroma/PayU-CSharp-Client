@@ -65,7 +65,7 @@ namespace PayU.Wrapper.Client
         /// Retreves the payout.
         /// </summary>
         /// <returns></returns>
-        Task<IRestRequest> PrepareGetRetrevePayout();
+        Task<IRestRequest> PrepareGetRetrievePayout(TokenContract tokenContract);
 
         /// <summary>
         /// Prepares the delete token.

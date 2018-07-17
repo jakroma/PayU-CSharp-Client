@@ -91,16 +91,18 @@ namespace PayU.Wrapper.Client.Implementation
                         .PostCreateNewOrder<T>(_tokenContract, _userRequestData.DataToRequest.OrderContract),
                         typeof(T));
 
-                //case PayURequestType.PostPayOutFromShop:
-                //    return this;
+                    //case PayURequestType.PostPayOutFromShop:
+                    //    return this;
 
-                //case PayURequestType.GetRetrevePayout:
-                //    return this;
+                    case PayURequestType.GetRetrevePayout:
+                        return (T)Convert.ChangeType(await _responseBuilder
+                                .GetRetrievePayout(_tokenContract),
+                            typeof(T));
 
-                //case PayURequestType.FinishRequests:
-                //    return this;
+                    //case PayURequestType.FinishRequests:
+                    //    return this;
 
-                default:
+                    default:
                     throw new InvalidRequestType();
             }
         }

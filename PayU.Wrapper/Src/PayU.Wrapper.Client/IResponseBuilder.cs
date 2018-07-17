@@ -14,7 +14,7 @@ namespace PayU.Wrapper.Client
         /// Posts a outh tokenContract.
         /// </summary>
         /// <param name="userRequestData">The user request data.</param>
-        /// <returns></returns>
+        /// <returns>Token Contract</returns>
         Task<TokenContract> PostAOuthToken(UserRequestData userRequestData);
 
         /// <summary>
@@ -63,10 +63,12 @@ namespace PayU.Wrapper.Client
         Task<T> PostPayOutFromShop<T>(TokenContract token);
 
         /// <summary>
-        /// Retreves the payout.
+        /// Gets the retrieve payout.
         /// </summary>
-        /// <returns>PayU Client (Fluent)</returns>
-        Task<T> GetRetrievePayout<T>(TokenContract token);
+        /// <typeparam name="T"></typeparam>
+        /// <param name="token">The token.</param>
+        /// <returns>Retrive Payout Contract</returns>
+        Task<RetrivePayoutContract> GetRetrievePayout(TokenContract token);
 
         /// <summary>
         /// Finishes the request.
