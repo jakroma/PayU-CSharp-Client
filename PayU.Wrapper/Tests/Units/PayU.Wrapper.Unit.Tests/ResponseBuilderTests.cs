@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using NSubstitute;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
@@ -7,6 +8,7 @@ using PayU.Wrapper.Client.Enum;
 using PayU.Wrapper.Client.Exception;
 using PayU.Wrapper.Client.Implementation;
 using RestSharp;
+using Shouldly;
 using Xunit;
 
 namespace PayU.Wrapper.Unit.Tests
@@ -27,6 +29,21 @@ namespace PayU.Wrapper.Unit.Tests
         {
             _restClient = Substitute.For<IRestClient>();
             _requesetBuilder = Substitute.For<IRequestBuilder>();
+        }
+
+        [Fact]
+        public async void PostAOuthToken_WhenCall_SuccessExpected()
+        {
+            // Arrange
+            ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
+            _requesetBuilder.PreparePostOAuthToke(new UserRequestData()).Returns(new RestRequest(Method.POST));
+            _restClient.Execute(Arg.Any<IRestRequest>()).Returns(new RestResponse() { StatusCode = HttpStatusCode.OK });
+
+            // Act
+            var result = responseBuilder.PostAOuthToken(new UserRequestData());
+
+            // Assert
+            await Assert.IsType<Task<TokenContract>>(result);
         }
 
 
@@ -110,11 +127,11 @@ namespace PayU.Wrapper.Unit.Tests
             _restClient.Execute(Arg.Any<IRestRequest>()).Returns(new RestResponse() { StatusCode = HttpStatusCode.BadRequest });
 
             // Act & Assert
-            await Assert.ThrowsAsync<HttpRequestException>(() => responseBuilder.PostCreateNewOrder<PayUClient>("444", new TokenContract(), new OrderContract()));
+            await Assert.ThrowsAsync<HttpRequestException>(() => responseBuilder.PostCreateNewOrder<PayUClient>(new TokenContract(), new OrderContract()));
         }
 
         [Fact]
-        public async void GetRetrevePayout_WhenCall_HttpRequestException()
+        public async void GetRetrievePayout_WhenCall_HttpRequestException()
         {
             // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
@@ -123,7 +140,7 @@ namespace PayU.Wrapper.Unit.Tests
 
             // Act & Assert
             await Assert.ThrowsAsync<HttpRequestException>(() =>
-            responseBuilder.GetRetrevePayout<OrderContract>(new TokenContract()));
+            responseBuilder.GetRetrievePayout<RetrivePayoutContract>(new TokenContract()));
         }
 
         [Fact]
@@ -179,18 +196,18 @@ namespace PayU.Wrapper.Unit.Tests
 
             // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
-            .PostCreateNewOrder<ResponseBuilder>("444", new TokenContract(), new OrderContract()));
+            .PostCreateNewOrder<ResponseBuilder>(new TokenContract(), new OrderContract()));
         }
 
         [Fact]
-        public async void GetRetrevePayout_WhenCall_InvalidGenericTypeException()
+        public async void GetRetrievePayout_WhenCall_InvalidGenericTypeException()
         {
             // Arrange
             ResponseBuilder responseBuilder = new ResponseBuilder(_restClient, _requesetBuilder);
 
             // Act & Assert
             await Assert.ThrowsAsync<InvalidGenericTypeException>(() => responseBuilder
-            .GetRetrevePayout<ResponseBuilder>(new TokenContract()));
+            .GetRetrievePayout<ResponseBuilder>(new TokenContract()));
         }
 
         [Fact]

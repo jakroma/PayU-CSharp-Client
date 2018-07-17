@@ -66,7 +66,7 @@ namespace PayU.Wrapper.Client
         /// Retreves the payout.
         /// </summary>
         /// <returns>PayU Client (Fluent)</returns>
-        Task<T> GetRetrevePayout<T>(TokenContract token);
+        Task<T> GetRetrievePayout<T>(TokenContract token);
 
         /// <summary>
         /// Finishes the request.

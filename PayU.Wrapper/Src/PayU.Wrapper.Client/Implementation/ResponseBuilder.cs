@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -162,13 +163,16 @@ namespace PayU.Wrapper.Client
             throw new NotImplementedException();
         }
 
-        public Task<T> GetRetrevePayout<T>(TokenContract token)
+        public async Task<T> GetRetrievePayout<T>(TokenContract token)
         {
-            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(IRestResponse))
+            if (typeof(T) != typeof(PayUClient) && typeof(T) != typeof(RetrivePayoutContract))
             {
                 throw new InvalidGenericTypeException(typeof(T).FullName);
             }
-            throw new NotImplementedException();
+            IRestRequest request = await _requestBuilder.PrepareGetRetrievePayout(token);
+
+
+            return (T)request;
         }
 
         public Task<Response<T>> FinishRequest<T>()

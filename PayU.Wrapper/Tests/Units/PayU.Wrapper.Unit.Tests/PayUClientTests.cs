@@ -1,8 +1,13 @@
+using System.Threading.Tasks;
+using NSubstitute;
 using PayU.Wrapper.Client;
 using PayU.Wrapper.Client.Data;
+using PayU.Wrapper.Client.Enum;
+using PayU.Wrapper.Client.Implementation;
+using RestSharp;
 using Xunit;
 
-namespace PayU.Wrapper.UnitTests
+namespace PayU.Wrapper.Unit.Tests
 {
     /// <summary>
     /// Pay U Client Tests
@@ -10,26 +15,44 @@ namespace PayU.Wrapper.UnitTests
     public class PayUClientTests
     {
         /// <summary>
-        /// The PayU client
+        /// The rest builder
         /// </summary>
-        private IPayUClient _payUClient;
+        private readonly IResponseBuilder _responseBuilder;
 
         /// <summary>
-        /// The user request
+        /// The request builders
         /// </summary>
-        private UserRequestData _userRequestData;
+        private readonly IRequestBuilder _requestBuilder;
 
         /// <summary>
         /// The base URL
         /// </summary>
-        private string _baseUrl;
+        private UserRequestData userRequestData;
 
         public PayUClientTests()
         {
+            this._responseBuilder = Substitute.For<IResponseBuilder>();
+            this._requestBuilder = Substitute.For<IRequestBuilder>();
+            userRequestData = new UserRequestData() {BaseUrl = "https://secure.snd.payu.com"};
         }
 
         [Fact]
-        public void Request_GetOrderRefund_WhenCall_GetDataExpected()
+        public void GetOrderDetails_WhenCall_FluentExpected()
+        {
+            // Arrange
+            PayUClient fakePayUClient = new PayUClient(userRequestData, new TokenContract());
+            _requestBuilder.PrepareGetOrderDetails(Arg.Any<string>(), Arg.Any<TokenContract>()).Returns(new RestRequest());
+            _responseBuilder.GetOrderDetails<PayUClient>(Arg.Any<string>(), Arg.Any<TokenContract>())
+                .Returns(Task.FromResult(new PayUClient(new UserRequestData() { BaseUrl = "https://secure.snd.payu.com" }, new TokenContract())));
+
+            // Act
+
+            // Act & Assert
+            Assert.Equal(fakePayUClient.Request<PayUClient>(PayURequestType.GetOrderDetails).Result, fakePayUClient);
+        }
+
+        [Fact]
+        public void PostCreateNewOrder_WhenCall_FluentExpected()
         {
             //Arrange
             //PayUClient payUClient = new PayUClient();
@@ -42,7 +65,7 @@ namespace PayU.Wrapper.UnitTests
         }
 
         [Fact]
-        public void Request_GetOrderDetails_WhenCall_GetDataExpected()
+        public void PostRefundOrder_WhenCall_FluentExpected()
         {
             //Arrange
             //PayUClient payUClient = new PayUClient();
@@ -55,7 +78,47 @@ namespace PayU.Wrapper.UnitTests
         }
 
         [Fact]
-        public async void Request_NoRequestType_WhenCall_ExceptionExpected()
+        public async void DeleteCancelOrder_WhenCall_ExceptionExpected()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+        }
+
+        [Fact]
+        public async void PutUpdateOrder_WhenCall_ExceptionExpected()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+        }
+
+        [Fact]
+        public async void PostPayOutFromShop_WhenCall_ExceptionExpected()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+        }
+
+        [Fact]
+        public async void GetRetrevePayout_WhenCall_ExceptionExpected()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+        }
+
+        [Fact]
+        public async void FinishRequests_WhenCall_ExceptionExpected()
         {
             //Arrange
 

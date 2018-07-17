@@ -26,12 +26,12 @@ namespace PayU.Wrapper.Unit.Tests
             UserRequestData userRequestData = new UserRequestData();
 
             // Act
-            var restult = await restRequest.PreparePostOAuthToke(userRequestData);
+            var result = await restRequest.PreparePostOAuthToke(userRequestData);
 
             // Assert
-            restult.Method.ShouldBe(Method.POST);
-            restult.RequestFormat.ShouldBe(DataFormat.Json);
-            restult.Timeout.ShouldBe(3000);
+            result.Method.ShouldBe(Method.POST);
+            result.RequestFormat.ShouldBe(DataFormat.Json);
+            result.Timeout.ShouldBe(3000);
         }
 
         [Fact]
@@ -42,11 +42,11 @@ namespace PayU.Wrapper.Unit.Tests
             TokenContract tokenContract = new TokenContract();
 
             // Act
-            var restult = await restRequest.PrepareGetOrderDetails("xxx", tokenContract);
+            var result = await restRequest.PrepareGetOrderDetails("xxx", tokenContract);
 
             // Assert
-            restult.Method.ShouldBe(Method.GET);
-            restult.Timeout.ShouldBe(3000);
+            result.Method.ShouldBe(Method.GET);
+            result.Timeout.ShouldBe(3000);
         }
 
         [Theory]
@@ -74,21 +74,7 @@ namespace PayU.Wrapper.Unit.Tests
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
-                .PreparePostCreateNewOrder(orderId, fakeToken, fakeOrder));
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public async void PreparePutUpdateOrder_WhenCall_NullArgumentException(string orderId)
-        {
-            // Arrange
-            TokenContract fakeToken = Substitute.For<TokenContract>();
-            OrderContract fakeOrder = Substitute.For<OrderContract>();
-
-            // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _requestBuilder
-                .PreparePostCreateNewOrder(orderId, fakeToken, fakeOrder));
+                .PreparePostRefundOrder<RefundContract>(orderId ,fakeToken));
         }
 
         [Theory]
@@ -107,12 +93,20 @@ namespace PayU.Wrapper.Unit.Tests
             // TODO
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public async void PrepareGetRetrevePayout_WhenCall_NullArgumentException(string orderId)
+        [Fact]
+        public async void PrepareGetRetrevePayout_WhenCall_NullArgumentException()
         {
-            // TODO
+            // Arrange
+            RequestBuilder restRequest = new RequestBuilder();
+            TokenContract tokenContract = new TokenContract();
+
+            // Act
+            var result = await restRequest.PrepareGetRetrievePayout(tokenContract);
+
+            // Assert
+            result.Method.ShouldBe(Method.GET);
+            result.RequestFormat.ShouldBe(DataFormat.Json);
+            result.Timeout.ShouldBe(3000);
         }
 
         [Theory]
