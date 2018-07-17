@@ -6,7 +6,7 @@ namespace PayU.Wrapper.Client.Data
     /// <summary>
     /// Settings Contract
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Settings
     {
         /// <summary>
@@ -15,6 +15,7 @@ namespace PayU.Wrapper.Client.Data
         /// <value>
         ///   <c>true</c> if [invoice disabled]; otherwise, <c>false</c>.
         /// </value>
+        [JsonProperty(PropertyName = "invoiceDisabled")]
         public bool invoiceDisabled { get; set; }
     }
 }

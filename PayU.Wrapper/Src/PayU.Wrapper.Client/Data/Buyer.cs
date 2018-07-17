@@ -7,7 +7,7 @@ namespace PayU.Wrapper.Client.Data
     /// <summary>
     /// Buyer Contract
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class Buyer
     {
         /// <summary>

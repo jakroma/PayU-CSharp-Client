@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -63,6 +64,25 @@ namespace PayU.Wrapper.Client.Data
         /// </value>
         [JsonProperty(PropertyName = "totalAmount")]
         public decimal totalAmount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the buyer.
+        /// </summary>
+        /// <value>
+        /// The buyer.
+        /// </value>
+        [JsonProperty(PropertyName = "buyer")]
+        public Buyer buyer { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
+        [JsonProperty(PropertyName = "settings")]
+        public Settings settings { get; set; }
 
         /// <summary>
         /// Gets or sets the products.
