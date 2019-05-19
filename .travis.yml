@@ -1,0 +1,16 @@
+language: csharp
+mono: none
+os: linux
+dist: trusty
+dotnet: 2.2.0
+script:
+- dotnet build -c Release
+- dotnet test
+- dotnet pack -c Release
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: dotnet nuget push /PayU.Client/bin/Release/PayU.Client.*.nupkg --api-key $NUGET_API_KEY
+  on:
+    tags: true
+    condition: $TRAVIS_TAG =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$
