@@ -2,7 +2,7 @@ language: csharp
 mono: none
 os: linux
 dist: trusty
-dotnet: 2.2.0
+dotnet: 2.2
 script:
 - dotnet build -c Release
 - dotnet test
