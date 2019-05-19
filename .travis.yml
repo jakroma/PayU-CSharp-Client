@@ -1,8 +1,8 @@
+dist: bionic
 language: csharp
+solution: PayU.Client.sln
 mono: none
-os: linux
-dist: trusty
-dotnet: 2.2
+dotnet: 2.2.105
 script:
 - dotnet build -c Release
 - dotnet test
