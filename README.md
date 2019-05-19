@@ -5,7 +5,6 @@
 |NuGet| WIP |
 
 
-
 # Table of Contents 
 1. [Docs PayU](#docs)
 2. [Create Settings for clients](#settings)
