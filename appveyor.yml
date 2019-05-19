@@ -1,4 +1,4 @@
-version: '0.1.{build}'
+version: '0.2.{build}'
 image: Visual Studio 2017
 branches:
   only:
@@ -8,20 +8,21 @@ init:
 install:
 before_build:
   - cmd: dotnet --version
-  - cmd: dotnet restore ./PayU.Wrapper/src/PayU.Wrapper.Client/PayU.Wrapper.Client.csproj --verbosity m
+  - cmd: dotnet restore ./PayU.Client/src/PayU.Wrapper.Client/PayU.Wrapper.Client.csproj --verbosity m
+test:
+  - cmd: dotnet test ./PayU.Client/tests/PayU.Client.Tests/PayU.Client.Tests.csproj
 build_script:
-  - cmd: dotnet publish ./PayU.Wrapper/src/PayU.Wrapper.Client/PayU.Wrapper.Client.csproj
-after_build:
+  - cmd: dotnet publish ./PayU.Client/src/PayU.Client/PayU.Client.csproj -c Release
+  - cmd: dotnet pack ./PayU.Client/src/PayU.Client/PayU.Client.csproj -c Release
 artifacts:
- - path: '*/PayU.Wrapper\bin\src\*.nupkg'
-   name: PayU.Wrapper.Client.1.0.0
-   type: NuGetPackage  
-   
-#test:
-#- ps: xunit.console .\PayU.Wrapper\bin\Tests\Units\netcoreapp2\PayU.Wrapper.Unit.Tests.dll /xml .\xunit-results.xml
-
-#- ps: $wc = New-Object 'System.Net.WebClient'
-#- ps: $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\xunit-results.xml))
-
-clone_depth: 1
-deploy: off
+– path: ./PayU.Client/bin/Release/*.nupkg
+  name: NuGet
+ 
+deploy:
+  provider: NuGet
+  server:
+  api_key:
+    secure: HX8/WaHSV+g8Ny0bJMzj8nco+2TSm1ZXrTzF1enb8loZchpY/SDgpW+0c8ucwbu4
+  skip_symbols: false
+  symbol_server:
+  artifact: /.*\.nupkg/
