@@ -9,10 +9,9 @@ install:
 before_build:
   - cmd: dotnet --version
   - cmd: dotnet restore ./PayU.Client/src/PayU.Wrapper.Client/PayU.Wrapper.Client.csproj --verbosity m
-test:
-  - cmd: dotnet test ./PayU.Client/tests/PayU.Client.Tests/PayU.Client.Tests.csproj
 build_script:
   - cmd: dotnet publish ./PayU.Client/src/PayU.Client/PayU.Client.csproj -c Release
+  - cmd: dotnet test ./PayU.Client/tests/PayU.Client.Tests/PayU.Client.Tests.csproj
   - cmd: dotnet pack ./PayU.Client/src/PayU.Client/PayU.Client.csproj -c Release
  
 deploy:
