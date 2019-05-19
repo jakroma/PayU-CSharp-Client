@@ -2,4 +2,9 @@
 *.ide
 *.ide-shm
 *.ide-wal
-**/PayU.Wrapper/test
+.vs/
+*.suo
+*.user
+**/obj
+**/bin
+.vscode
