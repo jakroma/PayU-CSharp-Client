@@ -14,9 +14,6 @@ test:
 build_script:
   - cmd: dotnet publish ./PayU.Client/src/PayU.Client/PayU.Client.csproj -c Release
   - cmd: dotnet pack ./PayU.Client/src/PayU.Client/PayU.Client.csproj -c Release
-artifacts:
-– path: ./PayU.Client/bin/Release/*.nupkg
-  name: NuGet
  
 deploy:
   provider: NuGet
