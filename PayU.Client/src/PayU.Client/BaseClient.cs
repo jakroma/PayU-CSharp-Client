@@ -66,7 +66,7 @@ namespace PayU.Client
             }
             catch (PayUClientException ex)
             {
-                throw ex;
+                throw;
             } 
         }
 
@@ -82,7 +82,7 @@ namespace PayU.Client
             }
             catch (PayUClientException ex)
             {
-                throw ex;
+                throw;
             } 
         }
     }
