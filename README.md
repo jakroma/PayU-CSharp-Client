@@ -76,6 +76,14 @@ You could use IoC container (example Autofac)
 ```csharp
   var builder = new ContainerBuilder();
   ...
+  var settings = new PayUClientSettings(
+          PayUClientContainer.Sandbox,
+          "v2_1",
+          "clientId",
+          "clientSecret"
+  );
+
+  builder.RegisterInstance(settings).As<PayUClientSettings>();
   builder.RegisterType<PayUClient>().As<IPayUClient>().SingleInstance();
   ...
   var container = builder.Build();
