@@ -1,8 +1,8 @@
 ﻿# PayU Client
 |Branch|Master|
 |------|------|
-|Build | [![Build status](https://ci.appveyor.com/api/projects/status/g0di4mjvy5wl7nl9?svg=true)](https://ci.appveyor.com/project/romabliski/net-core-payu-wrapper) |
-|NuGet| WIP |
+|Build | [![Build Status](https://travis-ci.org/romabliski/PayU-CSharp-Client.svg?branch=master)](https://travis-ci.org/romabliski/PayU-CSharp-Client) |
+|NuGet| [![NuGet version](https://badge.fury.io/nu/PayU.Client.svg)](https://badge.fury.io/nu/PayU.Client) |
 
 
 # Table of Contents 
@@ -11,7 +11,7 @@
    - [Client credentials](##Client-credentials)
    - [Trusted Merchant](##Trusted-Merchant)
 3. [Get Started](#get-started)
-4. [Convetions](#Convetions)
+4. [Convention](#Conventions)
     - [Request/Response](##Request/Response)
       - [Order](###Order)
 5. [Example Requests](#Example-Request)
@@ -44,7 +44,7 @@ https://payu21.docs.apiary.io
 ```
 
 ## Token
-`PayUClient get&care about token in every request.`
+`PayUClient get or set token into cache.`
 
 `Cache expire time = (Api token expire time - 30 seconds)`
 
@@ -58,14 +58,14 @@ Thats mean, client credentials token is per client instance.
 `Cache key` - `PayU_auth_token_{email}_{extCustomerId}`
 
 ```csharp
-var trustedClient = new TrustedMerchant("test@test.com", "2312")
+var trusted = new TrustedMerchant("test@test.com", "2312")
 ```
 
 `PayU_auth_token_test@test.com_2312`
 
 Thats mean, every trusted customer have own cache.
 
-Every request what need this token have info in method name, and contains parameter for TrustedMerchant class instance (example - [Convetions](#Convetions))
+Every request what need this token have info in method name, and contains parameter for TrustedMerchant class instance (example - [Conventions](#Conventions))
 
 ---
 
@@ -76,7 +76,7 @@ You could use IoC container (example Autofac)
 ```csharp
   var builder = new ContainerBuilder();
   ...
-  builder.RegisterType<PayUClient>().As<IPayUClient>();
+  builder.RegisterType<PayUClient>().As<IPayUClient>().SingleInstance();
   ...
   var container = builder.Build();
 ```
@@ -89,30 +89,26 @@ https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=asp
 ```csharp
   PayUClient client = new PayUClient(settings, IHttpClientFactory);
 ```
-Remeber to create `HttpClientHandler` for factory, client couldn't work properly:
+Remember to create `HttpClientHandler` for factory, client couldn't work properly:
 ```csharp
-var handler = new HttpClientHandler
-        {
-            AllowAutoRedirect = false,
-            SslProtocols = SslProtocols.Tls12
-        };
+services.AddHttpClient("PayUClient", c =>
+{
+    c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+}).
+ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    AllowAutoRedirect = false,
+    SslProtocols = SslProtocols.Tls12
+});
 ```
 
 ---
 # Convetions
 
-## Methods Names
-PostTrustedOrderAsync()
-
-`Post` - HttpMetod type for method
-
-`Trusted` - only if you need trusted token (contains TrustedMerchant parameter)
-
-`Order` - Name of PayU action
-
-`Async` - .Net convetion for asynchronous methods
-
 ## Request/Response
+
+Request type are same as api json property type,
+For example sometimes
 
 Every request where json object have mandatory properties, have constructor with validator.
 
@@ -124,8 +120,6 @@ Optional json properties have null value handling so, if you don't fill it, they
 
 ### Order
 `Look on PayU Api documentation what respons properties will return for diffrent kind of request.`
-
-
 
 ---
 # Requests Examples
@@ -166,11 +160,16 @@ http://developers.payu.com/en/payu_express.html
 
 ## Refund Order
 ```csharp
-  var fullRefund = new RefundRequest("GPNG88VBW6151031GUEST000P01", new RefundRq("Refund"));
   var refund = new RefundRequest("GPNG88VBW6151031GUEST000P01", new RefundRq("Refund", "Amount"));
 
   var result = await this.client.PostRefund("orderId", refund, default(CancellationToken));
-  var fullRefundResult = await this.client.PostRefund("orderId", fullRefund, default(CancellationToken));
+```
+
+Full Refund
+```csharp
+  var refund = new RefundRequest("GPNG88VBW6151031GUEST000P01", new RefundRq("Refund"));
+
+  var fullRefundResult = await this.client.PostRefund("orderId", refund, default(CancellationToken));
 ```
 ---
 
@@ -197,7 +196,6 @@ http://developers.payu.com/en/payu_express.html
 
 ## Payout
 ```csharp                                                   
-                                                                            //422 - payout amount
   var result = await this.client.PostPayoutAsync(new PayoutRequest("shopId", 422), default(CancellationToken));
 ```
 
@@ -244,13 +242,3 @@ if you need trusted_merchant
 ```csharp
   this.client.TrustedCustomRequest<NewRequestType, OrderResponse>(new Uri("enpointUrl"), `NewRequestType instance`, HttpMethod,new TrustedMerchant("email", "extCustomerId"), default(CancellationToken))
 ```
-
----
-
-## For new changes
-
-1. Fork it
-2. Create branch for issue (`git checkout -b issue_id`)
-3. implementation
-4. Push changes (`git push origin issue_id`)
-5. Create new Pull Request
