@@ -1,0 +1,13 @@
+dist: bionic
+language: csharp
+solution: PayU.Client.sln
+mono: none
+dotnet: 2.2.105
+script:
+- dotnet build -c Release
+- dotnet test
+- dotnet pack -c Release -p:PackageVersion=1.0.$TRAVIS_BUILD_NUMBER
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: dotnet nuget push ./PayU.Client/bin/src/PayU.Client.*.nupkg -k $NUGET_API_KEY -s https://nuget.org
