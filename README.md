@@ -8,22 +8,22 @@
 # Table of Contents 
 1. [Docs PayU](#docs)
 2. [Create Settings for clients](#settings)
-   - [Client credentials](##Client-credentials)
-   - [Trusted Merchant](##Trusted-Merchant)
+   - [Client credentials](#Client-credentials)
+   - [Trusted Merchant](#Trusted-Merchant)
 3. [Get Started](#get-started)
 4. [Convention](#Conventions)
-    - [Request/Response](##Request/Response)
-      - [Order](###Order)
+    - [Request/Response](#Request/Response)
+      - [Order](#Order)
 5. [Example Requests](#Requests-Examples)
     - [Get Order](#Get-Order)
-    - [Create Order](##Create-Order)
-    - [Refund Order](##Refund-Order)
-    - [Cancel Order](##Cancel-Order)
-    - [Update Order](##Update-Order)
-    - [PayMethods](##PayMethods)
-    - [Payout](##Payout)
-    - [Retrieve Payout](##Retrieve-Payout)
-    - [Delete Token](##Delete-Token)
+    - [Create Order](#Create-Order)
+    - [Refund Order](#Refund-Order)
+    - [Cancel Order](#Cancel-Order)
+    - [Update Order](#Update-Order)
+    - [PayMethods](#PayMethods)
+    - [Payout](#Payout)
+    - [Retrieve Payout](#Retrieve-Payout)
+    - [Delete Token](#Delete-Token)
 6. [Own Request](#Own-Request)
     
 
@@ -103,7 +103,7 @@ ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
 ```
 
 ---
-# Convetions
+# Conventions
 
 ## Request/Response
 
