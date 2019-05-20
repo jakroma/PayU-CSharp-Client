@@ -6,7 +6,7 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using PayU.Client.Builders;
-using PayU.Client.Configuartions;
+using PayU.Client.Configurations;
 using PayU.Client.Exceptions;
 using PayU.Client.Extensions;
 using PayU.Client.Models;
@@ -14,24 +14,15 @@ using PayU.Client.Models.Transactions;
 
 namespace PayU.Client
 {
-    public class PayUClient : IPayUClient
+    public class PayUClient : BaseClient, IPayUClient
     {
-        private readonly IHttpClientFactory clientFactory;
-        private readonly PayUClientSettings settings;
-        private readonly ObjectCache cache = MemoryCache.Default;
-
         public PayUClient(PayUClientSettings settings)
-        {
-            this.settings = settings;
-        }
+            : base(settings) {}
 
         public PayUClient(PayUClientSettings settings, IHttpClientFactory clientFactory)
-        {
-            this.settings = settings;
-            this.clientFactory = clientFactory;
-        }
+            : base(settings, clientFactory) {}
 
-        public async Task<OrderGetResponse> GetOrderAsync(string orderId, CancellationToken ct)
+        public async Task<OrderGetResponse> GetOrderAsync(string orderId, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<OrderGetResponse>(
                 PayUClientUrlBuilder.BuilOrderIdUrl(this.settings.Url, this.settings.ApiVersion, orderId),
@@ -39,7 +30,14 @@ namespace PayU.Client
                 ct);
         }
 
-        public async Task<OrderResponse> PostOrderAsync(OrderRequest order, CancellationToken ct)
+        public OrderGetResponse GetOrder(string orderId)
+        {
+            return this.Process<OrderGetResponse>(
+                PayUClientUrlBuilder.BuilOrderIdUrl(this.settings.Url, this.settings.ApiVersion, orderId),
+                HttpMethod.Get);
+        }
+
+        public async Task<OrderResponse> PostOrderAsync(OrderRequest order, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<OrderResponse>(
                 PayUClientUrlBuilder.BuildPostOrderUrl(this.settings.Url, this.settings.ApiVersion),
@@ -48,16 +46,34 @@ namespace PayU.Client
                 order);
         }
 
-        public async Task<OrderCardTokenResponse> PostTrustedOrderAsync(OrderRequest order, TrustedMerchant trustedMerchant, CancellationToken ct)
+        public OrderResponse PostOrder(OrderRequest order)
+        {
+            return this.Process<OrderResponse>(
+                PayUClientUrlBuilder.BuildPostOrderUrl(this.settings.Url, this.settings.ApiVersion),
+                HttpMethod.Post,
+                order);
+        }
+
+        public async Task<OrderCardTokenResponse> PostTrustedOrderAsync(OrderRequest order, TrustedMerchant trustedMerchant, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<OrderCardTokenResponse>(
                 PayUClientUrlBuilder.BuildPostOrderUrl(this.settings.Url, this.settings.ApiVersion),
                 HttpMethod.Post,
                 ct,
-                order);
+                order,
+                trustedMerchant);
         }
 
-        public async Task<OrderResponse> DeleteCancelOrderAsync(string orderId, CancellationToken ct)
+        public OrderCardTokenResponse PostTrustedOrder(OrderRequest order, TrustedMerchant trustedMerchant)
+        {
+            return this.Process<OrderCardTokenResponse>(
+                PayUClientUrlBuilder.BuildPostOrderUrl(this.settings.Url, this.settings.ApiVersion),
+                HttpMethod.Post,
+                order,
+                trustedMerchant);
+        }
+
+        public async Task<OrderResponse> DeleteCancelOrderAsync(string orderId, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<OrderResponse>(
                 PayUClientUrlBuilder.BuilOrderIdUrl(this.settings.Url, this.settings.ApiVersion, orderId),
@@ -65,7 +81,14 @@ namespace PayU.Client
                 ct);
         }
 
-        public async Task<OrderResponse> PutUpdateOrderAsync(string orderId, UpdateOrderRequest updateOrder, CancellationToken ct)
+        public OrderResponse DeleteCancelOrder(string orderId)
+        {
+            return this.Process<OrderResponse>(
+                PayUClientUrlBuilder.BuilOrderIdUrl(this.settings.Url, this.settings.ApiVersion, orderId),
+                HttpMethod.Delete);
+        }
+
+        public async Task<OrderResponse> PutUpdateOrderAsync(string orderId, UpdateOrderRequest updateOrder, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<OrderResponse>(
                 PayUClientUrlBuilder.BuildOrderStatusUrl(this.settings.Url, this.settings.ApiVersion, orderId),
@@ -74,7 +97,15 @@ namespace PayU.Client
                 updateOrder);
         }
 
-        public async Task<OrderTransactionResponse> GetOrderTransactionAsync(string orderId, CancellationToken ct)
+        public OrderResponse PutUpdateOrder(string orderId, UpdateOrderRequest updateOrder)
+        {
+            return this.Process<OrderResponse>(
+                PayUClientUrlBuilder.BuildOrderStatusUrl(this.settings.Url, this.settings.ApiVersion, orderId),
+                HttpMethod.Put,
+                updateOrder);
+        }
+
+        public async Task<OrderTransactionResponse> GetOrderTransactionAsync(string orderId, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<OrderTransactionResponse>(
                 PayUClientUrlBuilder.BuildOrderTransactionsUrl(this.settings.Url, this.settings.ApiVersion, orderId),
@@ -82,7 +113,14 @@ namespace PayU.Client
                 ct);
         }
 
-        public async Task<RefundResponse> PostRefund(string orderId, RefundRequest refundRequest, CancellationToken ct)
+        public OrderTransactionResponse GetOrderTransaction(string orderId)
+        {
+            return this.Process<OrderTransactionResponse>(
+                PayUClientUrlBuilder.BuildOrderTransactionsUrl(this.settings.Url, this.settings.ApiVersion, orderId),
+                HttpMethod.Get);
+        }
+
+        public async Task<RefundResponse> PostRefundAsync(string orderId, RefundRequest refundRequest, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<RefundResponse>(
                 PayUClientUrlBuilder.BuildOrderRefundsUrl(this.settings.Url, this.settings.ApiVersion, orderId),
@@ -91,7 +129,15 @@ namespace PayU.Client
                 refundRequest);
         }
 
-        public async Task<PayMethodsResponse> GetPayMethodsAsync(CancellationToken ct)
+        public RefundResponse PostRefund(string orderId, RefundRequest refundRequest)
+        {
+            return this.Process<RefundResponse>(
+                PayUClientUrlBuilder.BuildOrderRefundsUrl(this.settings.Url, this.settings.ApiVersion, orderId),
+                HttpMethod.Post,
+                refundRequest);
+        }
+
+        public async Task<PayMethodsResponse> GetPayMethodsAsync(CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<PayMethodsResponse>(
                 PayUClientUrlBuilder.BuildPayMethodsUrl(this.settings.Url, this.settings.ApiVersion),
@@ -99,7 +145,14 @@ namespace PayU.Client
                 ct);
         }
 
-        public async Task<McpPartnersResponse> GetMcpPartnersAsync(string mcpPartnerId, CancellationToken ct)
+        public PayMethodsResponse GetPayMethods()
+        {
+            return this.Process<PayMethodsResponse>(
+                PayUClientUrlBuilder.BuildPayMethodsUrl(this.settings.Url, this.settings.ApiVersion),
+                HttpMethod.Get);
+        }
+
+        public async Task<McpPartnersResponse> GetMcpPartnersAsync(string mcpPartnerId, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<McpPartnersResponse>(
                 PayUClientUrlBuilder.BuildMcpPartnerIdUrl(this.settings.Url, this.settings.ApiVersion, mcpPartnerId),
@@ -107,8 +160,14 @@ namespace PayU.Client
                 ct);
         }
 
+        public McpPartnersResponse GetMcpPartners(string mcpPartnerId)
+        {
+            return this.Process<McpPartnersResponse>(
+                PayUClientUrlBuilder.BuildMcpPartnerIdUrl(this.settings.Url, this.settings.ApiVersion, mcpPartnerId),
+                HttpMethod.Get);
+        }
 
-        public async Task<PayoutResponse> PostPayoutAsync(PayoutRequest payoutRequest, CancellationToken ct)
+        public async Task<PayoutResponse> PostPayoutAsync(PayoutRequest payoutRequest, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<PayoutResponse>(
                 PayUClientUrlBuilder.BuildPayoutsUrl(this.settings.Url, this.settings.ApiVersion),
@@ -117,7 +176,15 @@ namespace PayU.Client
                 payoutRequest);
         }
 
-        public async Task DeleteTokenAsync(string tokenId, CancellationToken ct)
+        public PayoutResponse PostPayout(PayoutRequest payoutRequest)
+        {
+            return this.Process<PayoutResponse>(
+                PayUClientUrlBuilder.BuildPayoutsUrl(this.settings.Url, this.settings.ApiVersion),
+                HttpMethod.Post,
+                payoutRequest);
+        }
+
+        public async Task DeleteTokenAsync(string tokenId, CancellationToken ct = default(CancellationToken))
         {
             await this.ProcessAsync<object>(
                 PayUClientUrlBuilder.BuildDeleteTokenUrl(this.settings.Url, this.settings.ApiVersion, tokenId),
@@ -125,7 +192,14 @@ namespace PayU.Client
                 ct);
         }
 
-        public async Task<RetrivePayoutResponse> GetRetrivePayoutAsync(string payoutId, CancellationToken ct)
+        public void DeleteTokenAsync(string tokenId)
+        {
+            this.Process<object>(
+                PayUClientUrlBuilder.BuildDeleteTokenUrl(this.settings.Url, this.settings.ApiVersion, tokenId),
+                HttpMethod.Delete);
+        }
+
+        public async Task<RetrivePayoutResponse> GetRetrivePayoutAsync(string payoutId, CancellationToken ct = default(CancellationToken))
         {
             return await this.ProcessAsync<RetrivePayoutResponse>(
                 PayUClientUrlBuilder.BuildRetrievePayoutsUrl(this.settings.Url, this.settings.ApiVersion, payoutId),
@@ -133,33 +207,11 @@ namespace PayU.Client
                 ct);
         }
 
-        public async Task<Rs> CustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, CancellationToken ct)
-            where Rs : class
+        public RetrivePayoutResponse GetRetrivePayout(string payoutId)
         {
-            return await this.ProcessAsync<Rs>(url, method, ct, rq);
-        }
-
-
-        public async Task<Rs> TrustedCustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, TrustedMerchant trustedMerchant, CancellationToken ct)
-            where Rs : class
-        {
-            return await this.ProcessAsync<Rs>(url, method, ct, rq, trustedMerchant);
-        }
-
-        private async Task<T> ProcessAsync<T>(Uri requestUrl, HttpMethod httpMethod, CancellationToken ct, object content = default(HttpContent), TrustedMerchant trustedMerchant = null)
-            where T : class
-        {
-            try
-            {
-                var token = await this.cache.GetTokenFromCacheAsync<PayUToken>(this.settings, this.clientFactory, trustedMerchant, ct);
-                var request = PayUClientRequestBuilder.BuildRequestMessage(requestUrl, httpMethod, token.AccessToken, content);
-                var communicator = new PayUApiHttpCommunicator<T>(this.clientFactory);
-                return await communicator.SendAsync(request, ct);
-            }
-            catch (PayuClientException ex)
-            {
-                throw ex;
-            } 
+            return this.Process<RetrivePayoutResponse>(
+                PayUClientUrlBuilder.BuildRetrievePayoutsUrl(this.settings.Url, this.settings.ApiVersion, payoutId),
+                HttpMethod.Get);
         }
     }
 }

@@ -4,7 +4,7 @@ using PayU.Client.Builders;
 using PayU.Client.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using PayU.Client.Configuartions;
+using PayU.Client.Configurations;
 
 namespace PayU.Client.Tests.Builders
 {
