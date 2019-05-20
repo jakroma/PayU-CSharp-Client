@@ -44,7 +44,7 @@ https://payu21.docs.apiary.io
 ```
 
 ## Token
-`PayUClient get or set token into cache.`
+`PayUClient get or set token into/from cache.`
 
 `Cache expire time = (Api token expire time - 30 seconds)`
 
