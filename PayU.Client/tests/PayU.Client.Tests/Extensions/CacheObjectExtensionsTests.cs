@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Caching;
 using System.Threading;
-using PayU.Client.Configuartions;
+using PayU.Client.Configurations;
 using PayU.Client.Extensions;
 using PayU.Client.Models;
 using WireMock.RequestBuilders;

@@ -35,11 +35,32 @@ namespace PayU.Client
             return clientFactory == null ? await this.SendRequestByClientAsync(rq, ct) : await this.SendRequestByFactoryAsync(rq, ct);
         }
 
+        public T Send(HttpRequestMessage rq)
+        {
+            return clientFactory == null ? this.SendRequestByClient(rq) : this.SendRequestByFactory(rq);
+        }
+
+        private T SendRequestByFactory(HttpRequestMessage rq)
+        {
+            using (var client = clientFactory.CreateClient())
+            {
+                return this.SendReceive(rq, client);
+            }
+        }
+
+        private T SendRequestByClient(HttpRequestMessage rq)
+        {
+            using (var client = new HttpClient(this.handler))
+            {
+                return this.SendReceive(rq, client);
+            }
+        }
+
         private async Task<T> SendRequestByFactoryAsync(HttpRequestMessage rq, CancellationToken ct)
         {
             using (var client = clientFactory.CreateClient())
             {
-                return await this.SendRecieveAsync(rq, client, ct);
+                return await this.SendReceiveAsync(rq, client, ct);
             }
         }
 
@@ -47,28 +68,49 @@ namespace PayU.Client
         {
             using (var client = new HttpClient(this.handler))
             {
-                return await this.SendRecieveAsync(rq, client, ct);
+                return await this.SendReceiveAsync(rq, client, ct);
             }
         }
 
-        private async Task<T> SendRecieveAsync(HttpRequestMessage rq, HttpClient client, CancellationToken ct)
+        private async Task<T> SendReceiveAsync(HttpRequestMessage rq, HttpClient client, CancellationToken ct)
         {
             var response = await client.SendAsync(rq, ct);
 
             if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.Found)
             {
-                return await this.DeserializeResponse(response);
+                return await this.DeserializeResponseAsync(response);
             }
 
             throw new PayUApiException(response.StatusCode, response.ReasonPhrase, await response.Content.ReadAsStringAsync());
         }
 
-        private async Task<T> DeserializeResponse(HttpResponseMessage response)
+        private T SendReceive(HttpRequestMessage rq, HttpClient client)
+        {
+            var response = client.SendAsync(rq).Result;
+
+            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.Found)
+            {
+                return this.DeserializeResponse(response);
+            }
+
+            throw new PayUApiException(response.StatusCode, response.ReasonPhrase, response.Content.ReadAsStringAsync().Result);
+        }
+
+        private async Task<T> DeserializeResponseAsync(HttpResponseMessage response)
         {
             using (var contentStream = await response.Content.ReadAsStreamAsync())
             using (var streamReader = new StreamReader(contentStream))
             {
                 return PayUClientConverter.DeserializeResponse<T>(await streamReader.ReadToEndAsync());
+            }
+        }
+
+        private T DeserializeResponse(HttpResponseMessage response)
+        {
+            using (var contentStream = response.Content.ReadAsStreamAsync().Result)
+            using (var streamReader = new StreamReader(contentStream))
+            {
+                return PayUClientConverter.DeserializeResponse<T>(streamReader.ReadToEnd());
             }
         }
     }

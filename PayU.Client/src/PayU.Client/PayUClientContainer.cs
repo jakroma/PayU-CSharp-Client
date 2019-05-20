@@ -5,7 +5,7 @@ using System.Security.Authentication;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace PayU.Client.Models
+namespace PayU.Client
 {
     public static class PayUContainer
     {

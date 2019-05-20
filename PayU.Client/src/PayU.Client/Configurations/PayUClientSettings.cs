@@ -2,7 +2,7 @@ using System;
 using System.Net.Http;
 using PayU.Client.Models;
 
-namespace PayU.Client.Configuartions
+namespace PayU.Client.Configurations
 {
     public class PayUClientSettings
     {

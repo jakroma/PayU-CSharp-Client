@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using System.Runtime;
 using PayU.Client.Models;
 using System.Globalization;
-using PayU.Client.Configuartions;
+using PayU.Client.Configurations;
 using PayU.Client.Models.Content;
 using System.Collections.Generic;
 

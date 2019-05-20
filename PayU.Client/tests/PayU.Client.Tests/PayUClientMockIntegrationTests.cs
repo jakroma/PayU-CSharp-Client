@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using Newtonsoft.Json;
-using PayU.Client.Configuartions;
+using PayU.Client.Configurations;
 using PayU.Client.Models;
 using Xunit;
 
@@ -120,7 +120,7 @@ namespace PayU.Client.Tests
         public async void PostRefund_WhenCall_CorrectDeserializedResponse()
         {
             var order = new RefundRequest("GPNG88VBW6151031GUEST000P01", new RefundRq("Refund", "100"));
-            var result = await this.client.CustomRequest<RefundRequest, RefundResponse>(
+            var result = await this.client.CustomRequestAsync<RefundRequest, RefundResponse>(
             // refund Mock url != refund Production url
             new Uri("https://private-anon-70e85fe603-payu21.apiary-mock.com/api/v2_1/orders/orders/44/refund"),
              order, HttpMethod.Post, default(CancellationToken));
