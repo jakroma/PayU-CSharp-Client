@@ -116,7 +116,7 @@ ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
 ## Request/Response
 
 Request type are same as api json property type,
-For example sometimes
+For example sometimes amount could be number value or text value.
 
 Every request where json object have mandatory properties, have constructor with validator.
 
@@ -130,6 +130,7 @@ Optional json properties have null value handling so, if you don't fill it, they
 `Look on PayU Api documentation what respons properties will return for diffrent kind of request.`
 
 ---
+
 # Requests Examples
 https://payu21.docs.apiary.io/#introduction
 

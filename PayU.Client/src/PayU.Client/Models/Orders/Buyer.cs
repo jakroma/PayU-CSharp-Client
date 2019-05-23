@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using System;
+using System.Resources;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -8,6 +9,11 @@ namespace PayU.Client.Models
     {
         public Buyer(string email)
         {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("email is null or empty");
+            }
+            
             this.Email = email;
         }
 

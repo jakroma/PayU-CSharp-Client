@@ -1,0 +1,14 @@
+{
+    "customerIp": "127.0.0.1",
+    "merchantPosId": "111",
+    "description": "XXX",
+    "currencyCode": "PLN",
+    "totalAmount": "2",
+    "products": [
+        {
+            "name": "XXX",
+            "unitPrice": "1",
+            "quantity": "2"
+        }
+    ]
+}

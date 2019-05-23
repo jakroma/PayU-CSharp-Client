@@ -11,7 +11,6 @@ namespace PayU.Client.Tests
 
         public static string ReadFromTestFiles(string fileName)
         {
-            Console.WriteLine(testFilesDirectory);
             string pathToFile = Path.Combine(testFilesDirectory, fileName);
             return File.ReadAllText(pathToFile);
         }
