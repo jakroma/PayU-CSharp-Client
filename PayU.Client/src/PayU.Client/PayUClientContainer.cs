@@ -21,6 +21,11 @@ namespace PayU.Client
             public const string TrustedMerchant = "trusted_merchant";
         }
 
+        public static class Version
+        {
+            public const string v2_1 = "v2_1";
+        }
+
         public static class PayUApiUrl
         {
             public const string Mock = "https://private-anon-45d00fcdba-payu21.apiary-mock.com";
@@ -34,6 +39,35 @@ namespace PayU.Client
             public const string CARD_TOKEN = "CARD_TOKEN";
             public const string PAYMENT_WALL = "PAYMENT_WALL";
             public const string INSTALLMENTS = "INSTALLMENTS";
+        }
+
+        public class Language
+        {
+            public const string PL = "pl";
+            public const string EN = "en";
+            public const string CS = "cs";
+            public const string DA = "da";
+            public const string BG = "bg";
+            public const string DE = "de";
+            public const string EL = "el";
+            public const string ES = "es";
+            public const string ET = "et";
+            public const string FI = "fi";
+            public const string FR = "fr";
+            public const string HR = "hr";
+            public const string HU = "hu";
+            public const string IT = "it";
+            public const string LT = "lt";
+            public const string LV = "lv";
+            public const string PT = "pt";
+            public const string RO = "ro";
+            public const string RU = "ru";
+            public const string SK = "sk";
+            public const string SL = "sl";
+            public const string SR = "sr";
+            public const string SV = "sv";
+            public const string TR = "tr";
+            public const string UK = "uk";
         }
 
         public class Currency
