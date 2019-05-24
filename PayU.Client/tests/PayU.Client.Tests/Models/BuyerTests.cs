@@ -1,5 +1,4 @@
 using System;
-using System;
 using Newtonsoft.Json;
 using PayU.Client.Models;
 using Xunit;
@@ -13,7 +12,7 @@ namespace PayU.Client.Tests.Models
         [InlineData("")]
         public void Constructor_NullOrEmptyParameters_ThrowsArgumentException(string email)
         {
-            Assert.Throws(typeof(ArgumentException), () => new Buyer(email));
+            Assert.Throws<ArgumentException>(() => new Buyer(email));
         }
 
         [Fact]

@@ -64,7 +64,7 @@ namespace PayU.Client
                 var communicator = new PayUApiHttpCommunicator<T>(this.clientFactory);
                 return await communicator.SendAsync(request, ct);
             }
-            catch (PayUClientException ex)
+            catch
             {
                 throw;
             } 
@@ -80,7 +80,7 @@ namespace PayU.Client
                 var communicator = new PayUApiHttpCommunicator<T>(this.clientFactory);
                 return communicator.Send(request);
             }
-            catch (PayUClientException ex)
+            catch
             {
                 throw;
             } 
