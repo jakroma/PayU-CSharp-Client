@@ -17,7 +17,7 @@ namespace PayU.Client.Tests.Settings
         [InlineData("url", "apiVersion", "clientId", null)]
         public void Constructor_NullOrEmptyParameters_ThrowsArgumentException(string url, string apiVersion, string clientId, string clientSecret)
         {
-            Assert.Throws(typeof(ArgumentException), () => new PayUClientSettings(url, apiVersion, clientId, clientSecret));
+            Assert.Throws<ArgumentException>(() => new PayUClientSettings(url, apiVersion, clientId, clientSecret));
         }
 
         [Fact]

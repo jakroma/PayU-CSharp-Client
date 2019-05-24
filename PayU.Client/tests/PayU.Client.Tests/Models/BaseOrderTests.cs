@@ -21,14 +21,14 @@ namespace PayU.Client.Tests.Models
         [InlineData("customerIp", "merchantPosId", "description", "currencyCode", "")]
         public void Constructor_NullOrEmptyParameters_ThrowsArgumentException(string customerIp, string merchantPosId, string description, string currencyCode, string totalAmount)
         {
-            Assert.Throws(typeof(ArgumentException), () => new OrderRequest(customerIp, merchantPosId, description, currencyCode, totalAmount, null));
+            Assert.Throws<ArgumentException>(() => new OrderRequest(customerIp, merchantPosId, description, currencyCode, totalAmount, null));
         }
 
         [Fact]
         public void Constructor_NullOrEmptyProductList_ThrowsArgumentException()
         {
-            Assert.Throws(typeof(ArgumentException), () => new OrderRequest("customerIp", "merchantPosId", "description", "currencyCode", "totalAmount", null));
-            Assert.Throws(typeof(ArgumentException), () => new OrderRequest("customerIp", "merchantPosId", "description", "currencyCode", "totalAmount", new List<Product>(0)));
+            Assert.Throws<ArgumentException>(() => new OrderRequest("customerIp", "merchantPosId", "description", "currencyCode", "totalAmount", null));
+            Assert.Throws<ArgumentException>(() => new OrderRequest("customerIp", "merchantPosId", "description", "currencyCode", "totalAmount", new List<Product>(0)));
         }
 
         [Fact]
