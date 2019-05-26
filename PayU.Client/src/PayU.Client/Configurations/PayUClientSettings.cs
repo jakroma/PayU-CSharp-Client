@@ -8,17 +8,29 @@ namespace PayU.Client.Configurations
     {
         public PayUClientSettings(string url, string apiVersion, string clientId, string clientSecret)
         {
-            this.Valid(url, apiVersion, clientId, clientSecret);
-            this.Url = url;
-            this.ApiVersion = apiVersion; 
-            this.ClientId = clientId;
-            this.ClientSecret = clientSecret;
+            this.AssignMandatoryProperties(url, apiVersion, clientId, clientSecret);
+        }
+
+        public PayUClientSettings(string url, string apiVersion, string clientId, string clientSecret, string factoryClientName)
+        {
+            this.AssignMandatoryProperties(url, apiVersion, clientId, clientSecret);
+            this.FactoryClientName = factoryClientName;
         }
 
         public string Url { get; private set; }
         public string ApiVersion { get; private set; }
         public string ClientId { get; private set; }
         public string ClientSecret { get; private set; }
+        public string FactoryClientName { get; set; }
+
+        private void AssignMandatoryProperties(string url, string apiVersion, string clientId, string clientSecret)
+        {
+            this.Valid(url, apiVersion, clientId, clientSecret);
+            this.Url = url;
+            this.ApiVersion = apiVersion;
+            this.ClientId = clientId;
+            this.ClientSecret = clientSecret;
+        }
 
         private void Valid(string url, string apiVersion, string clientId, string clientSecret)
         {

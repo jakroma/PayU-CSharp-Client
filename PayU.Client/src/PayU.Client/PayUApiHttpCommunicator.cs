@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PayU.Client.Builders;
+using PayU.Client.Configurations;
 using PayU.Client.Converters;
 using PayU.Client.Exception;
 using PayU.Client.Models;
@@ -17,15 +18,17 @@ namespace PayU.Client
         where T : class
     {
         private readonly IHttpClientFactory clientFactory;
+        private readonly PayUClientSettings settings;
         private readonly HttpClientHandler handler = new HttpClientHandler
         {
             AllowAutoRedirect = false,
             SslProtocols = SslProtocols.Tls12
         };
 
-        public PayUApiHttpCommunicator(IHttpClientFactory clientFactory)
+        public PayUApiHttpCommunicator(IHttpClientFactory clientFactory, PayUClientSettings settings)
         {
             this.clientFactory = clientFactory;
+            this.settings = settings;
         }
 
         public PayUApiHttpCommunicator() {}
@@ -42,7 +45,7 @@ namespace PayU.Client
 
         private T SendRequestByFactory(HttpRequestMessage rq)
         {
-            using (var client = clientFactory.CreateClient())
+            using (var client = clientFactory.CreateClient(this.settings.FactoryClientName))
             {
                 return this.SendReceive(rq, client);
             }
@@ -58,7 +61,7 @@ namespace PayU.Client
 
         private async Task<T> SendRequestByFactoryAsync(HttpRequestMessage rq, CancellationToken ct)
         {
-            using (var client = clientFactory.CreateClient())
+            using (var client = clientFactory.CreateClient(this.settings.FactoryClientName))
             {
                 return await this.SendReceiveAsync(rq, client, ct);
             }

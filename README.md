@@ -7,14 +7,16 @@
 
 # Table of Contents 
 1. [Docs PayU](#docs)
-2. [Create Settings for clients](#settings)
+2. [Get Started](#get-started)
+   - [Create Settings for clients](#settings)
    - [Client credentials](#Client-credentials)
    - [Trusted Merchant](#Trusted-Merchant)
-3. [Get Started](#get-started)
-4. [Convention](#Conventions)
-    - [Request/Response](#Request/Response)
+   - [IHttpClientFactory example](#IHttpClientFactory)
+   - [Standard HttpClient example](#Standard-HttpClient)
+3. [Convention](#Conventions)
+    - [Request/Response](#Request-Response)
       - [Order](#Order)
-5. [Example Requests](#Requests-Examples)
+4. [Example Requests](#Requests-Examples)
     - [Get Order](#Get-Order)
     - [Create Order](#Create-Order)
     - [Refund Order](#Refund-Order)
@@ -24,7 +26,7 @@
     - [Payout](#Payout)
     - [Retrieve Payout](#Retrieve-Payout)
     - [Delete Token](#Delete-Token)
-6. [Own Request](#Own-Request)
+5. [Own Request](#Own-Request)
     
 
 # Docs
@@ -32,7 +34,9 @@ http://developers.payu.com/en/restapi.html#references_api_signature
 http://developers.payu.com/en/payu_express.html
 https://payu21.docs.apiary.io
 
-# Settings
+# Get Started
+
+## Settings
 
 ```csharp
       PayUClientSettings settings = new PayUClientSettings(
@@ -48,12 +52,12 @@ https://payu21.docs.apiary.io
 
 `Cache expire time = (Api token expire time - 30 seconds)`
 
-## Client Credentials
+### Client Credentials
 `Cache key` - `PayU_auth_token`
 
 Thats mean, client credentials token is per client instance.
 
-## Trusted Merchant
+### Trusted Merchant
 
 `Cache key` - `PayU_auth_token_{email}_{extCustomerId}`
 
@@ -65,41 +69,33 @@ var trusted = new TrustedMerchant("test@test.com", "2312")
 
 Thats mean, every trusted customer have own cache.
 
-Every request what need this token have info in method name, and contains parameter for TrustedMerchant class instance (example - [Conventions](#Conventions))
+Every request what need this token have info in method name, and contains parameter for TrustedMerchant class instance ([example](#Create-Order))
 
 ---
 
-# Get Started
-If you create PayUSettings now we could create PayUClient instance
+## IHttpClientFactory
 
-You could use IoC container (example Autofac)
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2
+
+Now we could create PayUClient
+
+### Autofac
 ```csharp
   var builder = new ContainerBuilder();
   ...
-  var settings = new PayUClientSettings(
-          PayUClientContainer.Sandbox,
-          "v2_1",
-          "clientId",
-          "clientSecret"
-  );
-
   builder.RegisterInstance(settings).As<PayUClientSettings>();
   builder.RegisterType<PayUClient>().As<IPayUClient>().SingleInstance();
   ...
   var container = builder.Build();
 ```
 
-Constructors:
-
-More recommended (Only if you use IHttpClientFactory):
-
-https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2
+### Create instance
 ```csharp
-  PayUClient client = new PayUClient(settings, IHttpClientFactory);
+  IPayUClient client = new PayUClient(settings, IHttpClientFactory);
 ```
 Remember to create `HttpClientHandler` for factory, client couldn't work properly:
 ```csharp
-services.AddHttpClient("PayUClient", c =>
+services.AddHttpClient("PayUHttpClient", c =>
 {
     c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 }).
@@ -110,10 +106,34 @@ ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
 });
 ```
 
+## Standard HttpClient
+
+If you don't use `IHttpClientFactory` PayUClient will create communication with own HttpClient
+Look on `PayUApiHttpCommunicator.cs`
+
+Now we could create PayUClient
+
+### Autofac
+```csharp
+  var builder = new ContainerBuilder();
+  ...
+  builder.RegisterInstance(settings).As<PayUClientSettings>();
+  builder.RegisterType<PayUClient>().As<IPayUClient>().SingleInstance();
+  ...
+  var container = builder.Build();
+```
+
+### Create instance
+
+```csharp
+  PayUClient client = new PayUClient(settings);
+```
+
+
 ---
 # Conventions
 
-## Request/Response
+## Request Response
 
 Request type are same as api json property type,
 For example sometimes amount could be number value or text value.
@@ -127,7 +147,7 @@ Optional json properties have null value handling so, if you don't fill it, they
 ---
 
 ### Order
-`Look on PayU Api documentation what respons properties will return for diffrent kind of request.`
+`Look on PayU Api documentation what response properties will return for different request kind.`
 
 ---
 
@@ -243,11 +263,11 @@ New Request Definition
 
 now you can make request
 ```csharp
-  this.client.CustomRequest<NewRequestType, OrderResponse>(new Uri("enpointUrl"), `NewRequestType instance`, HttpMethod, default(CancellationToken))
+  this.client.CustomRequest<NewRequestType, OrderResponse>(new Uri("endpointUrl"), `NewRequestType instance`, HttpMethod, default(CancellationToken))
 ```
 
 if you need trusted_merchant 
 
 ```csharp
-  this.client.TrustedCustomRequest<NewRequestType, OrderResponse>(new Uri("enpointUrl"), `NewRequestType instance`, HttpMethod,new TrustedMerchant("email", "extCustomerId"), default(CancellationToken))
+  this.client.TrustedCustomRequest<NewRequestType, OrderResponse>(new Uri("endpointUrl"), `NewRequestType instance`, HttpMethod,new TrustedMerchant("email", "extCustomerId"), default(CancellationToken))
 ```
