@@ -110,7 +110,7 @@ Now we could create PayUClient
 ```
 
 ### Factory Settings
-Remember to create `HttpClientHandler` for factory, client couldn't work properly:
+Remember to create `HttpClientHandler` for factory, client couldn't work properly without this:
 ```csharp
 services.AddHttpClient("PayUHttpClient", c =>
 {
