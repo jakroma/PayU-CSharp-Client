@@ -38,12 +38,27 @@ https://payu21.docs.apiary.io
 
 ## Settings
 
+### For Standard HttpClient
+
 ```csharp
       PayUClientSettings settings = new PayUClientSettings(
                 PayUClientContainer.Sandbox, // Url You could use string example from configuration or use const
                 "v2_1", // api version
                 "clientId", // clientId from shop configuration
                 "clientSecret" // clientId from shop configuration
+            );
+```
+### For IHttpClientFactory
+
+[Look on](#Factory-Settings)
+
+```csharp
+      PayUClientSettings settings = new PayUClientSettings(
+                PayUClientContainer.Sandbox,
+                "v2_1",
+                "clientId",
+                "clientSecret"
+                "PayUHttpClient" // look on IHttpClientFactory example
             );
 ```
 
@@ -93,6 +108,8 @@ Now we could create PayUClient
 ```csharp
   IPayUClient client = new PayUClient(settings, IHttpClientFactory);
 ```
+
+### Factory Settings
 Remember to create `HttpClientHandler` for factory, client couldn't work properly:
 ```csharp
 services.AddHttpClient("PayUHttpClient", c =>
@@ -122,6 +139,7 @@ Now we could create PayUClient
   ...
   var container = builder.Build();
 ```
+
 
 ### Create instance
 
