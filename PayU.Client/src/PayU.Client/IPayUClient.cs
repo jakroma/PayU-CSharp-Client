@@ -37,9 +37,9 @@ namespace PayU.Client
             where Rs : class;
         Task<Rs> TrustedCustomRequestAsync<Rq, Rs>(Uri url, Rq rq, HttpMethod method, TrustedMerchant trustedMerchant, CancellationToken ct)
             where Rs : class;
-        Rs CustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, CancellationToken ct)
+        Rs CustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method)
             where Rs : class;
-        Rs TrustedCustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, TrustedMerchant trustedMerchant, CancellationToken ct)
+        Rs TrustedCustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, TrustedMerchant trustedMerchant)
             where Rs : class;
     }
 }

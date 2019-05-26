@@ -41,14 +41,14 @@ namespace PayU.Client
             return await this.ProcessAsync<Rs>(url, method, ct, rq, trustedMerchant);
         }
 
-        public Rs CustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, CancellationToken ct)
+        public Rs CustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method)
             where Rs : class
         {
             return this.Process<Rs>(url, method, rq);
         }
 
 
-        public Rs TrustedCustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, TrustedMerchant trustedMerchant, CancellationToken ct)
+        public Rs TrustedCustomRequest<Rq, Rs>(Uri url, Rq rq, HttpMethod method, TrustedMerchant trustedMerchant)
             where Rs : class
         {
             return this.Process<Rs>(url, method, rq, trustedMerchant);
@@ -61,7 +61,7 @@ namespace PayU.Client
             {
                 var token = await this.cache.GetTokenFromCacheAsync<PayUToken>(this.settings, this.clientFactory, trustedMerchant, ct);
                 var request = PayUClientRequestBuilder.BuildRequestMessage(requestUrl, httpMethod, token.AccessToken, content);
-                var communicator = new PayUApiHttpCommunicator<T>(this.clientFactory);
+                var communicator = new PayUApiHttpCommunicator<T>(this.clientFactory, this.settings);
                 return await communicator.SendAsync(request, ct);
             }
             catch
@@ -77,7 +77,7 @@ namespace PayU.Client
             {
                 var token = this.cache.GetTokenFromCache<PayUToken>(this.settings, this.clientFactory, trustedMerchant);
                 var request = PayUClientRequestBuilder.BuildRequestMessage(requestUrl, httpMethod, token.AccessToken, content);
-                var communicator = new PayUApiHttpCommunicator<T>(this.clientFactory);
+                var communicator = new PayUApiHttpCommunicator<T>(this.clientFactory, this.settings);
                 return communicator.Send(request);
             }
             catch
