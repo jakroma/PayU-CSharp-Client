@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Romabliski</Authors>
     <LicenseUrl>https://opensource.org/licenses/MIT</LicenseUrl>
     <license>license\license.txt</license>
     <RepositoryUrl>https://github.com/romabliski/PayU-CSharp-Client</RepositoryUrl>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
