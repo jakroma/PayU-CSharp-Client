@@ -30,7 +30,12 @@ namespace PayU.Client.Builders
             message.Headers.Accept.Add(PayUContainer.ContentJson);
             message.Method = method;
             message.RequestUri = url;
-            message.Content = new JsonContent(content, PayUContainer.JsonSerializer);
+            
+            if (content != null)
+            {
+                message.Content = new JsonContent(content, PayUContainer.JsonSerializer);
+            }
+            
             return message;
         }
 
