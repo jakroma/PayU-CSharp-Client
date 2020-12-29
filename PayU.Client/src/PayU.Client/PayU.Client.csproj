@@ -7,7 +7,7 @@
     <LicenseUrl>https://opensource.org/licenses/MIT</LicenseUrl>
     <license>license\license.txt</license>
     <RepositoryUrl>https://github.com/romabliski/PayU-CSharp-Client</RepositoryUrl>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.1.1</VersionPrefix>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
