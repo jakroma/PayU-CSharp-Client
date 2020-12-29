@@ -42,7 +42,7 @@ https://payu21.docs.apiary.io
 
 ```csharp
       PayUClientSettings settings = new PayUClientSettings(
-                PayUClientContainer.Sandbox, // Url You could use string example from configuration or use const
+                PayUContainer.PayUApiUrl.Sandbox, // Url You could use string example from configuration or use const
                 "v2_1", // api version
                 "clientId", // clientId from shop configuration
                 "clientSecret" // clientId from shop configuration
@@ -54,7 +54,7 @@ https://payu21.docs.apiary.io
 
 ```csharp
       PayUClientSettings settings = new PayUClientSettings(
-                PayUClientContainer.Sandbox,
+                PayUContainer.PayUApiUrl.Sandbox,
                 "v2_1",
                 "clientId",
                 "clientSecret"
