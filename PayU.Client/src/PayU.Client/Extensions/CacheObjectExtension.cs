@@ -32,7 +32,7 @@ namespace PayU.Client.Extensions
                 var communicator = new PayUApiHttpCommunicator<PayUToken>(clientFactory, settings);
                 cachedObject = (T)await communicator.SendAsync(request, ct);
                 var policy = new CacheItemPolicy();
-                policy.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cachedObject.ExpireIn - 30);
+                policy.AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cachedObject.ExpireIn - 30);
                 cache.Set(tokenKey, cachedObject, policy);
             }
 
@@ -58,7 +58,7 @@ namespace PayU.Client.Extensions
                 var communicator = new PayUApiHttpCommunicator<PayUToken>(clientFactory, settings);
                 cachedObject = (T)communicator.Send(request);
                 var policy = new CacheItemPolicy();
-                policy.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cachedObject.ExpireIn - 30);
+                policy.AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(cachedObject.ExpireIn - 30);
                 cache.Set(tokenKey, cachedObject, policy);
             }
 
